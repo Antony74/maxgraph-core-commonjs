@@ -1,0 +1,38 @@
+{
+    "name": "maxgraph-core-commonjs",
+    "version": "0.17.0",
+    "description": "CommonJS build of @maxgraph/core enabling easier headless use",
+    "main": "dist/index.js",
+    "scripts": {
+        "clean": "rimraf dist",
+        "build": "vite build",
+        "build-types": "tsc src/index.ts --declaration -emitDeclarationOnly --module commonjs --esModuleInterop true --allowSyntheticDefaultImports true --outDir dist",
+        "prettier": "prettier --write .",
+        "start": "npm run clean && npm run build && npm run build-types"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Antony74/maxgraph-core-commonjs.git"
+    },
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/Antony74/maxgraph-core-commonjs/issues"
+    },
+    "homepage": "https://github.com/Antony74/maxgraph-core-commonjs#readme",
+    "dependencies": {
+        "@maxgraph/core": "0.17.0",
+        "mime-types": "^3.0.1"
+    },
+    "devDependencies": {
+        "@types/mime-types": "^2.1.4",
+        "@types/node": "^22.15.0",
+        "prettier": "^3.5.3",
+        "rimraf": "^6.0.1",
+        "typescript": "^5.8.3",
+        "vite": "^6.3.3"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "singleQuote": true
+    }
+}
