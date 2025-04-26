@@ -10,7 +10,7 @@ To further aid headless use, maxgraph-core-commonjs also exposes an additional h
 
 ## Headless install
 
-@maxgraph/core depends on the html Document Object Model (dom), so in order to use it headlessly we will also need `jsdom` and `jsdom-global`.  Should we also want to convert svg output to another image format, then a package such as `@resvg/resvg-js` will also be required:
+[@maxgraph/core](https://www.npmjs.com/package/@maxgraph/core) depends on the html Document Object Model (dom), so in order to use it headlessly we will also need `jsdom` and `jsdom-global`.  Should we also want to convert svg output to another image format, then a package such as `@resvg/resvg-js` will also be required:
 
     npm install maxgraph-core-commonjs jsdom jsdom-global @resvg/resvg-js
 
@@ -20,7 +20,7 @@ If we're using TypeScript, we'll need some type definitions too:
 
 ## Example
 
-This example is taken from @maxgraph/core, and modified by adding a call to `jsdomGlobal` at the beginning, and a `main` function at the end.
+This example is taken from the maxgraph README, and modified by adding a call to `jsdomGlobal` at the beginning, and a `main` function at the end.
 
 The resulting script generates familiar example maxgraph-generated vector diagram, and outputs it both as an .svg and a .png file.
 
