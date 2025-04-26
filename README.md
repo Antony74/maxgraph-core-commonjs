@@ -22,7 +22,7 @@ If we're using TypeScript, we'll need some type definitions too:
 
 This example is taken from the maxgraph README, and modified by adding a call to `jsdomGlobal` at the beginning, and a `main` function at the end.
 
-The resulting script generates familiar example maxgraph-generated vector diagram, and outputs it both as an .svg and a .png file.
+The resulting script generates the familiar example maxgraph-generated vector diagram, and outputs it both as an .svg and a .png file.
 
 ``` typescript
 import { Resvg } from '@resvg/resvg-js';
