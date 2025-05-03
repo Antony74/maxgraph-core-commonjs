@@ -144,7 +144,7 @@ class EventSource {
     }
   }
 }
-const VERSION = "0.18.0";
+const VERSION = "0.19.0";
 const DEFAULT_HOTSPOT = 0.3;
 const MIN_HOTSPOT_SIZE = 8;
 const MAX_HOTSPOT_SIZE = 0;
@@ -1606,8 +1606,8 @@ class CellPath {
     let result = "";
     let parent = cell.getParent();
     while (parent) {
-      const index = parent.getIndex(cell);
-      result = index + CellPath.PATH_SEPARATOR + result;
+      const index2 = parent.getIndex(cell);
+      result = index2 + CellPath.PATH_SEPARATOR + result;
       cell = parent;
       parent = cell.getParent();
     }
@@ -1624,9 +1624,9 @@ class CellPath {
    * @param path Path whose parent path should be returned.
    */
   static getParentPath(path) {
-    const index = path.lastIndexOf(CellPath.PATH_SEPARATOR);
-    if (index >= 0) {
-      return path.substring(0, index);
+    const index2 = path.lastIndexOf(CellPath.PATH_SEPARATOR);
+    if (index2 >= 0) {
+      return path.substring(0, index2);
     }
     if (path.length > 0) {
       return "";
@@ -2372,8 +2372,8 @@ class Cell {
    *
    * @param indexInteger that specifies the child to be returned.
    */
-  getChildAt(index) {
-    return this.children[index];
+  getChildAt(index2) {
+    return this.children[index2];
   }
   /**
    * Inserts the specified child into the child array at the specified index
@@ -2385,16 +2385,16 @@ class Cell {
    * @param indexOptional integer that specifies the index at which the child
    * should be inserted into the child array.
    */
-  insert(child, index) {
-    if (index === void 0) {
-      index = this.getChildCount();
+  insert(child, index2) {
+    if (index2 === void 0) {
+      index2 = this.getChildCount();
       if (child.getParent() === this) {
-        index--;
+        index2--;
       }
     }
     child.removeFromParent();
     child.setParent(this);
-    this.children.splice(index, 0, child);
+    this.children.splice(index2, 0, child);
     return child;
   }
   /**
@@ -2405,12 +2405,12 @@ class Cell {
    * @param indexInteger that specifies the index of the child to be
    * removed.
    */
-  remove(index) {
+  remove(index2) {
     let child = null;
-    if (index >= 0) {
-      child = this.getChildAt(index);
+    if (index2 >= 0) {
+      child = this.getChildAt(index2);
       if (child) {
-        this.children.splice(index, 1);
+        this.children.splice(index2, 1);
         child.setParent(null);
       }
     }
@@ -2421,8 +2421,8 @@ class Cell {
    */
   removeFromParent() {
     if (this.parent) {
-      const index = this.parent.getIndex(this);
-      this.parent.remove(index);
+      const index2 = this.parent.getIndex(this);
+      this.parent.remove(index2);
     }
   }
   /**
@@ -2444,8 +2444,8 @@ class Cell {
    *
    * @param indexInteger that specifies the index of the edge to be returned.
    */
-  getEdgeAt(index) {
-    return this.edges[index];
+  getEdgeAt(index2) {
+    return this.edges[index2];
   }
   /**
    * Inserts the specified edge into the edge array and returns the edge.
@@ -2472,9 +2472,9 @@ class Cell {
   removeEdge(edge, isOutgoing = false) {
     if (edge != null) {
       if (edge.getTerminal(!isOutgoing) !== this && this.edges != null) {
-        const index = this.getEdgeIndex(edge);
-        if (index >= 0) {
-          this.edges.splice(index, 1);
+        const index2 = this.getEdgeIndex(edge);
+        if (index2 >= 0) {
+          this.edges.splice(index2, 1);
         }
       }
       edge.setTerminal(null, isOutgoing);
@@ -2758,13 +2758,13 @@ class Cell {
   }
 }
 class ChildChange {
-  constructor(model, parent, child, index = 0) {
+  constructor(model, parent, child, index2 = 0) {
     this.model = model;
     this.parent = parent;
     this.previous = parent;
     this.child = child;
-    this.index = index;
-    this.previousIndex = index;
+    this.index = index2;
+    this.previousIndex = index2;
   }
   /**
    * Changes the parent of {@link child} using {@link GraphDataModel.parentForCellChanged} and removes or restores the cell's connections.
@@ -3239,13 +3239,13 @@ const arcToCurves = (x0, y0, r1, r2, angle, largeArcFlag, sweepFlag, x, y) => {
     y3 = spsir1 * mc + cpsir2 * ms + ty;
     const dx = -t * (cpsir1 * ms + spsir2 * mc);
     const dy = -t * (spsir1 * ms - cpsir2 * mc);
-    const index = n * 6;
-    result[index] = Number(x2 + x0);
-    result[index + 1] = Number(y2 + y0);
-    result[index + 2] = Number(x3 - dx + x0);
-    result[index + 3] = Number(y3 - dy + y0);
-    result[index + 4] = Number(x3 + x0);
-    result[index + 5] = Number(y3 + y0);
+    const index2 = n * 6;
+    result[index2] = Number(x2 + x0);
+    result[index2 + 1] = Number(y2 + y0);
+    result[index2 + 2] = Number(x3 - dx + x0);
+    result[index2 + 3] = Number(y3 - dy + y0);
+    result[index2 + 4] = Number(x3 + x0);
+    result[index2 + 5] = Number(y3 + y0);
     x2 = x3 + dx;
     y2 = y3 + dy;
   }
@@ -3376,7 +3376,7 @@ const reversePortConstraints = (constraint) => {
   return result;
 };
 const findNearestSegment = (state, x, y) => {
-  let index = -1;
+  let index2 = -1;
   if (state.absolutePoints.length > 0) {
     let last = state.absolutePoints[0];
     let min = null;
@@ -3387,12 +3387,12 @@ const findNearestSegment = (state, x, y) => {
       const dist = ptSegDistSq(last.x, last.y, current.x, current.y, x, y);
       if (min == null || dist < min) {
         min = dist;
-        index = i - 1;
+        index2 = i - 1;
       }
       last = current;
     }
   }
-  return index;
+  return index2;
 };
 const getDirectedBounds = (rect, m, style, flipH, flipV) => {
   const d = (style == null ? void 0 : style.direction) ?? "east";
@@ -3958,11 +3958,11 @@ const Loop = (state, source, _target, points, result) => {
 const remove = (obj, array) => {
   let result = null;
   if (typeof array === "object") {
-    let index = array.indexOf(obj);
-    while (index >= 0) {
-      array.splice(index, 1);
+    let index2 = array.indexOf(obj);
+    while (index2 >= 0) {
+      array.splice(index2, 1);
       result = obj;
-      index = array.indexOf(obj);
+      index2 = array.indexOf(obj);
     }
   }
   for (const key in array) {
@@ -4745,12 +4745,12 @@ const OrthogonalConnector = (state, sourceScaled, targetScaled, controlHints, re
     }
     result.push(new Point(Math.round(wayPoints1[i][0] * state.view.scale * 10) / 10, Math.round(wayPoints1[i][1] * state.view.scale * 10) / 10));
   }
-  let index = 1;
-  while (index < result.length) {
-    if (result[index - 1] == null || result[index] == null || result[index - 1].x !== result[index].x || result[index - 1].y !== result[index].y) {
-      index++;
+  let index2 = 1;
+  while (index2 < result.length) {
+    if (result[index2 - 1] == null || result[index2] == null || result[index2 - 1].x !== result[index2].x || result[index2 - 1].y !== result[index2].y) {
+      index2++;
     } else {
-      result.splice(index, 1);
+      result.splice(index2, 1);
     }
   }
 };
@@ -5116,16 +5116,600 @@ const ManhattanConnector = (state, source, target, points, result) => {
   }
   router(state, source, target, points, result, config);
 };
-class EdgeStyle {
-}
-EdgeStyle.EntityRelation = EntityRelation;
-EdgeStyle.Loop = Loop;
-EdgeStyle.ElbowConnector = ElbowConnector;
-EdgeStyle.SideToSide = SideToSide;
-EdgeStyle.TopToBottom = TopToBottom;
-EdgeStyle.SegmentConnector = SegmentConnector;
-EdgeStyle.OrthConnector = OrthogonalConnector;
-EdgeStyle.ManhattanConnector = ManhattanConnector;
+const index$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  ElbowConnector,
+  EntityRelation,
+  Loop,
+  ManhattanConnector,
+  OrthConnector: OrthogonalConnector,
+  SegmentConnector,
+  SideToSide,
+  TopToBottom
+}, Symbol.toStringTag, { value: "Module" }));
+const EllipsePerimeter = (bounds, _vertex, next, orthogonal = false) => {
+  const { x } = bounds;
+  const { y } = bounds;
+  const a = bounds.width / 2;
+  const b = bounds.height / 2;
+  const cx = x + a;
+  const cy = y + b;
+  const px = next.x;
+  const py = next.y;
+  const dx = parseInt(String(px - cx));
+  const dy = parseInt(String(py - cy));
+  if (dx === 0 && dy !== 0) {
+    return new Point(cx, cy + b * dy / Math.abs(dy));
+  }
+  if (dx === 0 && dy === 0) {
+    return new Point(px, py);
+  }
+  if (orthogonal) {
+    if (py >= y && py <= y + bounds.height) {
+      const ty = py - cy;
+      let tx = Math.sqrt(a * a * (1 - ty * ty / (b * b))) || 0;
+      if (px <= x) {
+        tx = -tx;
+      }
+      return new Point(cx + tx, py);
+    }
+    if (px >= x && px <= x + bounds.width) {
+      const tx = px - cx;
+      let ty = Math.sqrt(b * b * (1 - tx * tx / (a * a))) || 0;
+      if (py <= y) {
+        ty = -ty;
+      }
+      return new Point(px, cy + ty);
+    }
+  }
+  const d = dy / dx;
+  const h = cy - d * cx;
+  const e = a * a * d * d + b * b;
+  const f = -2 * cx * e;
+  const g = a * a * d * d * cx * cx + b * b * cx * cx - a * a * b * b;
+  const det = Math.sqrt(f * f - 4 * e * g);
+  const xout1 = (-f + det) / (2 * e);
+  const xout2 = (-f - det) / (2 * e);
+  const yout1 = d * xout1 + h;
+  const yout2 = d * xout2 + h;
+  const dist1 = Math.sqrt(Math.pow(xout1 - px, 2) + Math.pow(yout1 - py, 2));
+  const dist2 = Math.sqrt(Math.pow(xout2 - px, 2) + Math.pow(yout2 - py, 2));
+  let xout = 0;
+  let yout = 0;
+  if (dist1 < dist2) {
+    xout = xout1;
+    yout = yout1;
+  } else {
+    xout = xout2;
+    yout = yout2;
+  }
+  return new Point(xout, yout);
+};
+const HexagonPerimeter = (bounds, vertex, next, orthogonal = false) => {
+  var _a;
+  const { x } = bounds;
+  const { y } = bounds;
+  const w = bounds.width;
+  const h = bounds.height;
+  const cx = bounds.getCenterX();
+  const cy = bounds.getCenterY();
+  const px = next.x;
+  const py = next.y;
+  const dx = px - cx;
+  const dy = py - cy;
+  const alpha = -Math.atan2(dy, dx);
+  const pi = Math.PI;
+  const pi2 = Math.PI / 2;
+  let result = new Point(cx, cy);
+  const direction = ((_a = vertex == null ? void 0 : vertex.style) == null ? void 0 : _a.direction) ?? DIRECTION.EAST;
+  const vertical = direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH;
+  let a = new Point();
+  let b = new Point();
+  if (px < x && py < y || px < x && py > y + h || px > x + w && py < y || px > x + w && py > y + h) {
+    orthogonal = false;
+  }
+  if (orthogonal) {
+    if (vertical) {
+      if (px === cx) {
+        if (py <= y) {
+          return new Point(cx, y);
+        }
+        if (py >= y + h) {
+          return new Point(cx, y + h);
+        }
+      } else if (px < x) {
+        if (py === y + h / 4) {
+          return new Point(x, y + h / 4);
+        }
+        if (py === y + 3 * h / 4) {
+          return new Point(x, y + 3 * h / 4);
+        }
+      } else if (px > x + w) {
+        if (py === y + h / 4) {
+          return new Point(x + w, y + h / 4);
+        }
+        if (py === y + 3 * h / 4) {
+          return new Point(x + w, y + 3 * h / 4);
+        }
+      } else if (px === x) {
+        if (py < cy) {
+          return new Point(x, y + h / 4);
+        }
+        if (py > cy) {
+          return new Point(x, y + 3 * h / 4);
+        }
+      } else if (px === x + w) {
+        if (py < cy) {
+          return new Point(x + w, y + h / 4);
+        }
+        if (py > cy) {
+          return new Point(x + w, y + 3 * h / 4);
+        }
+      }
+      if (py === y) {
+        return new Point(cx, y);
+      }
+      if (py === y + h) {
+        return new Point(cx, y + h);
+      }
+      if (px < cx) {
+        if (py > y + h / 4 && py < y + 3 * h / 4) {
+          a = new Point(x, y);
+          b = new Point(x, y + h);
+        } else if (py < y + h / 4) {
+          a = new Point(x - Math.floor(0.5 * w), y + Math.floor(0.5 * h));
+          b = new Point(x + w, y - Math.floor(0.25 * h));
+        } else if (py > y + 3 * h / 4) {
+          a = new Point(x - Math.floor(0.5 * w), y + Math.floor(0.5 * h));
+          b = new Point(x + w, y + Math.floor(1.25 * h));
+        }
+      } else if (px > cx) {
+        if (py > y + h / 4 && py < y + 3 * h / 4) {
+          a = new Point(x + w, y);
+          b = new Point(x + w, y + h);
+        } else if (py < y + h / 4) {
+          a = new Point(x, y - Math.floor(0.25 * h));
+          b = new Point(x + Math.floor(1.5 * w), y + Math.floor(0.5 * h));
+        } else if (py > y + 3 * h / 4) {
+          a = new Point(x + Math.floor(1.5 * w), y + Math.floor(0.5 * h));
+          b = new Point(x, y + Math.floor(1.25 * h));
+        }
+      }
+    } else {
+      if (py === cy) {
+        if (px <= x) {
+          return new Point(x, y + h / 2);
+        }
+        if (px >= x + w) {
+          return new Point(x + w, y + h / 2);
+        }
+      } else if (py < y) {
+        if (px === x + w / 4) {
+          return new Point(x + w / 4, y);
+        }
+        if (px === x + 3 * w / 4) {
+          return new Point(x + 3 * w / 4, y);
+        }
+      } else if (py > y + h) {
+        if (px === x + w / 4) {
+          return new Point(x + w / 4, y + h);
+        }
+        if (px === x + 3 * w / 4) {
+          return new Point(x + 3 * w / 4, y + h);
+        }
+      } else if (py === y) {
+        if (px < cx) {
+          return new Point(x + w / 4, y);
+        }
+        if (px > cx) {
+          return new Point(x + 3 * w / 4, y);
+        }
+      } else if (py === y + h) {
+        if (px < cx) {
+          return new Point(x + w / 4, y + h);
+        }
+        if (py > cy) {
+          return new Point(x + 3 * w / 4, y + h);
+        }
+      }
+      if (px === x) {
+        return new Point(x, cy);
+      }
+      if (px === x + w) {
+        return new Point(x + w, cy);
+      }
+      if (py < cy) {
+        if (px > x + w / 4 && px < x + 3 * w / 4) {
+          a = new Point(x, y);
+          b = new Point(x + w, y);
+        } else if (px < x + w / 4) {
+          a = new Point(x - Math.floor(0.25 * w), y + h);
+          b = new Point(x + Math.floor(0.5 * w), y - Math.floor(0.5 * h));
+        } else if (px > x + 3 * w / 4) {
+          a = new Point(x + Math.floor(0.5 * w), y - Math.floor(0.5 * h));
+          b = new Point(x + Math.floor(1.25 * w), y + h);
+        }
+      } else if (py > cy) {
+        if (px > x + w / 4 && px < x + 3 * w / 4) {
+          a = new Point(x, y + h);
+          b = new Point(x + w, y + h);
+        } else if (px < x + w / 4) {
+          a = new Point(x - Math.floor(0.25 * w), y);
+          b = new Point(x + Math.floor(0.5 * w), y + Math.floor(1.5 * h));
+        } else if (px > x + 3 * w / 4) {
+          a = new Point(x + Math.floor(0.5 * w), y + Math.floor(1.5 * h));
+          b = new Point(x + Math.floor(1.25 * w), y);
+        }
+      }
+    }
+    let tx = cx;
+    let ty = cy;
+    if (px >= x && px <= x + w) {
+      tx = px;
+      if (py < cy) {
+        ty = y + h;
+      } else {
+        ty = y;
+      }
+    } else if (py >= y && py <= y + h) {
+      ty = py;
+      if (px < cx) {
+        tx = x + w;
+      } else {
+        tx = x;
+      }
+    }
+    result = intersection(tx, ty, next.x, next.y, a.x, a.y, b.x, b.y);
+  } else {
+    if (vertical) {
+      const beta = Math.atan2(h / 4, w / 2);
+      if (alpha === beta) {
+        return new Point(x + w, y + Math.floor(0.25 * h));
+      }
+      if (alpha === pi2) {
+        return new Point(x + Math.floor(0.5 * w), y);
+      }
+      if (alpha === pi - beta) {
+        return new Point(x, y + Math.floor(0.25 * h));
+      }
+      if (alpha === -beta) {
+        return new Point(x + w, y + Math.floor(0.75 * h));
+      }
+      if (alpha === -pi2) {
+        return new Point(x + Math.floor(0.5 * w), y + h);
+      }
+      if (alpha === -pi + beta) {
+        return new Point(x, y + Math.floor(0.75 * h));
+      }
+      if (alpha < beta && alpha > -beta) {
+        a = new Point(x + w, y);
+        b = new Point(x + w, y + h);
+      } else if (alpha > beta && alpha < pi2) {
+        a = new Point(x, y - Math.floor(0.25 * h));
+        b = new Point(x + Math.floor(1.5 * w), y + Math.floor(0.5 * h));
+      } else if (alpha > pi2 && alpha < pi - beta) {
+        a = new Point(x - Math.floor(0.5 * w), y + Math.floor(0.5 * h));
+        b = new Point(x + w, y - Math.floor(0.25 * h));
+      } else if (alpha > pi - beta && alpha <= pi || alpha < -pi + beta && alpha >= -pi) {
+        a = new Point(x, y);
+        b = new Point(x, y + h);
+      } else if (alpha < -beta && alpha > -pi2) {
+        a = new Point(x + Math.floor(1.5 * w), y + Math.floor(0.5 * h));
+        b = new Point(x, y + Math.floor(1.25 * h));
+      } else if (alpha < -pi2 && alpha > -pi + beta) {
+        a = new Point(x - Math.floor(0.5 * w), y + Math.floor(0.5 * h));
+        b = new Point(x + w, y + Math.floor(1.25 * h));
+      }
+    } else {
+      const beta = Math.atan2(h / 2, w / 4);
+      if (alpha === beta) {
+        return new Point(x + Math.floor(0.75 * w), y);
+      }
+      if (alpha === pi - beta) {
+        return new Point(x + Math.floor(0.25 * w), y);
+      }
+      if (alpha === pi || alpha === -pi) {
+        return new Point(x, y + Math.floor(0.5 * h));
+      }
+      if (alpha === 0) {
+        return new Point(x + w, y + Math.floor(0.5 * h));
+      }
+      if (alpha === -beta) {
+        return new Point(x + Math.floor(0.75 * w), y + h);
+      }
+      if (alpha === -pi + beta) {
+        return new Point(x + Math.floor(0.25 * w), y + h);
+      }
+      if (alpha > 0 && alpha < beta) {
+        a = new Point(x + Math.floor(0.5 * w), y - Math.floor(0.5 * h));
+        b = new Point(x + Math.floor(1.25 * w), y + h);
+      } else if (alpha > beta && alpha < pi - beta) {
+        a = new Point(x, y);
+        b = new Point(x + w, y);
+      } else if (alpha > pi - beta && alpha < pi) {
+        a = new Point(x - Math.floor(0.25 * w), y + h);
+        b = new Point(x + Math.floor(0.5 * w), y - Math.floor(0.5 * h));
+      } else if (alpha < 0 && alpha > -beta) {
+        a = new Point(x + Math.floor(0.5 * w), y + Math.floor(1.5 * h));
+        b = new Point(x + Math.floor(1.25 * w), y);
+      } else if (alpha < -beta && alpha > -pi + beta) {
+        a = new Point(x, y + h);
+        b = new Point(x + w, y + h);
+      } else if (alpha < -pi + beta && alpha > -pi) {
+        a = new Point(x - Math.floor(0.25 * w), y);
+        b = new Point(x + Math.floor(0.5 * w), y + Math.floor(1.5 * h));
+      }
+    }
+    result = intersection(cx, cy, next.x, next.y, a.x, a.y, b.x, b.y);
+  }
+  if (result == null) {
+    return new Point(cx, cy);
+  }
+  return result;
+};
+const RectanglePerimeter = (bounds, _vertex, next, orthogonal = false) => {
+  const cx = bounds.getCenterX();
+  const cy = bounds.getCenterY();
+  const dx = next.x - cx;
+  const dy = next.y - cy;
+  const alpha = Math.atan2(dy, dx);
+  const p = new Point(0, 0);
+  const pi = Math.PI;
+  const pi2 = Math.PI / 2;
+  const beta = pi2 - alpha;
+  const t = Math.atan2(bounds.height, bounds.width);
+  if (alpha < -pi + t || alpha > pi - t) {
+    p.x = bounds.x;
+    p.y = cy - bounds.width * Math.tan(alpha) / 2;
+  } else if (alpha < -t) {
+    p.y = bounds.y;
+    p.x = cx - bounds.height * Math.tan(beta) / 2;
+  } else if (alpha < t) {
+    p.x = bounds.x + bounds.width;
+    p.y = cy + bounds.width * Math.tan(alpha) / 2;
+  } else {
+    p.y = bounds.y + bounds.height;
+    p.x = cx + bounds.height * Math.tan(beta) / 2;
+  }
+  if (orthogonal) {
+    if (next.x >= bounds.x && next.x <= bounds.x + bounds.width) {
+      p.x = next.x;
+    } else if (next.y >= bounds.y && next.y <= bounds.y + bounds.height) {
+      p.y = next.y;
+    }
+    if (next.x < bounds.x) {
+      p.x = bounds.x;
+    } else if (next.x > bounds.x + bounds.width) {
+      p.x = bounds.x + bounds.width;
+    }
+    if (next.y < bounds.y) {
+      p.y = bounds.y;
+    } else if (next.y > bounds.y + bounds.height) {
+      p.y = bounds.y + bounds.height;
+    }
+  }
+  return p;
+};
+const RhombusPerimeter = (bounds, _vertex, next, orthogonal = false) => {
+  const { x } = bounds;
+  const { y } = bounds;
+  const w = bounds.width;
+  const h = bounds.height;
+  const cx = x + w / 2;
+  const cy = y + h / 2;
+  const px = next.x;
+  const py = next.y;
+  if (cx === px) {
+    if (cy > py) {
+      return new Point(cx, y);
+    }
+    return new Point(cx, y + h);
+  }
+  if (cy === py) {
+    if (cx > px) {
+      return new Point(x, cy);
+    }
+    return new Point(x + w, cy);
+  }
+  let tx = cx;
+  let ty = cy;
+  if (orthogonal) {
+    if (px >= x && px <= x + w) {
+      tx = px;
+    } else if (py >= y && py <= y + h) {
+      ty = py;
+    }
+  }
+  if (px < cx) {
+    if (py < cy) {
+      return intersection(px, py, tx, ty, cx, y, x, cy);
+    }
+    return intersection(px, py, tx, ty, cx, y + h, x, cy);
+  }
+  if (py < cy) {
+    return intersection(px, py, tx, ty, cx, y, x + w, cy);
+  }
+  return intersection(px, py, tx, ty, cx, y + h, x + w, cy);
+};
+const TrianglePerimeter = (bounds, vertex, next, orthogonal = false) => {
+  const direction = vertex != null ? vertex.style.direction : null;
+  const vertical = direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH;
+  const { x } = bounds;
+  const { y } = bounds;
+  const w = bounds.width;
+  const h = bounds.height;
+  let cx = x + w / 2;
+  let cy = y + h / 2;
+  let start = new Point(x, y);
+  let corner = new Point(x + w, cy);
+  let end = new Point(x, y + h);
+  if (direction === DIRECTION.NORTH) {
+    start = end;
+    corner = new Point(cx, y);
+    end = new Point(x + w, y + h);
+  } else if (direction === DIRECTION.SOUTH) {
+    corner = new Point(cx, y + h);
+    end = new Point(x + w, y);
+  } else if (direction === DIRECTION.WEST) {
+    start = new Point(x + w, y);
+    corner = new Point(x, cy);
+    end = new Point(x + w, y + h);
+  }
+  let dx = next.x - cx;
+  let dy = next.y - cy;
+  const alpha = vertical ? Math.atan2(dx, dy) : Math.atan2(dy, dx);
+  const t = vertical ? Math.atan2(w, h) : Math.atan2(h, w);
+  let base = false;
+  if (direction === DIRECTION.NORTH || direction === DIRECTION.WEST) {
+    base = alpha > -t && alpha < t;
+  } else {
+    base = alpha < -Math.PI + t || alpha > Math.PI - t;
+  }
+  let result = null;
+  if (base) {
+    if (orthogonal && (vertical && next.x >= start.x && next.x <= end.x || !vertical && next.y >= start.y && next.y <= end.y)) {
+      if (vertical) {
+        result = new Point(next.x, start.y);
+      } else {
+        result = new Point(start.x, next.y);
+      }
+    } else if (direction === DIRECTION.NORTH) {
+      result = new Point(x + w / 2 + h * Math.tan(alpha) / 2, y + h);
+    } else if (direction === DIRECTION.SOUTH) {
+      result = new Point(x + w / 2 - h * Math.tan(alpha) / 2, y);
+    } else if (direction === DIRECTION.WEST) {
+      result = new Point(x + w, y + h / 2 + w * Math.tan(alpha) / 2);
+    } else {
+      result = new Point(x, y + h / 2 - w * Math.tan(alpha) / 2);
+    }
+  } else {
+    if (orthogonal) {
+      const pt = new Point(cx, cy);
+      if (next.y >= y && next.y <= y + h) {
+        pt.x = vertical ? cx : direction === DIRECTION.WEST ? x + w : x;
+        pt.y = next.y;
+      } else if (next.x >= x && next.x <= x + w) {
+        pt.x = next.x;
+        pt.y = !vertical ? cy : direction === DIRECTION.NORTH ? y + h : y;
+      }
+      dx = next.x - pt.x;
+      dy = next.y - pt.y;
+      cx = pt.x;
+      cy = pt.y;
+    }
+    if (vertical && next.x <= x + w / 2 || !vertical && next.y <= y + h / 2) {
+      result = intersection(next.x, next.y, cx, cy, start.x, start.y, corner.x, corner.y);
+    } else {
+      result = intersection(next.x, next.y, cx, cy, corner.x, corner.y, end.x, end.y);
+    }
+  }
+  if (result == null) {
+    result = new Point(cx, cy);
+  }
+  return result;
+};
+const index = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  EllipsePerimeter,
+  HexagonPerimeter,
+  RectanglePerimeter,
+  RhombusPerimeter,
+  TrianglePerimeter
+}, Symbol.toStringTag, { value: "Module" }));
+const isClassicOrClassicThin = (type) => type === "classic" || type === "classicThin";
+const isDiamond = (type) => type === "diamond";
+const createArrow = (widthFactor) => (canvas, _shape, type, pe, unitX, unitY, size, _source, sw, filled) => {
+  const endOffsetX = unitX * sw * 1.118;
+  const endOffsetY = unitY * sw * 1.118;
+  unitX *= size + sw;
+  unitY *= size + sw;
+  const pt = pe.clone();
+  pt.x -= endOffsetX;
+  pt.y -= endOffsetY;
+  const f = !isClassicOrClassicThin(type) ? 1 : 3 / 4;
+  pe.x += -unitX * f - endOffsetX;
+  pe.y += -unitY * f - endOffsetY;
+  return () => {
+    canvas.begin();
+    canvas.moveTo(pt.x, pt.y);
+    canvas.lineTo(pt.x - unitX - unitY / widthFactor, pt.y - unitY + unitX / widthFactor);
+    if (isClassicOrClassicThin(type)) {
+      canvas.lineTo(pt.x - unitX * 3 / 4, pt.y - unitY * 3 / 4);
+    }
+    canvas.lineTo(pt.x + unitY / widthFactor - unitX, pt.y - unitY - unitX / widthFactor);
+    canvas.close();
+    if (filled) {
+      canvas.fillAndStroke();
+    } else {
+      canvas.stroke();
+    }
+  };
+};
+const createOpenArrow = (widthFactor) => (canvas, _shape, _type, pe, unitX, unitY, size, _source, sw, _filled) => {
+  const endOffsetX = unitX * sw * 1.118;
+  const endOffsetY = unitY * sw * 1.118;
+  unitX *= size + sw;
+  unitY *= size + sw;
+  const pt = pe.clone();
+  pt.x -= endOffsetX;
+  pt.y -= endOffsetY;
+  pe.x += -endOffsetX * 2;
+  pe.y += -endOffsetY * 2;
+  return () => {
+    canvas.begin();
+    canvas.moveTo(pt.x - unitX - unitY / widthFactor, pt.y - unitY + unitX / widthFactor);
+    canvas.lineTo(pt.x, pt.y);
+    canvas.lineTo(pt.x + unitY / widthFactor - unitX, pt.y - unitY - unitX / widthFactor);
+    canvas.stroke();
+  };
+};
+const oval = (canvas, _shape, _type, pe, unitX, unitY, size, _source, _sw, filled) => {
+  const a = size / 2;
+  const pt = pe.clone();
+  pe.x -= unitX * a;
+  pe.y -= unitY * a;
+  return () => {
+    canvas.ellipse(pt.x - a, pt.y - a, size, size);
+    if (filled) {
+      canvas.fillAndStroke();
+    } else {
+      canvas.stroke();
+    }
+  };
+};
+const diamond = (canvas, _shape, type, pe, unitX, unitY, size, _source, sw, filled) => {
+  const swFactor = isDiamond(type) ? 0.7071 : 0.9862;
+  const endOffsetX = unitX * sw * swFactor;
+  const endOffsetY = unitY * sw * swFactor;
+  unitX *= size + sw;
+  unitY *= size + sw;
+  const pt = pe.clone();
+  pt.x -= endOffsetX;
+  pt.y -= endOffsetY;
+  pe.x += -unitX - endOffsetX;
+  pe.y += -unitY - endOffsetY;
+  const tk = isDiamond(type) ? 2 : 3.4;
+  return () => {
+    canvas.begin();
+    canvas.moveTo(pt.x, pt.y);
+    canvas.lineTo(pt.x - unitX / 2 - unitY / tk, pt.y + unitX / tk - unitY / 2);
+    canvas.lineTo(pt.x - unitX, pt.y - unitY);
+    canvas.lineTo(pt.x - unitX / 2 + unitY / tk, pt.y - unitY / 2 - unitX / tk);
+    canvas.close();
+    if (filled) {
+      canvas.fillAndStroke();
+    } else {
+      canvas.stroke();
+    }
+  };
+};
+const edgeMarkers = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  createArrow,
+  createOpenArrow,
+  diamond,
+  oval
+}, Symbol.toStringTag, { value: "Module" }));
 class CellHighlight {
   constructor(graph, highlightColor, strokeWidth, dashed) {
     this.strokeWidth = 0;
@@ -6195,13 +6779,13 @@ const getAll = (urls, onload, onerror) => {
     errors++;
   };
   for (let i = 0; i < urls.length; i += 1) {
-    ((url, index) => {
+    ((url, index2) => {
       get(url, (req) => {
         const status = req.getStatus();
         if (status < 200 || status > 299) {
           err();
         } else {
-          result[index] = req;
+          result[index2] = req;
           remain--;
           if (remain == 0) {
             onload(result);
@@ -9810,11 +10394,11 @@ class EdgeHandler {
         const target = i === this.abspoints.length - 1;
         const terminal = source || target;
         if (terminal || this.graph.isCellBendable(cell)) {
-          ((index) => {
-            const bend = this.createHandleShape(index);
+          ((index2) => {
+            const bend = this.createHandleShape(index2);
             this.initBend(bend, () => {
               if (this.dblClickRemoveEnabled) {
-                this.removePoint(this.state, index);
+                this.removePoint(this.state, index2);
               }
             });
             if (this.isHandleEnabled(i)) {
@@ -9853,18 +10437,18 @@ class EdgeHandler {
   /**
    * Creates the shape used to display the given bend.
    */
-  isHandleEnabled(index) {
+  isHandleEnabled(index2) {
     return true;
   }
   /**
    * Returns true if the handle at the given index is visible.
    */
-  isHandleVisible(index) {
+  isHandleVisible(index2) {
     const source = this.state.getVisibleTerminalState(true);
     const target = this.state.getVisibleTerminalState(false);
     const geo = this.state.cell.getGeometry();
     const edgeStyle = geo ? this.graph.view.getEdgeStyle(this.state, geo.points || void 0, source, target) : null;
-    return edgeStyle !== EdgeStyle.EntityRelation || index === 0 || index === this.abspoints.length - 1;
+    return edgeStyle !== EntityRelation || index2 === 0 || index2 === this.abspoints.length - 1;
   }
   /**
    * Creates the shape used to display the given bend.
@@ -10009,20 +10593,20 @@ class EdgeHandler {
   /**
    * Starts the handling of the mouse gesture.
    */
-  start(x, y, index) {
+  start(x, y, index2) {
     this.startX = x;
     this.startY = y;
-    this.isSource = this.bends.length === 0 ? false : index === 0;
-    this.isTarget = this.bends.length === 0 ? false : index === this.bends.length - 1;
-    this.isLabel = index === InternalEvent.LABEL_HANDLE;
+    this.isSource = this.bends.length === 0 ? false : index2 === 0;
+    this.isTarget = this.bends.length === 0 ? false : index2 === this.bends.length - 1;
+    this.isLabel = index2 === InternalEvent.LABEL_HANDLE;
     if (this.isSource || this.isTarget) {
       const { cell } = this.state;
       const terminal = cell.getTerminal(this.isSource);
       if (terminal == null && this.graph.isTerminalPointMovable(cell, this.isSource) || terminal != null && this.graph.isCellDisconnectable(cell, terminal, this.isSource)) {
-        this.index = index;
+        this.index = index2;
       }
     } else {
-      this.index = index;
+      this.index = index2;
     }
     if (this.index !== null && this.index <= InternalEvent.CUSTOM_HANDLE && this.index > InternalEvent.VIRTUAL_HANDLE) {
       if (this.customHandles != null) {
@@ -10379,7 +10963,7 @@ class EdgeHandler {
         this.shape.node.style.display = "";
       }
       let edge = this.state.cell;
-      const { index } = this;
+      const { index: index2 } = this;
       this.index = null;
       if (me.getX() !== this.startX || me.getY() !== this.startY) {
         const clone2 = !this.graph.isIgnoreTerminalEvent(me.getEvent()) && this.graph.isCloneEvent(me.getEvent()) && this.cloneEnabled && this.graph.isCellsCloneable();
@@ -10387,12 +10971,12 @@ class EdgeHandler {
           if (this.error.length > 0) {
             this.graph.validationAlert(this.error);
           }
-        } else if (index <= InternalEvent.CUSTOM_HANDLE && index > InternalEvent.VIRTUAL_HANDLE) {
+        } else if (index2 <= InternalEvent.CUSTOM_HANDLE && index2 > InternalEvent.VIRTUAL_HANDLE) {
           if (this.customHandles != null) {
             const model = this.graph.getDataModel();
             model.beginUpdate();
             try {
-              this.customHandles[InternalEvent.CUSTOM_HANDLE - index].execute(me);
+              this.customHandles[InternalEvent.CUSTOM_HANDLE - index2].execute(me);
               if (this.shape != null && this.shape.node != null) {
                 this.shape.apply(this.state);
                 this.shape.redraw();
@@ -10652,11 +11236,11 @@ class EdgeHandler {
         if (pState)
           offset = new Point(pState.x, pState.y);
       }
-      const index = findNearestSegment(state, pt.x * s + offset.x, pt.y * s + offset.y);
+      const index2 = findNearestSegment(state, pt.x * s + offset.x, pt.y * s + offset.y);
       if (geo.points == null) {
         geo.points = [pt];
       } else {
-        geo.points.splice(index, 0, pt);
+        geo.points.splice(index2, 0, pt);
       }
       this.graph.getDataModel().setGeometry(state.cell, geo);
       this.refresh();
@@ -10666,12 +11250,12 @@ class EdgeHandler {
   /**
    * Removes the control point at the given index from the given state.
    */
-  removePoint(state, index) {
-    if (index > 0 && index < this.abspoints.length - 1) {
+  removePoint(state, index2) {
+    if (index2 > 0 && index2 < this.abspoints.length - 1) {
       let geo = this.state.cell.getGeometry();
       if (geo != null && geo.points != null) {
         geo = geo.clone();
-        (geo.points || []).splice(index - 1, 1);
+        (geo.points || []).splice(index2 - 1, 1);
         this.graph.getDataModel().setGeometry(state.cell, geo);
         this.refresh();
         this.redraw();
@@ -10681,8 +11265,8 @@ class EdgeHandler {
   /**
    * Returns the fillcolor for the handle at the given index.
    */
-  getHandleFillColor(index) {
-    const isSource = index === 0;
+  getHandleFillColor(index2) {
+    const isSource = index2 === 0;
     const { cell } = this.state;
     const terminal = cell.getTerminal(isSource);
     let color = HandleConfig.fillColor;
@@ -11207,9 +11791,9 @@ class VertexHandler {
    * Creates a sizer handle for the specified cursor and index and returns
    * the new {@link RectangleShape} that represents the handle.
    */
-  createSizer(cursor, index, size = HandleConfig.size, fillColor = HandleConfig.fillColor) {
+  createSizer(cursor, index2, size = HandleConfig.size, fillColor = HandleConfig.fillColor) {
     const bounds = new Rectangle(0, 0, size, size);
-    const sizer = this.createSizerShape(bounds, index, fillColor);
+    const sizer = this.createSizerShape(bounds, index2, fillColor);
     if (sizer.bounds && sizer.isHtmlAllowed() && this.state.text && this.state.text.node.parentNode === this.graph.container) {
       sizer.bounds.height -= 1;
       sizer.bounds.width -= 1;
@@ -11223,7 +11807,7 @@ class VertexHandler {
     if (this.graph.isEnabled()) {
       sizer.setCursor(cursor);
     }
-    if (!this.isSizerVisible(index)) {
+    if (!this.isSizerVisible(index2)) {
       sizer.visible = false;
     }
     return sizer;
@@ -11241,7 +11825,7 @@ class VertexHandler {
    * index. Only images and rectangles should be returned if support for HTML
    * labels with not foreign objects is required.
    */
-  createSizerShape(bounds, index, fillColor = HandleConfig.fillColor) {
+  createSizerShape(bounds, index2, fillColor = HandleConfig.fillColor) {
     if (this.handleImage) {
       bounds = new Rectangle(bounds.x, bounds.y, this.handleImage.width, this.handleImage.height);
       const shape = new ImageShape(bounds, this.handleImage.src);
@@ -11249,7 +11833,7 @@ class VertexHandler {
       return shape;
     }
     const strokeColor = HandleConfig.strokeColor;
-    if (index === InternalEvent.ROTATION_HANDLE) {
+    if (index2 === InternalEvent.ROTATION_HANDLE) {
       return new EllipseShape(bounds, fillColor, strokeColor);
     }
     return new RectangleShape(bounds, fillColor, strokeColor);
@@ -11332,12 +11916,12 @@ class VertexHandler {
   /**
    * Starts the handling of the mouse gesture.
    */
-  start(x, y, index) {
+  start(x, y, index2) {
     this.livePreviewActive = this.livePreview && this.state.cell.getChildCount() === 0;
     this.inTolerance = true;
     this.childOffsetX = 0;
     this.childOffsetY = 0;
-    this.index = index;
+    this.index = index2;
     this.startX = x;
     this.startY = y;
     if (this.index <= InternalEvent.CUSTOM_HANDLE && this.isGhostPreview()) {
@@ -11347,7 +11931,7 @@ class VertexHandler {
       if (this.state.view.currentRoot !== parent && parent && (parent.isVertex() || parent.isEdge())) {
         this.parentState = this.state.view.graph.view.getState(parent);
       }
-      this.selectionBorder.node.style.display = index === InternalEvent.ROTATION_HANDLE ? "inline" : "none";
+      this.selectionBorder.node.style.display = index2 === InternalEvent.ROTATION_HANDLE ? "inline" : "none";
       if (!this.livePreviewActive || this.isLivePreviewBorder()) {
         this.preview = this.createSelectionShape(this.bounds);
         if (!(Client.IS_SVG && (this.state.style.rotation ?? 0) != 0) && this.state.text != null && this.state.text.node.parentNode === this.graph.container) {
@@ -11358,7 +11942,7 @@ class VertexHandler {
           this.preview.init(this.graph.view.getOverlayPane());
         }
       }
-      if (index === InternalEvent.ROTATION_HANDLE) {
+      if (index2 === InternalEvent.ROTATION_HANDLE) {
         const pos = this.getRotationHandlePosition();
         const dx = pos.x - this.state.getCenterX();
         const dy = pos.y - this.state.getCenterY();
@@ -11367,14 +11951,14 @@ class VertexHandler {
       }
       if (this.livePreviewActive) {
         this.hideSizers();
-        if (index === InternalEvent.ROTATION_HANDLE && this.rotationShape) {
+        if (index2 === InternalEvent.ROTATION_HANDLE && this.rotationShape) {
           this.rotationShape.node.style.display = "";
-        } else if (index === InternalEvent.LABEL_HANDLE && this.labelShape) {
+        } else if (index2 === InternalEvent.LABEL_HANDLE && this.labelShape) {
           this.labelShape.node.style.display = "";
-        } else if (this.sizers[index]) {
-          this.sizers[index].node.style.display = "";
-        } else if (index <= InternalEvent.CUSTOM_HANDLE) {
-          this.customHandles[InternalEvent.CUSTOM_HANDLE - index].setVisible(true);
+        } else if (this.sizers[index2]) {
+          this.sizers[index2].node.style.display = "";
+        } else if (index2 <= InternalEvent.CUSTOM_HANDLE) {
+          this.customHandles[InternalEvent.CUSTOM_HANDLE - index2].setVisible(true);
         }
         const edges = this.state.cell.getEdges();
         this.edgeHandlers = [];
@@ -11515,8 +12099,8 @@ class VertexHandler {
       point.x = (this.graph.snap(point.x / scale - tr.x) + tr.x) * scale;
       point.y = (this.graph.snap(point.y / scale - tr.y) + tr.y) * scale;
     }
-    const index = this.rotationShape ? this.sizers.length - 2 : this.sizers.length - 1;
-    this.moveSizerTo(this.sizers[index], point.x, point.y);
+    const index2 = this.rotationShape ? this.sizers.length - 2 : this.sizers.length - 1;
+    this.moveSizerTo(this.sizers[index2], point.x, point.y);
   }
   /**
    * Rotates the vertex.
@@ -11718,24 +12302,24 @@ class VertexHandler {
   mouseUp(_sender, me) {
     if (this.index != null && this.state != null) {
       const point = new Point(me.getGraphX(), me.getGraphY());
-      const { index } = this;
+      const { index: index2 } = this;
       this.index = null;
       if (this.ghostPreview == null) {
         this.state.view.invalidate(this.state.cell, false, false);
         this.state.view.validate();
       }
       this.graph.batchUpdate(() => {
-        if (index <= InternalEvent.CUSTOM_HANDLE) {
+        if (index2 <= InternalEvent.CUSTOM_HANDLE) {
           if (this.customHandles != null) {
             const style = this.state.view.graph.getCellStyle(this.state.cell);
-            this.customHandles[InternalEvent.CUSTOM_HANDLE - index].active = false;
-            this.customHandles[InternalEvent.CUSTOM_HANDLE - index].execute(me);
-            if (this.customHandles != null && this.customHandles[InternalEvent.CUSTOM_HANDLE - index] != null) {
+            this.customHandles[InternalEvent.CUSTOM_HANDLE - index2].active = false;
+            this.customHandles[InternalEvent.CUSTOM_HANDLE - index2].execute(me);
+            if (this.customHandles != null && this.customHandles[InternalEvent.CUSTOM_HANDLE - index2] != null) {
               this.state.style = style;
-              this.customHandles[InternalEvent.CUSTOM_HANDLE - index].positionChanged();
+              this.customHandles[InternalEvent.CUSTOM_HANDLE - index2].positionChanged();
             }
           }
-        } else if (index === InternalEvent.ROTATION_HANDLE) {
+        } else if (index2 === InternalEvent.ROTATION_HANDLE) {
           if (this.currentAlpha != null) {
             const delta = this.currentAlpha - (this.state.style.rotation ?? 0);
             if (delta !== 0) {
@@ -11757,7 +12341,7 @@ class VertexHandler {
           dy = ty;
           const s = this.graph.view.scale;
           const recurse = this.isRecursiveResize(this.state, me);
-          this.resizeCell(this.state.cell, this.roundLength(dx / s), this.roundLength(dy / s), index, gridEnabled, this.isConstrainedEvent(me), recurse);
+          this.resizeCell(this.state.cell, this.roundLength(dx / s), this.roundLength(dy / s), index2, gridEnabled, this.isConstrainedEvent(me), recurse);
         }
       });
       me.consume();
@@ -11863,10 +12447,10 @@ class VertexHandler {
    * Uses the given vector to change the bounds of the given cell
    * in the graph using {@link AbstractGraph.resizeCell}.
    */
-  resizeCell(cell, dx, dy, index, gridEnabled, constrained, recurse) {
+  resizeCell(cell, dx, dy, index2, gridEnabled, constrained, recurse) {
     let geo = cell.getGeometry();
     if (geo) {
-      if (index === InternalEvent.LABEL_HANDLE && this.labelShape && this.labelShape.bounds) {
+      if (index2 === InternalEvent.LABEL_HANDLE && this.labelShape && this.labelShape.bounds) {
         const alpha = -toRadians(this.state.style.rotation ?? 0);
         const cos = Math.cos(alpha);
         const sin = Math.sin(alpha);
@@ -11955,7 +12539,7 @@ class VertexHandler {
    * };
    * ```
    */
-  union(bounds, dx, dy, index, gridEnabled, scale, tr, constrained, centered) {
+  union(bounds, dx, dy, index2, gridEnabled, scale, tr, constrained, centered) {
     gridEnabled = gridEnabled && this.graph.isGridEnabled();
     if (this.singleSizer) {
       let x = bounds.x + bounds.width + dx;
@@ -11976,14 +12560,14 @@ class VertexHandler {
     let bottom = top + h0;
     const cx = left + w0 / 2;
     const cy = top + h0 / 2;
-    if (index > 4) {
+    if (index2 > 4) {
       bottom += dy;
       if (gridEnabled) {
         bottom = this.graph.snap(bottom / scale) * scale;
       } else {
         bottom = Math.round(bottom / scale) * scale;
       }
-    } else if (index < 3) {
+    } else if (index2 < 3) {
       top += dy;
       if (gridEnabled) {
         top = this.graph.snap(top / scale) * scale;
@@ -11991,14 +12575,14 @@ class VertexHandler {
         top = Math.round(top / scale) * scale;
       }
     }
-    if (index === 0 || index === 3 || index === 5) {
+    if (index2 === 0 || index2 === 3 || index2 === 5) {
       left += dx;
       if (gridEnabled) {
         left = this.graph.snap(left / scale) * scale;
       } else {
         left = Math.round(left / scale) * scale;
       }
-    } else if (index === 2 || index === 4 || index === 7) {
+    } else if (index2 === 2 || index2 === 4 || index2 === 7) {
       right += dx;
       if (gridEnabled) {
         right = this.graph.snap(right / scale) * scale;
@@ -12012,12 +12596,12 @@ class VertexHandler {
       const geo = this.state.cell.getGeometry();
       if (geo != null) {
         const aspect = geo.width / geo.height;
-        if (index === 1 || index === 2 || index === 7 || index === 6) {
+        if (index2 === 1 || index2 === 2 || index2 === 7 || index2 === 6) {
           width = height * aspect;
         } else {
           height = width / aspect;
         }
-        if (index === 0) {
+        if (index2 === 0) {
           left = right - width;
           top = bottom - height;
         }
@@ -12401,7 +12985,7 @@ class ElbowEdgeHandler extends EdgeHandler {
    * Returns the cursor to be used for the bend.
    */
   getCursorForBend() {
-    return this.state.style.edgeStyle === EDGESTYLE.TOPTOBOTTOM || this.state.style.edgeStyle === EDGESTYLE.ELBOW && this.state.style.elbow === ELBOW.VERTICAL ? "row-resize" : "col-resize";
+    return this.state.style.edgeStyle === "topToBottomEdgeStyle" || this.state.style.edgeStyle === "elbowEdgeStyle" && this.state.style.elbow === ELBOW.VERTICAL ? "row-resize" : "col-resize";
   }
   /**
    * Returns the tooltip for the given node.
@@ -12629,10 +13213,10 @@ class EdgeSegmentHandler extends ElbowEdgeHandler {
   /**
    * Adds custom bends for the center of each segment.
    */
-  start(x, y, index) {
-    super.start(x, y, index);
-    if (this.bends != null && this.bends[index] != null && !this.isSource && !this.isTarget) {
-      setOpacity(this.bends[index].node, 100);
+  start(x, y, index2) {
+    super.start(x, y, index2);
+    if (this.bends != null && this.bends[index2] != null && !this.isSource && !this.isTarget) {
+      setOpacity(this.bends[index2].node, 100);
     }
   }
   /**
@@ -13083,19 +13667,19 @@ const CellsMixin = {
     }
     return clones;
   },
-  addCell(cell, parent = null, index = null, source = null, target = null) {
-    return this.addCells([cell], parent, index, source, target)[0];
+  addCell(cell, parent = null, index2 = null, source = null, target = null) {
+    return this.addCells([cell], parent, index2, source, target)[0];
   },
-  addCells(cells, parent = null, index = null, source = null, target = null, absolute = false) {
+  addCells(cells, parent = null, index2 = null, source = null, target = null, absolute = false) {
     const p = parent ?? this.getDefaultParent();
-    const i = index ?? p.getChildCount();
+    const i = index2 ?? p.getChildCount();
     this.batchUpdate(() => {
       this.cellsAdded(cells, p, i, source, target, absolute, true);
       this.fireEvent(new EventObject(InternalEvent.ADD_CELLS, { cells, p, i, source, target }));
     });
     return cells;
   },
-  cellsAdded(cells, parent, index, source = null, target = null, absolute = false, constrain = false, extend = true) {
+  cellsAdded(cells, parent, index2, source = null, target = null, absolute = false, constrain = false, extend = true) {
     this.batchUpdate(() => {
       const parentState = absolute ? this.getView().getState(parent) : null;
       const o1 = parentState ? parentState.origin : null;
@@ -13118,10 +13702,10 @@ const CellsMixin = {
             this.getDataModel().setGeometry(cell, geo);
           }
         }
-        if (parent === previous && index + i > parent.getChildCount()) {
-          index--;
+        if (parent === previous && index2 + i > parent.getChildCount()) {
+          index2--;
         }
-        this.getDataModel().add(parent, cell, index + i);
+        this.getDataModel().add(parent, cell, index2 + i);
         if (this.autoSizeCellsOnAdd) {
           this.autoSizeCell(cell, true);
         }
@@ -13141,7 +13725,7 @@ const CellsMixin = {
       this.fireEvent(new EventObject(InternalEvent.CELLS_ADDED, {
         cells,
         parent,
-        index,
+        index: index2,
         source,
         target,
         absolute
@@ -13552,8 +14136,8 @@ const CellsMixin = {
         this.cellsMoved(cells, dx, dy, !clone2 && this.isDisconnectOnMove() && this.isAllowDanglingEdges(), !target, this.isExtendParentsOnMove() && !target);
         this.setAllowNegativeCoordinates(previous);
         if (target) {
-          const index = target.getChildCount();
-          this.cellsAdded(cells, target, index, null, null, true);
+          const index2 = target.getChildCount();
+          this.cellsAdded(cells, target, index2, null, null, true);
           if (clone2) {
             cells.forEach((cell, i) => {
               const geo = cell.getGeometry();
@@ -14571,8 +15155,8 @@ const EdgeMixin = {
     edge.geometry.relative = true;
     return edge;
   },
-  addEdge(edge, parent = null, source = null, target = null, index = null) {
-    return this.addCell(edge, parent, index, source, target);
+  addEdge(edge, parent = null, source = null, target = null, index2 = null) {
+    return this.addCell(edge, parent, index2, source, target);
   },
   // ***************************************************************************
   // Group: Folding
@@ -15311,10 +15895,10 @@ const GroupingMixin = {
         if (group.getGeometry() == null) {
           this.getDataModel().setGeometry(group, new Geometry());
         }
-        let index = parent.getChildCount();
-        this.cellsAdded([group], parent, index, null, null, false, false, false);
-        index = group.getChildCount();
-        this.cellsAdded(cells, group, index, null, null, false, false, false);
+        let index2 = parent.getChildCount();
+        this.cellsAdded([group], parent, index2, null, null, false, false, false);
+        index2 = group.getChildCount();
+        this.cellsAdded(cells, group, index2, null, null, false, false, false);
         this.cellsMoved(cells, -bounds.x, -bounds.y, false, false, false);
         this.cellsResized([group], [bounds], false);
         this.fireEvent(new EventObject(InternalEvent.GROUP_CELLS, { group, border, cells }));
@@ -15373,8 +15957,8 @@ const GroupingMixin = {
           if (children != null && children.length > 0) {
             children = children.slice();
             const parent = _cells[i].getParent();
-            const index = parent.getChildCount();
-            this.cellsAdded(children, parent, index, null, null, true);
+            const index2 = parent.getChildCount();
+            this.cellsAdded(children, parent, index2, null, null, true);
             result = result.concat(children);
             for (const child of children) {
               const state = this.getView().getState(child);
@@ -15414,8 +15998,8 @@ const GroupingMixin = {
     }
     this.batchUpdate(() => {
       const parent = this.getDefaultParent();
-      const index = parent.getChildCount();
-      this.cellsAdded(cells, parent, index, null, null, true);
+      const index2 = parent.getChildCount();
+      this.cellsAdded(cells, parent, index2, null, null, true);
       this.fireEvent(new EventObject(InternalEvent.REMOVE_CELLS_FROM_PARENT, { cells }));
     });
     return cells;
@@ -15683,9 +16267,9 @@ const OverlaysMixin = {
     if (!overlay) {
       this.removeCellOverlays(cell);
     } else {
-      const index = cell.overlays.indexOf(overlay);
-      if (index >= 0) {
-        cell.overlays.splice(index, 1);
+      const index2 = cell.overlays.indexOf(overlay);
+      if (index2 >= 0) {
+        cell.overlays.splice(index2, 1);
         const state = this.getView().getState(cell);
         if (state) {
           this.getCellRenderer().redraw(state);
@@ -16173,8 +16757,8 @@ const SelectionMixin = {
         this.setSelectionCell(child);
       } else {
         i--;
-        const index = i < 0 ? childCount - 1 : i;
-        const child = parent.getChildAt(index);
+        const index2 = i < 0 ? childCount - 1 : i;
+        const child = parent.getChildAt(index2);
         this.setSelectionCell(child);
       }
     }
@@ -16986,7 +17570,7 @@ class AbstractGraph extends EventSource {
     this.recursiveResize = false;
     this.resetViewOnRootChange = true;
     this.allowLoops = false;
-    this.defaultLoopStyle = EdgeStyle.Loop;
+    this.defaultLoopStyle = Loop;
     this.multigraph = true;
     this.minFitScale = 0.1;
     this.maxFitScale = 8;
@@ -17328,9 +17912,9 @@ class AbstractGraph extends EventSource {
    */
   createEdgeHandler(state, edgeStyle) {
     let result = null;
-    if (edgeStyle == EdgeStyle.ElbowConnector || edgeStyle == EdgeStyle.Loop || edgeStyle == EdgeStyle.SideToSide || edgeStyle == EdgeStyle.TopToBottom) {
+    if (edgeStyle == ElbowConnector || edgeStyle == Loop || edgeStyle == SideToSide || edgeStyle == TopToBottom) {
       result = this.createElbowEdgeHandler(state);
-    } else if (edgeStyle == EdgeStyle.ManhattanConnector || edgeStyle == EdgeStyle.OrthConnector || edgeStyle == EdgeStyle.SegmentConnector) {
+    } else if (edgeStyle == ManhattanConnector || edgeStyle == OrthogonalConnector || edgeStyle == SegmentConnector) {
       result = this.createEdgeSegmentHandler(state);
     } else {
       result = this.createEdgeHandlerInstance(state);
@@ -17500,13 +18084,13 @@ class AbstractGraph extends EventSource {
     }
     const edgeStyle = this.view.getEdgeStyle(edge);
     return [
-      EdgeStyle.EntityRelation,
-      EdgeStyle.ElbowConnector,
-      EdgeStyle.ManhattanConnector,
-      EdgeStyle.OrthConnector,
-      EdgeStyle.SegmentConnector,
-      EdgeStyle.SideToSide,
-      EdgeStyle.TopToBottom
+      EntityRelation,
+      ElbowConnector,
+      ManhattanConnector,
+      OrthogonalConnector,
+      SegmentConnector,
+      SideToSide,
+      TopToBottom
     ].includes(edgeStyle);
   }
   /*****************************************************************************
@@ -17974,13 +18558,13 @@ class GraphDataModel extends EventSource {
    * @param {Cell} child  that specifies the child to be inserted.
    * @param index  Optional integer that specifies the index of the child.
    */
-  add(parent, child, index = null) {
+  add(parent, child, index2 = null) {
     if (child !== parent && parent != null && child != null) {
-      if (index == null) {
-        index = parent.getChildCount();
+      if (index2 == null) {
+        index2 = parent.getChildCount();
       }
       const parentChanged = parent !== child.getParent();
-      this.execute(new ChildChange(this, parent, child, index));
+      this.execute(new ChildChange(this, parent, child, index2));
       if (this.maintainEdgeParent && parentChanged) {
         this.updateEdgeParents(child);
       }
@@ -18144,11 +18728,11 @@ class GraphDataModel extends EventSource {
    * @param index  Optional integer that defines the index of the child
    * in the parent's child array.
    */
-  parentForCellChanged(cell, parent, index) {
+  parentForCellChanged(cell, parent, index2) {
     const previous = cell.getParent();
     if (parent != null) {
-      if (parent !== previous || previous.getIndex(cell) !== index) {
-        parent.insert(cell, index);
+      if (parent !== previous || previous.getIndex(cell) !== index2) {
+        parent.insert(cell, index2);
       }
     } else if (previous != null) {
       const oldIndex = previous.getIndex(cell);
@@ -18593,8 +19177,8 @@ class MarkerShape {
    * Adds a factory method that updates a given endpoint and returns a
    * function to paint the marker onto the given canvas.
    */
-  static addMarker(type, funct) {
-    MarkerShape.markers[type] = funct;
+  static addMarker(type, factory) {
+    MarkerShape.markers[type] = factory;
   }
   /**
    * Returns a function to paint the given marker.
@@ -20174,7 +20758,7 @@ class Stylesheet {
   createDefaultEdgeStyle() {
     const style = {};
     style.shape = SHAPE.CONNECTOR;
-    style.endArrow = ARROW.CLASSIC;
+    style.endArrow = "classic";
     style.verticalAlign = ALIGN.MIDDLE;
     style.align = ALIGN.CENTER;
     style.strokeColor = "#6482B9";
@@ -20467,9 +21051,9 @@ class GraphSelectionModel extends EventSource {
    * @param cell {@link mxCell} to remove from the selection.
    */
   cellRemoved(cell) {
-    const index = this.cells.indexOf(cell);
-    if (index >= 0) {
-      this.cells.splice(index, 1);
+    const index2 = this.cells.indexOf(cell);
+    if (index2 >= 0) {
+      this.cells.splice(index2, 1);
     }
   }
 }
@@ -21729,14 +22313,14 @@ class GraphView extends EventSource {
       const dist = Math.round((gx + 0.5) * state.length);
       let segment = state.segments[0];
       let length = 0;
-      let index = 1;
-      while (dist >= Math.round(length + segment) && index < pointCount - 1) {
+      let index2 = 1;
+      while (dist >= Math.round(length + segment) && index2 < pointCount - 1) {
         length += segment;
-        segment = state.segments[index++];
+        segment = state.segments[index2++];
       }
       const factor = segment === 0 ? 0 : (dist - length) / segment;
-      const p0 = state.absolutePoints[index - 1];
-      const pe = state.absolutePoints[index];
+      const p0 = state.absolutePoints[index2 - 1];
+      const pe = state.absolutePoints[index2];
       if (p0 != null && pe != null) {
         let gy = 0;
         let offsetX = 0;
@@ -21785,7 +22369,7 @@ class GraphView extends EventSource {
         let pe = absolutePoints[1];
         let minDist = ptSegDistSq(p0.x, p0.y, pe.x, pe.y, x, y);
         let length = 0;
-        let index = 0;
+        let index2 = 0;
         let tmp = 0;
         for (let i = 2; i < pointCount; i += 1) {
           p0 = pe;
@@ -21794,13 +22378,13 @@ class GraphView extends EventSource {
           tmp += segments[i - 2];
           if (dist <= minDist) {
             minDist = dist;
-            index = i - 1;
+            index2 = i - 1;
             length = tmp;
           }
         }
-        const seg = segments[index];
-        p0 = absolutePoints[index];
-        pe = absolutePoints[index + 1];
+        const seg = segments[index2];
+        p0 = absolutePoints[index2];
+        pe = absolutePoints[index2 + 1];
         const x2 = p0.x;
         const y2 = p0.y;
         const x1 = pe.x;
@@ -23313,613 +23897,18 @@ function unregisterAllShapes() {
   CellRenderer.defaultShapes = {};
   isDefaultElementsRegistered = false;
 }
-const EllipsePerimeter = (bounds, _vertex, next, orthogonal = false) => {
-  const { x } = bounds;
-  const { y } = bounds;
-  const a = bounds.width / 2;
-  const b = bounds.height / 2;
-  const cx = x + a;
-  const cy = y + b;
-  const px = next.x;
-  const py = next.y;
-  const dx = parseInt(String(px - cx));
-  const dy = parseInt(String(py - cy));
-  if (dx === 0 && dy !== 0) {
-    return new Point(cx, cy + b * dy / Math.abs(dy));
-  }
-  if (dx === 0 && dy === 0) {
-    return new Point(px, py);
-  }
-  if (orthogonal) {
-    if (py >= y && py <= y + bounds.height) {
-      const ty = py - cy;
-      let tx = Math.sqrt(a * a * (1 - ty * ty / (b * b))) || 0;
-      if (px <= x) {
-        tx = -tx;
-      }
-      return new Point(cx + tx, py);
-    }
-    if (px >= x && px <= x + bounds.width) {
-      const tx = px - cx;
-      let ty = Math.sqrt(b * b * (1 - tx * tx / (a * a))) || 0;
-      if (py <= y) {
-        ty = -ty;
-      }
-      return new Point(px, cy + ty);
-    }
-  }
-  const d = dy / dx;
-  const h = cy - d * cx;
-  const e = a * a * d * d + b * b;
-  const f = -2 * cx * e;
-  const g = a * a * d * d * cx * cx + b * b * cx * cx - a * a * b * b;
-  const det = Math.sqrt(f * f - 4 * e * g);
-  const xout1 = (-f + det) / (2 * e);
-  const xout2 = (-f - det) / (2 * e);
-  const yout1 = d * xout1 + h;
-  const yout2 = d * xout2 + h;
-  const dist1 = Math.sqrt(Math.pow(xout1 - px, 2) + Math.pow(yout1 - py, 2));
-  const dist2 = Math.sqrt(Math.pow(xout2 - px, 2) + Math.pow(yout2 - py, 2));
-  let xout = 0;
-  let yout = 0;
-  if (dist1 < dist2) {
-    xout = xout1;
-    yout = yout1;
-  } else {
-    xout = xout2;
-    yout = yout2;
-  }
-  return new Point(xout, yout);
-};
-const HexagonPerimeter = (bounds, vertex, next, orthogonal = false) => {
-  var _a;
-  const { x } = bounds;
-  const { y } = bounds;
-  const w = bounds.width;
-  const h = bounds.height;
-  const cx = bounds.getCenterX();
-  const cy = bounds.getCenterY();
-  const px = next.x;
-  const py = next.y;
-  const dx = px - cx;
-  const dy = py - cy;
-  const alpha = -Math.atan2(dy, dx);
-  const pi = Math.PI;
-  const pi2 = Math.PI / 2;
-  let result = new Point(cx, cy);
-  const direction = ((_a = vertex == null ? void 0 : vertex.style) == null ? void 0 : _a.direction) ?? DIRECTION.EAST;
-  const vertical = direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH;
-  let a = new Point();
-  let b = new Point();
-  if (px < x && py < y || px < x && py > y + h || px > x + w && py < y || px > x + w && py > y + h) {
-    orthogonal = false;
-  }
-  if (orthogonal) {
-    if (vertical) {
-      if (px === cx) {
-        if (py <= y) {
-          return new Point(cx, y);
-        }
-        if (py >= y + h) {
-          return new Point(cx, y + h);
-        }
-      } else if (px < x) {
-        if (py === y + h / 4) {
-          return new Point(x, y + h / 4);
-        }
-        if (py === y + 3 * h / 4) {
-          return new Point(x, y + 3 * h / 4);
-        }
-      } else if (px > x + w) {
-        if (py === y + h / 4) {
-          return new Point(x + w, y + h / 4);
-        }
-        if (py === y + 3 * h / 4) {
-          return new Point(x + w, y + 3 * h / 4);
-        }
-      } else if (px === x) {
-        if (py < cy) {
-          return new Point(x, y + h / 4);
-        }
-        if (py > cy) {
-          return new Point(x, y + 3 * h / 4);
-        }
-      } else if (px === x + w) {
-        if (py < cy) {
-          return new Point(x + w, y + h / 4);
-        }
-        if (py > cy) {
-          return new Point(x + w, y + 3 * h / 4);
-        }
-      }
-      if (py === y) {
-        return new Point(cx, y);
-      }
-      if (py === y + h) {
-        return new Point(cx, y + h);
-      }
-      if (px < cx) {
-        if (py > y + h / 4 && py < y + 3 * h / 4) {
-          a = new Point(x, y);
-          b = new Point(x, y + h);
-        } else if (py < y + h / 4) {
-          a = new Point(x - Math.floor(0.5 * w), y + Math.floor(0.5 * h));
-          b = new Point(x + w, y - Math.floor(0.25 * h));
-        } else if (py > y + 3 * h / 4) {
-          a = new Point(x - Math.floor(0.5 * w), y + Math.floor(0.5 * h));
-          b = new Point(x + w, y + Math.floor(1.25 * h));
-        }
-      } else if (px > cx) {
-        if (py > y + h / 4 && py < y + 3 * h / 4) {
-          a = new Point(x + w, y);
-          b = new Point(x + w, y + h);
-        } else if (py < y + h / 4) {
-          a = new Point(x, y - Math.floor(0.25 * h));
-          b = new Point(x + Math.floor(1.5 * w), y + Math.floor(0.5 * h));
-        } else if (py > y + 3 * h / 4) {
-          a = new Point(x + Math.floor(1.5 * w), y + Math.floor(0.5 * h));
-          b = new Point(x, y + Math.floor(1.25 * h));
-        }
-      }
-    } else {
-      if (py === cy) {
-        if (px <= x) {
-          return new Point(x, y + h / 2);
-        }
-        if (px >= x + w) {
-          return new Point(x + w, y + h / 2);
-        }
-      } else if (py < y) {
-        if (px === x + w / 4) {
-          return new Point(x + w / 4, y);
-        }
-        if (px === x + 3 * w / 4) {
-          return new Point(x + 3 * w / 4, y);
-        }
-      } else if (py > y + h) {
-        if (px === x + w / 4) {
-          return new Point(x + w / 4, y + h);
-        }
-        if (px === x + 3 * w / 4) {
-          return new Point(x + 3 * w / 4, y + h);
-        }
-      } else if (py === y) {
-        if (px < cx) {
-          return new Point(x + w / 4, y);
-        }
-        if (px > cx) {
-          return new Point(x + 3 * w / 4, y);
-        }
-      } else if (py === y + h) {
-        if (px < cx) {
-          return new Point(x + w / 4, y + h);
-        }
-        if (py > cy) {
-          return new Point(x + 3 * w / 4, y + h);
-        }
-      }
-      if (px === x) {
-        return new Point(x, cy);
-      }
-      if (px === x + w) {
-        return new Point(x + w, cy);
-      }
-      if (py < cy) {
-        if (px > x + w / 4 && px < x + 3 * w / 4) {
-          a = new Point(x, y);
-          b = new Point(x + w, y);
-        } else if (px < x + w / 4) {
-          a = new Point(x - Math.floor(0.25 * w), y + h);
-          b = new Point(x + Math.floor(0.5 * w), y - Math.floor(0.5 * h));
-        } else if (px > x + 3 * w / 4) {
-          a = new Point(x + Math.floor(0.5 * w), y - Math.floor(0.5 * h));
-          b = new Point(x + Math.floor(1.25 * w), y + h);
-        }
-      } else if (py > cy) {
-        if (px > x + w / 4 && px < x + 3 * w / 4) {
-          a = new Point(x, y + h);
-          b = new Point(x + w, y + h);
-        } else if (px < x + w / 4) {
-          a = new Point(x - Math.floor(0.25 * w), y);
-          b = new Point(x + Math.floor(0.5 * w), y + Math.floor(1.5 * h));
-        } else if (px > x + 3 * w / 4) {
-          a = new Point(x + Math.floor(0.5 * w), y + Math.floor(1.5 * h));
-          b = new Point(x + Math.floor(1.25 * w), y);
-        }
-      }
-    }
-    let tx = cx;
-    let ty = cy;
-    if (px >= x && px <= x + w) {
-      tx = px;
-      if (py < cy) {
-        ty = y + h;
-      } else {
-        ty = y;
-      }
-    } else if (py >= y && py <= y + h) {
-      ty = py;
-      if (px < cx) {
-        tx = x + w;
-      } else {
-        tx = x;
-      }
-    }
-    result = intersection(tx, ty, next.x, next.y, a.x, a.y, b.x, b.y);
-  } else {
-    if (vertical) {
-      const beta = Math.atan2(h / 4, w / 2);
-      if (alpha === beta) {
-        return new Point(x + w, y + Math.floor(0.25 * h));
-      }
-      if (alpha === pi2) {
-        return new Point(x + Math.floor(0.5 * w), y);
-      }
-      if (alpha === pi - beta) {
-        return new Point(x, y + Math.floor(0.25 * h));
-      }
-      if (alpha === -beta) {
-        return new Point(x + w, y + Math.floor(0.75 * h));
-      }
-      if (alpha === -pi2) {
-        return new Point(x + Math.floor(0.5 * w), y + h);
-      }
-      if (alpha === -pi + beta) {
-        return new Point(x, y + Math.floor(0.75 * h));
-      }
-      if (alpha < beta && alpha > -beta) {
-        a = new Point(x + w, y);
-        b = new Point(x + w, y + h);
-      } else if (alpha > beta && alpha < pi2) {
-        a = new Point(x, y - Math.floor(0.25 * h));
-        b = new Point(x + Math.floor(1.5 * w), y + Math.floor(0.5 * h));
-      } else if (alpha > pi2 && alpha < pi - beta) {
-        a = new Point(x - Math.floor(0.5 * w), y + Math.floor(0.5 * h));
-        b = new Point(x + w, y - Math.floor(0.25 * h));
-      } else if (alpha > pi - beta && alpha <= pi || alpha < -pi + beta && alpha >= -pi) {
-        a = new Point(x, y);
-        b = new Point(x, y + h);
-      } else if (alpha < -beta && alpha > -pi2) {
-        a = new Point(x + Math.floor(1.5 * w), y + Math.floor(0.5 * h));
-        b = new Point(x, y + Math.floor(1.25 * h));
-      } else if (alpha < -pi2 && alpha > -pi + beta) {
-        a = new Point(x - Math.floor(0.5 * w), y + Math.floor(0.5 * h));
-        b = new Point(x + w, y + Math.floor(1.25 * h));
-      }
-    } else {
-      const beta = Math.atan2(h / 2, w / 4);
-      if (alpha === beta) {
-        return new Point(x + Math.floor(0.75 * w), y);
-      }
-      if (alpha === pi - beta) {
-        return new Point(x + Math.floor(0.25 * w), y);
-      }
-      if (alpha === pi || alpha === -pi) {
-        return new Point(x, y + Math.floor(0.5 * h));
-      }
-      if (alpha === 0) {
-        return new Point(x + w, y + Math.floor(0.5 * h));
-      }
-      if (alpha === -beta) {
-        return new Point(x + Math.floor(0.75 * w), y + h);
-      }
-      if (alpha === -pi + beta) {
-        return new Point(x + Math.floor(0.25 * w), y + h);
-      }
-      if (alpha > 0 && alpha < beta) {
-        a = new Point(x + Math.floor(0.5 * w), y - Math.floor(0.5 * h));
-        b = new Point(x + Math.floor(1.25 * w), y + h);
-      } else if (alpha > beta && alpha < pi - beta) {
-        a = new Point(x, y);
-        b = new Point(x + w, y);
-      } else if (alpha > pi - beta && alpha < pi) {
-        a = new Point(x - Math.floor(0.25 * w), y + h);
-        b = new Point(x + Math.floor(0.5 * w), y - Math.floor(0.5 * h));
-      } else if (alpha < 0 && alpha > -beta) {
-        a = new Point(x + Math.floor(0.5 * w), y + Math.floor(1.5 * h));
-        b = new Point(x + Math.floor(1.25 * w), y);
-      } else if (alpha < -beta && alpha > -pi + beta) {
-        a = new Point(x, y + h);
-        b = new Point(x + w, y + h);
-      } else if (alpha < -pi + beta && alpha > -pi) {
-        a = new Point(x - Math.floor(0.25 * w), y);
-        b = new Point(x + Math.floor(0.5 * w), y + Math.floor(1.5 * h));
-      }
-    }
-    result = intersection(cx, cy, next.x, next.y, a.x, a.y, b.x, b.y);
-  }
-  if (result == null) {
-    return new Point(cx, cy);
-  }
-  return result;
-};
-const RectanglePerimeter = (bounds, _vertex, next, orthogonal = false) => {
-  const cx = bounds.getCenterX();
-  const cy = bounds.getCenterY();
-  const dx = next.x - cx;
-  const dy = next.y - cy;
-  const alpha = Math.atan2(dy, dx);
-  const p = new Point(0, 0);
-  const pi = Math.PI;
-  const pi2 = Math.PI / 2;
-  const beta = pi2 - alpha;
-  const t = Math.atan2(bounds.height, bounds.width);
-  if (alpha < -pi + t || alpha > pi - t) {
-    p.x = bounds.x;
-    p.y = cy - bounds.width * Math.tan(alpha) / 2;
-  } else if (alpha < -t) {
-    p.y = bounds.y;
-    p.x = cx - bounds.height * Math.tan(beta) / 2;
-  } else if (alpha < t) {
-    p.x = bounds.x + bounds.width;
-    p.y = cy + bounds.width * Math.tan(alpha) / 2;
-  } else {
-    p.y = bounds.y + bounds.height;
-    p.x = cx + bounds.height * Math.tan(beta) / 2;
-  }
-  if (orthogonal) {
-    if (next.x >= bounds.x && next.x <= bounds.x + bounds.width) {
-      p.x = next.x;
-    } else if (next.y >= bounds.y && next.y <= bounds.y + bounds.height) {
-      p.y = next.y;
-    }
-    if (next.x < bounds.x) {
-      p.x = bounds.x;
-    } else if (next.x > bounds.x + bounds.width) {
-      p.x = bounds.x + bounds.width;
-    }
-    if (next.y < bounds.y) {
-      p.y = bounds.y;
-    } else if (next.y > bounds.y + bounds.height) {
-      p.y = bounds.y + bounds.height;
-    }
-  }
-  return p;
-};
-const RhombusPerimeter = (bounds, _vertex, next, orthogonal = false) => {
-  const { x } = bounds;
-  const { y } = bounds;
-  const w = bounds.width;
-  const h = bounds.height;
-  const cx = x + w / 2;
-  const cy = y + h / 2;
-  const px = next.x;
-  const py = next.y;
-  if (cx === px) {
-    if (cy > py) {
-      return new Point(cx, y);
-    }
-    return new Point(cx, y + h);
-  }
-  if (cy === py) {
-    if (cx > px) {
-      return new Point(x, cy);
-    }
-    return new Point(x + w, cy);
-  }
-  let tx = cx;
-  let ty = cy;
-  if (orthogonal) {
-    if (px >= x && px <= x + w) {
-      tx = px;
-    } else if (py >= y && py <= y + h) {
-      ty = py;
-    }
-  }
-  if (px < cx) {
-    if (py < cy) {
-      return intersection(px, py, tx, ty, cx, y, x, cy);
-    }
-    return intersection(px, py, tx, ty, cx, y + h, x, cy);
-  }
-  if (py < cy) {
-    return intersection(px, py, tx, ty, cx, y, x + w, cy);
-  }
-  return intersection(px, py, tx, ty, cx, y + h, x + w, cy);
-};
-const TrianglePerimeter = (bounds, vertex, next, orthogonal = false) => {
-  const direction = vertex != null ? vertex.style.direction : null;
-  const vertical = direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH;
-  const { x } = bounds;
-  const { y } = bounds;
-  const w = bounds.width;
-  const h = bounds.height;
-  let cx = x + w / 2;
-  let cy = y + h / 2;
-  let start = new Point(x, y);
-  let corner = new Point(x + w, cy);
-  let end = new Point(x, y + h);
-  if (direction === DIRECTION.NORTH) {
-    start = end;
-    corner = new Point(cx, y);
-    end = new Point(x + w, y + h);
-  } else if (direction === DIRECTION.SOUTH) {
-    corner = new Point(cx, y + h);
-    end = new Point(x + w, y);
-  } else if (direction === DIRECTION.WEST) {
-    start = new Point(x + w, y);
-    corner = new Point(x, cy);
-    end = new Point(x + w, y + h);
-  }
-  let dx = next.x - cx;
-  let dy = next.y - cy;
-  const alpha = vertical ? Math.atan2(dx, dy) : Math.atan2(dy, dx);
-  const t = vertical ? Math.atan2(w, h) : Math.atan2(h, w);
-  let base = false;
-  if (direction === DIRECTION.NORTH || direction === DIRECTION.WEST) {
-    base = alpha > -t && alpha < t;
-  } else {
-    base = alpha < -Math.PI + t || alpha > Math.PI - t;
-  }
-  let result = null;
-  if (base) {
-    if (orthogonal && (vertical && next.x >= start.x && next.x <= end.x || !vertical && next.y >= start.y && next.y <= end.y)) {
-      if (vertical) {
-        result = new Point(next.x, start.y);
-      } else {
-        result = new Point(start.x, next.y);
-      }
-    } else if (direction === DIRECTION.NORTH) {
-      result = new Point(x + w / 2 + h * Math.tan(alpha) / 2, y + h);
-    } else if (direction === DIRECTION.SOUTH) {
-      result = new Point(x + w / 2 - h * Math.tan(alpha) / 2, y);
-    } else if (direction === DIRECTION.WEST) {
-      result = new Point(x + w, y + h / 2 + w * Math.tan(alpha) / 2);
-    } else {
-      result = new Point(x, y + h / 2 - w * Math.tan(alpha) / 2);
-    }
-  } else {
-    if (orthogonal) {
-      const pt = new Point(cx, cy);
-      if (next.y >= y && next.y <= y + h) {
-        pt.x = vertical ? cx : direction === DIRECTION.WEST ? x + w : x;
-        pt.y = next.y;
-      } else if (next.x >= x && next.x <= x + w) {
-        pt.x = next.x;
-        pt.y = !vertical ? cy : direction === DIRECTION.NORTH ? y + h : y;
-      }
-      dx = next.x - pt.x;
-      dy = next.y - pt.y;
-      cx = pt.x;
-      cy = pt.y;
-    }
-    if (vertical && next.x <= x + w / 2 || !vertical && next.y <= y + h / 2) {
-      result = intersection(next.x, next.y, cx, cy, start.x, start.y, corner.x, corner.y);
-    } else {
-      result = intersection(next.x, next.y, cx, cy, corner.x, corner.y, end.x, end.y);
-    }
-  }
-  if (result == null) {
-    result = new Point(cx, cy);
-  }
-  return result;
-};
-const Perimeter = {
-  /**
-   * Describes a rectangular perimeter.
-   */
-  RectanglePerimeter,
-  /**
-   * Describes an elliptic perimeter.
-   */
-  EllipsePerimeter,
-  /**
-   * Describes a rhombus (aka diamond) perimeter.
-   */
-  RhombusPerimeter,
-  /**
-   * Describes a triangle perimeter.
-   */
-  TrianglePerimeter,
-  /**
-   * Describes a hexagon perimeter.
-   */
-  HexagonPerimeter
-};
-const createArrow = (widthFactor) => (canvas, _shape, type, pe, unitX, unitY, size, _source, sw, filled) => {
-  const endOffsetX = unitX * sw * 1.118;
-  const endOffsetY = unitY * sw * 1.118;
-  unitX *= size + sw;
-  unitY *= size + sw;
-  const pt = pe.clone();
-  pt.x -= endOffsetX;
-  pt.y -= endOffsetY;
-  const f = type !== ARROW.CLASSIC && type !== ARROW.CLASSIC_THIN ? 1 : 3 / 4;
-  pe.x += -unitX * f - endOffsetX;
-  pe.y += -unitY * f - endOffsetY;
-  return () => {
-    canvas.begin();
-    canvas.moveTo(pt.x, pt.y);
-    canvas.lineTo(pt.x - unitX - unitY / widthFactor, pt.y - unitY + unitX / widthFactor);
-    if (type === ARROW.CLASSIC || type === ARROW.CLASSIC_THIN) {
-      canvas.lineTo(pt.x - unitX * 3 / 4, pt.y - unitY * 3 / 4);
-    }
-    canvas.lineTo(pt.x + unitY / widthFactor - unitX, pt.y - unitY - unitX / widthFactor);
-    canvas.close();
-    if (filled) {
-      canvas.fillAndStroke();
-    } else {
-      canvas.stroke();
-    }
-  };
-};
-const createOpenArrow = (widthFactor) => (canvas, _shape, _type, pe, unitX, unitY, size, _source, sw, _filled) => {
-  const endOffsetX = unitX * sw * 1.118;
-  const endOffsetY = unitY * sw * 1.118;
-  unitX *= size + sw;
-  unitY *= size + sw;
-  const pt = pe.clone();
-  pt.x -= endOffsetX;
-  pt.y -= endOffsetY;
-  pe.x += -endOffsetX * 2;
-  pe.y += -endOffsetY * 2;
-  return () => {
-    canvas.begin();
-    canvas.moveTo(pt.x - unitX - unitY / widthFactor, pt.y - unitY + unitX / widthFactor);
-    canvas.lineTo(pt.x, pt.y);
-    canvas.lineTo(pt.x + unitY / widthFactor - unitX, pt.y - unitY - unitX / widthFactor);
-    canvas.stroke();
-  };
-};
-const oval = (canvas, _shape, _type, pe, unitX, unitY, size, _source, _sw, filled) => {
-  const a = size / 2;
-  const pt = pe.clone();
-  pe.x -= unitX * a;
-  pe.y -= unitY * a;
-  return () => {
-    canvas.ellipse(pt.x - a, pt.y - a, size, size);
-    if (filled) {
-      canvas.fillAndStroke();
-    } else {
-      canvas.stroke();
-    }
-  };
-};
-const diamond = (canvas, _shape, type, pe, unitX, unitY, size, _source, sw, filled) => {
-  const swFactor = type === ARROW.DIAMOND ? 0.7071 : 0.9862;
-  const endOffsetX = unitX * sw * swFactor;
-  const endOffsetY = unitY * sw * swFactor;
-  unitX *= size + sw;
-  unitY *= size + sw;
-  const pt = pe.clone();
-  pt.x -= endOffsetX;
-  pt.y -= endOffsetY;
-  pe.x += -unitX - endOffsetX;
-  pe.y += -unitY - endOffsetY;
-  const tk = type === ARROW.DIAMOND ? 2 : 3.4;
-  return () => {
-    canvas.begin();
-    canvas.moveTo(pt.x, pt.y);
-    canvas.lineTo(pt.x - unitX / 2 - unitY / tk, pt.y + unitX / tk - unitY / 2);
-    canvas.lineTo(pt.x - unitX, pt.y - unitY);
-    canvas.lineTo(pt.x - unitX / 2 + unitY / tk, pt.y - unitY / 2 - unitX / tk);
-    canvas.close();
-    if (filled) {
-      canvas.fillAndStroke();
-    } else {
-      canvas.stroke();
-    }
-  };
-};
-const edgeMarkers = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  createArrow,
-  createOpenArrow,
-  diamond,
-  oval
-}, Symbol.toStringTag, { value: "Module" }));
 let isDefaultEdgeStylesRegistered = false;
 const registerDefaultEdgeStyles = () => {
   if (!isDefaultEdgeStylesRegistered) {
     const edgeStylesToRegister = [
-      [EDGESTYLE.ELBOW, EdgeStyle.ElbowConnector],
-      [EDGESTYLE.ENTITY_RELATION, EdgeStyle.EntityRelation],
-      [EDGESTYLE.LOOP, EdgeStyle.Loop],
-      [EDGESTYLE.MANHATTAN, EdgeStyle.ManhattanConnector],
-      [EDGESTYLE.ORTHOGONAL, EdgeStyle.OrthConnector],
-      [EDGESTYLE.SEGMENT, EdgeStyle.SegmentConnector],
-      [EDGESTYLE.SIDETOSIDE, EdgeStyle.SideToSide],
-      [EDGESTYLE.TOPTOBOTTOM, EdgeStyle.TopToBottom]
+      ["elbowEdgeStyle", ElbowConnector],
+      ["entityRelationEdgeStyle", EntityRelation],
+      ["loopEdgeStyle", Loop],
+      ["manhattanEdgeStyle", ManhattanConnector],
+      ["orthogonalEdgeStyle", OrthogonalConnector],
+      ["segmentEdgeStyle", SegmentConnector],
+      ["sideToSideEdgeStyle", SideToSide],
+      ["topToBottomEdgeStyle", TopToBottom]
     ];
     for (const [name, edgeStyle] of edgeStylesToRegister) {
       StyleRegistry.putValue(name, edgeStyle);
@@ -23931,11 +23920,11 @@ let isDefaultPerimetersRegistered = false;
 const registerDefaultPerimeters = () => {
   if (!isDefaultPerimetersRegistered) {
     const perimetersToRegister = [
-      [PERIMETER.ELLIPSE, Perimeter.EllipsePerimeter],
-      [PERIMETER.HEXAGON, Perimeter.HexagonPerimeter],
-      [PERIMETER.RECTANGLE, Perimeter.RectanglePerimeter],
-      [PERIMETER.RHOMBUS, Perimeter.RhombusPerimeter],
-      [PERIMETER.TRIANGLE, Perimeter.TrianglePerimeter]
+      ["ellipsePerimeter", EllipsePerimeter],
+      ["hexagonPerimeter", HexagonPerimeter],
+      ["rectanglePerimeter", RectanglePerimeter],
+      ["rhombusPerimeter", RhombusPerimeter],
+      ["trianglePerimeter", TrianglePerimeter]
     ];
     for (const [name, perimeter] of perimetersToRegister) {
       StyleRegistry.putValue(name, perimeter);
@@ -24829,15 +24818,15 @@ class SelectionCellsHandler extends EventSource {
   updateHandler(state) {
     let handler = this.handlers.remove(state.cell);
     if (handler) {
-      const { index } = handler;
+      const { index: index2 } = handler;
       const x = handler.startX;
       const y = handler.startY;
       handler.onDestroy();
       handler = this.graph.createHandler(state);
       if (handler) {
         this.handlers.put(state.cell, handler);
-        if (index !== null) {
-          handler.start(x, y, index);
+        if (index2 !== null) {
+          handler.start(x, y, index2);
         }
       }
     }
@@ -26238,7 +26227,7 @@ class ConnectionHandler extends EventSource {
           }
           parent = source.getParent();
           if (this.isInsertBefore(edge, source, target, evt, dropTarget)) {
-            const index = null;
+            const index2 = null;
             let tmp = source;
             while (tmp && tmp.parent != null && tmp.geometry != null && tmp.geometry.relative && tmp.parent !== edge.parent) {
               tmp = tmp.getParent();
@@ -29353,8 +29342,8 @@ class PrintPreview {
         }
       }
       if (apx) {
-        for (const [index, page] of apx.entries()) {
-          addPage(page, index < apx.length - 1);
+        for (const [index2, page] of apx.entries()) {
+          addPage(page, index2 < apx.length - 1);
         }
       }
       if (isNewWindow && !keepOpen) {
@@ -33093,15 +33082,15 @@ class MaxWindow extends EventSource {
   activate() {
     if (activeWindow !== this) {
       const style = getCurrentStyle(this.getElement());
-      const index = style != null ? parseInt(style.zIndex) : 3;
+      const index2 = style != null ? parseInt(style.zIndex) : 3;
       if (activeWindow) {
         const elt = activeWindow.getElement();
         if (elt == null ? void 0 : elt.style) {
-          elt.style.zIndex = String(index);
+          elt.style.zIndex = String(index2);
         }
       }
       const previousWindow = activeWindow;
-      this.getElement().style.zIndex = String(index + 1);
+      this.getElement().style.zIndex = String(index2 + 1);
       activeWindow = this;
       this.fireEvent(new EventObject(InternalEvent.ACTIVATE, { previousWindow }));
     }
@@ -36123,9 +36112,9 @@ class MxFastOrganicLayout extends GraphLayout {
             this.setEdgeStyleEnabled(edges[j], false);
           }
           const id = ObjectIdentity.get(cells[j]);
-          const index = this.indices[id];
-          if (index != null) {
-            this.neighbours[i][j] = index;
+          const index2 = this.indices[id];
+          if (index2 != null) {
+            this.neighbours[i][j] = index2;
           } else {
             this.neighbours[i][j] = i;
           }
@@ -36184,18 +36173,18 @@ class MxFastOrganicLayout extends GraphLayout {
    * temperature.
    */
   calcPositions() {
-    for (let index = 0; index < this.vertexArray.length; index += 1) {
-      if (this.isMoveable[index]) {
-        let deltaLength = Math.sqrt(this.dispX[index] * this.dispX[index] + this.dispY[index] * this.dispY[index]);
+    for (let index2 = 0; index2 < this.vertexArray.length; index2 += 1) {
+      if (this.isMoveable[index2]) {
+        let deltaLength = Math.sqrt(this.dispX[index2] * this.dispX[index2] + this.dispY[index2] * this.dispY[index2]);
         if (deltaLength < 1e-3) {
           deltaLength = 1e-3;
         }
-        const newXDisp = this.dispX[index] / deltaLength * Math.min(deltaLength, this.temperature);
-        const newYDisp = this.dispY[index] / deltaLength * Math.min(deltaLength, this.temperature);
-        this.dispX[index] = 0;
-        this.dispY[index] = 0;
-        this.cellLocation[index][0] += newXDisp;
-        this.cellLocation[index][1] += newYDisp;
+        const newXDisp = this.dispX[index2] / deltaLength * Math.min(deltaLength, this.temperature);
+        const newYDisp = this.dispY[index2] / deltaLength * Math.min(deltaLength, this.temperature);
+        this.dispX[index2] = 0;
+        this.dispY[index2] = 0;
+        this.cellLocation[index2][0] += newXDisp;
+        this.cellLocation[index2][1] += newYDisp;
       }
     }
   }
@@ -37430,8 +37419,8 @@ class MedianHybridCrossingReduction extends HierarchicalLayoutStage {
       tree[j] = 0;
     }
     for (let j = 0; j < indices.length; j += 1) {
-      const index = indices[j];
-      let treeIndex = index + firstIndex;
+      const index2 = indices[j];
+      let treeIndex = index2 + firstIndex;
       ++tree[treeIndex];
       while (treeIndex > 0) {
         if (treeIndex % 2) {
@@ -40793,6 +40782,7 @@ const StencilShapeConfig = {
    */
   defaultLocalized: false
 };
+const toBoolean = (value) => value !== "0";
 class StencilShape extends Shape {
   constructor(desc) {
     super();
@@ -41025,7 +41015,7 @@ class StencilShape extends Shape {
       } else if (name === "curve") {
         canvas.curveTo(x0 + Number(node.getAttribute("x1")) * sx, y0 + Number(node.getAttribute("y1")) * sy, x0 + Number(node.getAttribute("x2")) * sx, y0 + Number(node.getAttribute("y2")) * sy, x0 + Number(node.getAttribute("x3")) * sx, y0 + Number(node.getAttribute("y3")) * sy);
       } else if (name === "arc") {
-        canvas.arcTo(Number(node.getAttribute("rx")) * sx, Number(node.getAttribute("ry")) * sy, Number(node.getAttribute("x-axis-rotation")), Boolean(node.getAttribute("large-arc-flag")), Boolean(node.getAttribute("sweep-flag")), x0 + Number(node.getAttribute("x")) * sx, y0 + Number(node.getAttribute("y")) * sy);
+        canvas.arcTo(Number(node.getAttribute("rx")) * sx, Number(node.getAttribute("ry")) * sy, Number(node.getAttribute("x-axis-rotation")), toBoolean(node.getAttribute("large-arc-flag")), toBoolean(node.getAttribute("sweep-flag")), x0 + Number(node.getAttribute("x")) * sx, y0 + Number(node.getAttribute("y")) * sy);
       } else if (name === "rect") {
         canvas.rect(x0 + Number(node.getAttribute("x")) * sx, y0 + Number(node.getAttribute("y")) * sy, Number(node.getAttribute("w")) * sx, Number(node.getAttribute("h")) * sy);
       } else if (name === "roundrect") {
@@ -41307,14 +41297,14 @@ Translations.parse = (text) => {
     const lines = text.split("\n");
     for (let i = 0; i < lines.length; i += 1) {
       if (lines[i].charAt(0) !== "#") {
-        const index = lines[i].indexOf("=");
-        if (index > 0) {
-          const key = lines[i].substring(0, index);
+        const index2 = lines[i].indexOf("=");
+        if (index2 > 0) {
+          const key = lines[i].substring(0, index2);
           let idx = lines[i].length;
           if (lines[i].charCodeAt(idx - 1) === 13) {
             idx--;
           }
-          let value = lines[i].substring(index + 1, idx);
+          let value = lines[i].substring(index2 + 1, idx);
           if (Translations.resourcesEncoded) {
             value = value.replace(/\\(?=u[a-fA-F\d]{4})/g, "%");
             Translations.resources[key] = unescape(value);
@@ -41338,19 +41328,19 @@ Translations.get = (key = null, params = null, defaultValue = null) => {
 };
 Translations.replacePlaceholders = (value, params) => {
   const result = [];
-  let index = null;
+  let index2 = null;
   for (let i = 0; i < value.length; i += 1) {
     const c = value.charAt(i);
     if (c === "{") {
-      index = "";
-    } else if (index != null && c === "}") {
-      index = parseInt(index) - 1;
-      if (index >= 0 && index < params.length) {
-        result.push(params[index]);
+      index2 = "";
+    } else if (index2 != null && c === "}") {
+      index2 = parseInt(index2) - 1;
+      if (index2 >= 0 && index2 < params.length) {
+        result.push(params[index2]);
       }
-      index = null;
-    } else if (index != null) {
-      index += c;
+      index2 = null;
+    } else if (index2 != null) {
+      index2 += c;
     } else {
       result.push(c);
     }
@@ -45659,7 +45649,7 @@ exports.EdgeHandlerConfig = EdgeHandlerConfig;
 exports.EdgeLabelLayout = EdgeLabelLayout;
 exports.EdgeMarker = edgeMarkers;
 exports.EdgeSegmentHandler = EdgeSegmentHandler;
-exports.EdgeStyle = EdgeStyle;
+exports.EdgeStyle = index$1;
 exports.Editor = Editor;
 exports.EditorCodec = EditorCodec;
 exports.EditorKeyHandler = EditorKeyHandler;
@@ -45731,7 +45721,7 @@ exports.PanningHandler = PanningHandler;
 exports.PanningManager = PanningManager;
 exports.ParallelEdgeLayout = ParallelEdgeLayout;
 exports.PartitionLayout = PartitionLayout;
-exports.Perimeter = Perimeter;
+exports.Perimeter = index;
 exports.Point = Point;
 exports.PolylineShape = PolylineShape;
 exports.PopupMenuHandler = PopupMenuHandler;
