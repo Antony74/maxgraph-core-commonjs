@@ -9,9 +9,7 @@ export const maxGraphToSvg = async (
     graph: Graph,
     options?: MaxGraphToSvgOptions,
 ): Promise<string> => {
-    const container = graph.container;
-
-    const orig = container.innerHTML;
+    const container = graph.container.cloneNode(true) as typeof graph.container; // https://github.com/microsoft/TypeScript/issues/283
 
     const inlineImages: boolean =
         (options ?? { inlineImages: false }).inlineImages ?? false;
@@ -34,8 +32,6 @@ export const maxGraphToSvg = async (
         `<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">`,
         container.innerHTML,
     ].join('\n');
-
-    container.innerHTML = orig;
 
     return xml;
 };
