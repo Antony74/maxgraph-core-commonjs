@@ -2,14 +2,16 @@ import fsp from 'fs/promises';
 import mime from 'mime-types';
 
 export const inlineImage = async (image: SVGImageElement): Promise<void> => {
-    let path = image.getAttribute('xlink:href') ?? '';
+    const path = image.getAttribute('xlink:href') ?? '';
 
     let isFile = false;
 
     try {
         const url = new URL(path);
         isFile = url.protocol === 'file:';
-    } catch (_e) {}
+    } catch (_e) {
+        // It's not a file:// url if it's not a url at all
+    }
 
     let buffer: ArrayBufferLike;
 
