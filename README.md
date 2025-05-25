@@ -1,8 +1,16 @@
 # maxgraph-core-commonjs
 
+## ⚠️ DEPRECATION NOTICE
+
+> maxgraph-core-commonjs should no longer be needed, as [@maxgraph/core](https://www.npmjs.com/package/@maxgraph/core) from [version 0.20.0](https://github.com/maxGraph/maxGraph/releases/tag/v0.20.0) supports CommonJS out of the box.
+>
+> The additional support for creating portable .svg files can now be found in my new package [svg-inline-images](https://www.npmjs.com/package/svg-inline-images)
+>
+> Thank you
+
 CommonJS build of [@maxgraph/core](https://www.npmjs.com/package/@maxgraph/core) enabling easier headless (nodejs) use.
 
-maxgraph can be used to generate graph diagrams with a very high standard of visual quality.  CommonJS builds are the norm for nodejs, and run without any configuration.  maxgraph is an ESM package, which is ideal for the web.  Although it's not too fiddly to get node to run ESM, this would deprive us of the opportunity to self-document large existing node/CommonJS codebases with attractive and informative maxgraph diagrams generated from in-program metadata.
+maxgraph can be used to generate graph diagrams with a very high standard of visual quality. CommonJS builds are the norm for nodejs, and run without any configuration. maxgraph is an ESM package, which is ideal for the web. Although it's not too fiddly to get node to run ESM, this would deprive us of the opportunity to self-document large existing node/CommonJS codebases with attractive and informative maxgraph diagrams generated from in-program metadata.
 
 In this package, vite has been used to build maxgraph for CommonJS.
 
@@ -10,7 +18,7 @@ To further aid headless use, maxgraph-core-commonjs also exposes an additional h
 
 ## Headless install
 
-[@maxgraph/core](https://www.npmjs.com/package/@maxgraph/core) depends on the html Document Object Model (dom), so in order to use it headlessly we will also need `jsdom` and `jsdom-global`.  Should we also want to convert svg output to another image format, then a package such as `@resvg/resvg-js` will also be required:
+[@maxgraph/core](https://www.npmjs.com/package/@maxgraph/core) depends on the html Document Object Model (dom), so in order to use it headlessly we will also need `jsdom` and `jsdom-global`. Should we also want to convert svg output to another image format, then a package such as `@resvg/resvg-js` will also be required:
 
     npm install maxgraph-core-commonjs jsdom jsdom-global @resvg/resvg-js
 
@@ -24,7 +32,7 @@ This example is taken from the maxgraph README, and modified by adding a call to
 
 The resulting script generates the familiar example maxgraph-generated vector diagram, and outputs it both as an .svg and a .png file.
 
-``` typescript
+```typescript
 import { Resvg } from '@resvg/resvg-js';
 import fsp from 'fs/promises';
 
@@ -95,9 +103,9 @@ https://github.com/Antony74/evolution-of-fantasy
 
 ## maxGraphToSvg
 
-```` typescript
+```typescript
 maxGraphToSvg(graph: Graph, options?: MaxGraphToSvgOptions): Promise<string>
-````
+```
 
 Converts a maxgraph `Graph` instance into a standalone SVG `string`.
 
@@ -105,17 +113,17 @@ If `options.inlineImages` is set to `true`, external images are inlined as base6
 
 **Parameters:**
 
-* **graph:** The MaxGraph instance to export.
+- **graph:** The MaxGraph instance to export.
 
-* **options (optional):** An object with currently a single option
+- **options (optional):** An object with currently a single option
 
     - **inlineImages?:** boolean to control whether images are embedded (or left as links).
 
 **Returns:** A Promise<string> resolving to the SVG XML string.
 
-**Example:** 
+**Example:**
 
-``` typescript
+```typescript
 const xml = await maxGraphToSvg(graph, { inlineImages: true });
 ```
 
