@@ -1,6 +1,6 @@
 {
     "name": "maxgraph-core-commonjs",
-    "version": "0.19.0",
+    "version": "0.20.0",
     "description": "CommonJS build of @maxgraph/core enabling easier headless use",
     "main": "dist/index.js",
     "scripts": {

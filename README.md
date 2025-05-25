@@ -1,5 +1,13 @@
 # maxgraph-core-commonjs
 
+## ⚠️ DEPRECATION NOTICE
+
+> maxgraph-core-commonjs should no longer be needed, as [@maxgraph/core](https://www.npmjs.com/package/@maxgraph/core) from [version 0.20.0](https://github.com/maxGraph/maxGraph/releases/tag/v0.20.0) supports CommonJS out of the box.
+>
+> The additional support for creating portable .svg files can now be found in my new package [svg-inline-images](https://www.npmjs.com/package/svg-inline-images)
+>
+> Thank you
+
 CommonJS build of [@maxgraph/core](https://www.npmjs.com/package/@maxgraph/core) enabling easier headless (nodejs) use.
 
 maxgraph can be used to generate graph diagrams with a very high standard of visual quality. CommonJS builds are the norm for nodejs, and run without any configuration. maxgraph is an ESM package, which is ideal for the web. Although it's not too fiddly to get node to run ESM, this would deprive us of the opportunity to self-document large existing node/CommonJS codebases with attractive and informative maxgraph diagrams generated from in-program metadata.
