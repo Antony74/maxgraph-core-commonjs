@@ -10,6 +10,19 @@ class ImageBox {
   }
 }
 class EventObject {
+  /**
+   * Constructs a new event object with the specified name. An optional
+   * sequence of key, value pairs can be appended to define properties.
+   *
+   * Example:
+   *
+   * ```javascript
+   * new EventObject("eventName", key1, val1, .., keyN, valN)
+   * ```
+   *
+   * @param name
+   * @param args
+   */
   constructor(name = "", ...args) {
     this.consumed = false;
     this.name = name;
@@ -144,23 +157,10 @@ class EventSource {
     }
   }
 }
-const VERSION = "0.19.0";
+const VERSION = "0.20.0";
 const DEFAULT_HOTSPOT = 0.3;
 const MIN_HOTSPOT_SIZE = 8;
 const MAX_HOTSPOT_SIZE = 0;
-var RENDERING_HINT;
-(function(RENDERING_HINT2) {
-  RENDERING_HINT2["EXACT"] = "exact";
-  RENDERING_HINT2["FASTER"] = "faster";
-  RENDERING_HINT2["FASTEST"] = "fastest";
-})(RENDERING_HINT || (RENDERING_HINT = {}));
-var DIALECT;
-(function(DIALECT2) {
-  DIALECT2["SVG"] = "svg";
-  DIALECT2["MIXEDHTML"] = "mixedHtml";
-  DIALECT2["PREFERHTML"] = "preferHtml";
-  DIALECT2["STRICTHTML"] = "strictHtml";
-})(DIALECT || (DIALECT = {}));
 const IDENTITY_FIELD_NAME = "mxObjectId";
 const NS_SVG = "http://www.w3.org/2000/svg";
 const NS_XLINK = "http://www.w3.org/1999/xlink";
@@ -168,21 +168,6 @@ const SHADOWCOLOR = "gray";
 const SHADOW_OFFSET_X = 2;
 const SHADOW_OFFSET_Y = 3;
 const SHADOW_OPACITY = 1;
-var NODETYPE;
-(function(NODETYPE2) {
-  NODETYPE2[NODETYPE2["ELEMENT"] = 1] = "ELEMENT";
-  NODETYPE2[NODETYPE2["ATTRIBUTE"] = 2] = "ATTRIBUTE";
-  NODETYPE2[NODETYPE2["TEXT"] = 3] = "TEXT";
-  NODETYPE2[NODETYPE2["CDATA"] = 4] = "CDATA";
-  NODETYPE2[NODETYPE2["ENTITY_REFERENCE"] = 5] = "ENTITY_REFERENCE";
-  NODETYPE2[NODETYPE2["ENTITY"] = 6] = "ENTITY";
-  NODETYPE2[NODETYPE2["PROCESSING_INSTRUCTION"] = 7] = "PROCESSING_INSTRUCTION";
-  NODETYPE2[NODETYPE2["COMMENT"] = 8] = "COMMENT";
-  NODETYPE2[NODETYPE2["DOCUMENT"] = 9] = "DOCUMENT";
-  NODETYPE2[NODETYPE2["DOCUMENTTYPE"] = 10] = "DOCUMENTTYPE";
-  NODETYPE2[NODETYPE2["DOCUMENT_FRAGMENT"] = 11] = "DOCUMENT_FRAGMENT";
-  NODETYPE2[NODETYPE2["NOTATION"] = 12] = "NOTATION";
-})(NODETYPE || (NODETYPE = {}));
 const TOOLTIP_VERTICAL_OFFSET = 16;
 const DEFAULT_VALID_COLOR = "#00FF00";
 const DEFAULT_INVALID_COLOR = "#FF0000";
@@ -191,16 +176,6 @@ const OUTLINE_HIGHLIGHT_STROKEWIDTH = 5;
 const HIGHLIGHT_STROKEWIDTH = 3;
 const HIGHLIGHT_SIZE = 2;
 const HIGHLIGHT_OPACITY = 100;
-var CURSOR;
-(function(CURSOR2) {
-  CURSOR2["MOVABLE_VERTEX"] = "move";
-  CURSOR2["MOVABLE_EDGE"] = "move";
-  CURSOR2["LABEL_HANDLE"] = "default";
-  CURSOR2["TERMINAL_HANDLE"] = "pointer";
-  CURSOR2["BEND_HANDLE"] = "crosshair";
-  CURSOR2["VIRTUAL_BEND_HANDLE"] = "crosshair";
-  CURSOR2["CONNECT"] = "pointer";
-})(CURSOR || (CURSOR = {}));
 const HIGHLIGHT_COLOR = "#00FF00";
 const CONNECT_TARGET_COLOR = "#0000FF";
 const INVALID_CONNECT_TARGET_COLOR = "#FF0000";
@@ -247,48 +222,16 @@ const PAGE_FORMAT_A4_LANDSCAPE = [0, 0, 1169, 827];
 const PAGE_FORMAT_LETTER_PORTRAIT = [0, 0, 850, 1100];
 const PAGE_FORMAT_LETTER_LANDSCAPE = [0, 0, 1100, 850];
 const NONE = "none";
-var FONT;
-(function(FONT2) {
-  FONT2[FONT2["BOLD"] = 1] = "BOLD";
-  FONT2[FONT2["ITALIC"] = 2] = "ITALIC";
-  FONT2[FONT2["UNDERLINE"] = 4] = "UNDERLINE";
-  FONT2[FONT2["STRIKETHROUGH"] = 8] = "STRIKETHROUGH";
-})(FONT || (FONT = {}));
-var ARROW;
-(function(ARROW2) {
-  ARROW2["CLASSIC"] = "classic";
-  ARROW2["CLASSIC_THIN"] = "classicThin";
-  ARROW2["BLOCK"] = "block";
-  ARROW2["BLOCK_THIN"] = "blockThin";
-  ARROW2["OPEN"] = "open";
-  ARROW2["OPEN_THIN"] = "openThin";
-  ARROW2["OVAL"] = "oval";
-  ARROW2["DIAMOND"] = "diamond";
-  ARROW2["DIAMOND_THIN"] = "diamondThin";
-})(ARROW || (ARROW = {}));
-var ALIGN;
-(function(ALIGN2) {
-  ALIGN2["LEFT"] = "left";
-  ALIGN2["CENTER"] = "center";
-  ALIGN2["RIGHT"] = "right";
-  ALIGN2["TOP"] = "top";
-  ALIGN2["MIDDLE"] = "middle";
-  ALIGN2["BOTTOM"] = "bottom";
-})(ALIGN || (ALIGN = {}));
-var DIRECTION;
-(function(DIRECTION2) {
-  DIRECTION2["NORTH"] = "north";
-  DIRECTION2["SOUTH"] = "south";
-  DIRECTION2["EAST"] = "east";
-  DIRECTION2["WEST"] = "west";
-})(DIRECTION || (DIRECTION = {}));
-var TEXT_DIRECTION;
-(function(TEXT_DIRECTION2) {
-  TEXT_DIRECTION2["DEFAULT"] = "";
-  TEXT_DIRECTION2["AUTO"] = "auto";
-  TEXT_DIRECTION2["LTR"] = "ltr";
-  TEXT_DIRECTION2["RTL"] = "rtl";
-})(TEXT_DIRECTION || (TEXT_DIRECTION = {}));
+const FONT_STYLE_MASK = {
+  /** for bold fonts. */
+  BOLD: 1,
+  /** for italic fonts. */
+  ITALIC: 2,
+  /** for underlined fonts. */
+  UNDERLINE: 4,
+  /** for strikethrough fonts. */
+  STRIKETHROUGH: 8
+};
 const DIRECTION_MASK = {
   /** No direction. */
   NONE: 0,
@@ -299,66 +242,28 @@ const DIRECTION_MASK = {
   /** All directions. */
   ALL: 15
 };
-var ELBOW;
-(function(ELBOW2) {
-  ELBOW2["VERTICAL"] = "vertical";
-  ELBOW2["HORIZONTAL"] = "horizontal";
-})(ELBOW || (ELBOW = {}));
-var EDGESTYLE;
-(function(EDGESTYLE2) {
-  EDGESTYLE2["ELBOW"] = "elbowEdgeStyle";
-  EDGESTYLE2["ENTITY_RELATION"] = "entityRelationEdgeStyle";
-  EDGESTYLE2["LOOP"] = "loopEdgeStyle";
-  EDGESTYLE2["SIDETOSIDE"] = "sideToSideEdgeStyle";
-  EDGESTYLE2["TOPTOBOTTOM"] = "topToBottomEdgeStyle";
-  EDGESTYLE2["ORTHOGONAL"] = "orthogonalEdgeStyle";
-  EDGESTYLE2["SEGMENT"] = "segmentEdgeStyle";
-  EDGESTYLE2["MANHATTAN"] = "manhattanEdgeStyle";
-})(EDGESTYLE || (EDGESTYLE = {}));
-var PERIMETER;
-(function(PERIMETER2) {
-  PERIMETER2["ELLIPSE"] = "ellipsePerimeter";
-  PERIMETER2["RECTANGLE"] = "rectanglePerimeter";
-  PERIMETER2["RHOMBUS"] = "rhombusPerimeter";
-  PERIMETER2["HEXAGON"] = "hexagonPerimeter";
-  PERIMETER2["TRIANGLE"] = "trianglePerimeter";
-})(PERIMETER || (PERIMETER = {}));
-var SHAPE;
-(function(SHAPE2) {
-  SHAPE2["RECTANGLE"] = "rectangle";
-  SHAPE2["ELLIPSE"] = "ellipse";
-  SHAPE2["DOUBLE_ELLIPSE"] = "doubleEllipse";
-  SHAPE2["RHOMBUS"] = "rhombus";
-  SHAPE2["LINE"] = "line";
-  SHAPE2["IMAGE"] = "image";
-  SHAPE2["ARROW"] = "arrow";
-  SHAPE2["ARROW_CONNECTOR"] = "arrowConnector";
-  SHAPE2["LABEL"] = "label";
-  SHAPE2["CYLINDER"] = "cylinder";
-  SHAPE2["SWIMLANE"] = "swimlane";
-  SHAPE2["CONNECTOR"] = "connector";
-  SHAPE2["ACTOR"] = "actor";
-  SHAPE2["CLOUD"] = "cloud";
-  SHAPE2["TRIANGLE"] = "triangle";
-  SHAPE2["HEXAGON"] = "hexagon";
-})(SHAPE || (SHAPE = {}));
+const NODE_TYPE = {
+  ELEMENT: 1,
+  ATTRIBUTE: 2,
+  TEXT: 3,
+  CDATA: 4,
+  ENTITY_REFERENCE: 5,
+  ENTITY: 6,
+  PROCESSING_INSTRUCTION: 7,
+  COMMENT: 8,
+  DOCUMENT: 9,
+  DOCUMENT_TYPE: 10,
+  DOCUMENT_FRAGMENT: 11,
+  NOTATION: 12
+};
 const Constants = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   ABSOLUTE_LINE_HEIGHT,
-  get ALIGN() {
-    return ALIGN;
-  },
-  get ARROW() {
-    return ARROW;
-  },
   ARROW_SIZE,
   ARROW_SPACING,
   ARROW_WIDTH,
   CONNECT_HANDLE_FILLCOLOR,
   CONNECT_TARGET_COLOR,
-  get CURSOR() {
-    return CURSOR;
-  },
   DEFAULT_FONTFAMILY,
   DEFAULT_FONTSIZE,
   DEFAULT_FONTSTYLE,
@@ -369,27 +274,13 @@ const Constants = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePro
   DEFAULT_STARTSIZE,
   DEFAULT_TEXT_DIRECTION,
   DEFAULT_VALID_COLOR,
-  get DIALECT() {
-    return DIALECT;
-  },
-  get DIRECTION() {
-    return DIRECTION;
-  },
   DIRECTION_MASK,
   DROP_TARGET_COLOR,
-  get EDGESTYLE() {
-    return EDGESTYLE;
-  },
   EDGE_SELECTION_COLOR,
   EDGE_SELECTION_DASHED,
   EDGE_SELECTION_STROKEWIDTH,
-  get ELBOW() {
-    return ELBOW;
-  },
   ENTITY_SEGMENT,
-  get FONT() {
-    return FONT;
-  },
+  FONT_STYLE_MASK,
   GUIDE_COLOR,
   GUIDE_STROKEWIDTH,
   HANDLE_FILLCOLOR,
@@ -409,9 +300,7 @@ const Constants = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePro
   LOCKED_HANDLE_FILLCOLOR,
   MAX_HOTSPOT_SIZE,
   MIN_HOTSPOT_SIZE,
-  get NODETYPE() {
-    return NODETYPE;
-  },
+  NODE_TYPE,
   NONE,
   NS_SVG,
   NS_XLINK,
@@ -425,23 +314,11 @@ const Constants = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePro
   PAGE_FORMAT_A4_PORTRAIT,
   PAGE_FORMAT_LETTER_LANDSCAPE,
   PAGE_FORMAT_LETTER_PORTRAIT,
-  get PERIMETER() {
-    return PERIMETER;
-  },
   RECTANGLE_ROUNDING_FACTOR,
-  get RENDERING_HINT() {
-    return RENDERING_HINT;
-  },
   SHADOWCOLOR,
   SHADOW_OFFSET_X,
   SHADOW_OFFSET_Y,
   SHADOW_OPACITY,
-  get SHAPE() {
-    return SHAPE;
-  },
-  get TEXT_DIRECTION() {
-    return TEXT_DIRECTION;
-  },
   TOOLTIP_VERTICAL_OFFSET,
   VALID_COLOR,
   VERSION,
@@ -699,8 +576,7 @@ const isAncestorNode = (ancestor, child) => {
   }
   return false;
 };
-const getChildNodes = (node, nodeType = NODETYPE.ELEMENT) => {
-  nodeType = nodeType || NODETYPE.ELEMENT;
+const getChildNodes = (node, nodeType = NODE_TYPE.ELEMENT) => {
   const children = [];
   let tmp = node.firstChild;
   while (tmp != null) {
@@ -764,6 +640,12 @@ const domUtils = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProp
   writeln
 }, Symbol.toStringTag, { value: "Module" }));
 class InternalMouseEvent {
+  /**
+   * Constructs a new event object for the given arguments.
+   *
+   * @param evt Native mouse event.
+   * @param state Optional {@link CellState} under the mouse.
+   */
   constructor(evt, state = null) {
     this.consumed = false;
     this.evt = evt;
@@ -1252,6 +1134,12 @@ InternalEvent.START = "start";
 InternalEvent.RESET = "reset";
 InternalEvent.PINCH_THRESHOLD = 10;
 class Point {
+  /**
+   * Constructs a new point for the optional x and y coordinates.
+   *
+   * @param x - The x-coordinate (default is 0).
+   * @param y - The y-coordinate (default is 0).
+   */
   constructor(x = 0, y = 0) {
     this._x = 0;
     this._y = 0;
@@ -1290,6 +1178,9 @@ class Point {
   }
 }
 class Rectangle extends Point {
+  /**
+   * Constructs a new rectangle for the optional parameters.
+   */
   constructor(x = 0, y = 0, width = 0, height = 0) {
     super(x, y);
     this._width = 0;
@@ -1437,7 +1328,7 @@ const replaceTrailingNewlines = (str, pattern) => {
 const removeWhitespace = (node, before) => {
   var _a, _b;
   let tmp = before ? node.previousSibling : node.nextSibling;
-  while (tmp != null && tmp.nodeType === NODETYPE.TEXT) {
+  while (tmp != null && tmp.nodeType === NODE_TYPE.TEXT) {
     const next = before ? tmp.previousSibling : tmp.nextSibling;
     const text = getTextContent(tmp);
     if (((_a = trim(text)) == null ? void 0 : _a.length) === 0) {
@@ -1830,7 +1721,7 @@ const resetStyleDefaultsConfig = () => {
 const doEval = (expression) => {
   return eval(expression);
 };
-const isElement = (node) => (node == null ? void 0 : node.nodeType) === NODETYPE.ELEMENT;
+const isElement = (node) => (node == null ? void 0 : node.nodeType) === NODE_TYPE.ELEMENT;
 const isNullish = (v) => v === null || v === void 0;
 const mixInto = (dest) => (mixin) => {
   const keys = Reflect.ownKeys(mixin);
@@ -2035,11 +1926,11 @@ const getSizeForString = (text, fontSize = DEFAULT_FONTSIZE, fontFamily = DEFAUL
   div.style.fontSize = `${Math.round(fontSize)}px`;
   div.style.lineHeight = `${Math.round(fontSize * LINE_HEIGHT)}px`;
   if (fontStyle !== null) {
-    matchBinaryMask(fontStyle, FONT.BOLD) && (div.style.fontWeight = "bold");
-    matchBinaryMask(fontStyle, FONT.ITALIC) && (div.style.fontWeight = "italic");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.BOLD) && (div.style.fontWeight = "bold");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.ITALIC) && (div.style.fontStyle = "italic");
     const txtDecor = [];
-    matchBinaryMask(fontStyle, FONT.UNDERLINE) && txtDecor.push("underline");
-    matchBinaryMask(fontStyle, FONT.STRIKETHROUGH) && txtDecor.push("line-through");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.UNDERLINE) && txtDecor.push("underline");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.STRIKETHROUGH) && txtDecor.push("line-through");
     txtDecor.length > 0 && (div.style.textDecoration = txtDecor.join(" "));
   }
   div.style.position = "absolute";
@@ -2078,14 +1969,14 @@ const sortCells = (cells, ascending = true) => {
 const getAlignmentAsPoint = (align, valign) => {
   let dx = -0.5;
   let dy = -0.5;
-  if (align === ALIGN.LEFT) {
+  if (align === "left") {
     dx = 0;
-  } else if (align === ALIGN.RIGHT) {
+  } else if (align === "right") {
     dx = -1;
   }
-  if (valign === ALIGN.TOP) {
+  if (valign === "top") {
     dy = 0;
-  } else if (valign === ALIGN.BOTTOM) {
+  } else if (valign === "bottom") {
     dy = -1;
   }
   return new Point(dx, dy);
@@ -3115,7 +3006,7 @@ class CellState extends Rectangle {
    * property of {@link style}.
    */
   getVerticalAlign() {
-    return this.style.verticalAlign ?? ALIGN.MIDDLE;
+    return this.style.verticalAlign ?? "middle";
   }
   /**
    * Returns `true` if the given state has no stroke, no fill color and no image.
@@ -3301,7 +3192,7 @@ const getPortConstraints = (terminal, edge, source, defaultValue) => {
       quad = 2;
     }
   }
-  if (directions.indexOf(DIRECTION.NORTH) >= 0) {
+  if (directions.indexOf("north") >= 0) {
     switch (quad) {
       case 0:
         returnValue |= DIRECTION_MASK.NORTH;
@@ -3317,7 +3208,7 @@ const getPortConstraints = (terminal, edge, source, defaultValue) => {
         break;
     }
   }
-  if (directions.indexOf(DIRECTION.WEST) >= 0) {
+  if (directions.indexOf("west") >= 0) {
     switch (quad) {
       case 0:
         returnValue |= DIRECTION_MASK.WEST;
@@ -3333,7 +3224,7 @@ const getPortConstraints = (terminal, edge, source, defaultValue) => {
         break;
     }
   }
-  if (directions.indexOf(DIRECTION.SOUTH) >= 0) {
+  if (directions.indexOf("south") >= 0) {
     switch (quad) {
       case 0:
         returnValue |= DIRECTION_MASK.SOUTH;
@@ -3349,7 +3240,7 @@ const getPortConstraints = (terminal, edge, source, defaultValue) => {
         break;
     }
   }
-  if (directions.indexOf(DIRECTION.EAST) >= 0) {
+  if (directions.indexOf("east") >= 0) {
     switch (quad) {
       case 0:
         returnValue |= DIRECTION_MASK.EAST;
@@ -3402,28 +3293,28 @@ const getDirectedBounds = (rect, m, style, flipH, flipV) => {
   m.y = Math.round(Math.max(0, Math.min(rect.height, m.y)));
   m.width = Math.round(Math.max(0, Math.min(rect.width, m.width)));
   m.height = Math.round(Math.max(0, Math.min(rect.height, m.height)));
-  if (flipV && (d === DIRECTION.SOUTH || d === DIRECTION.NORTH) || flipH && (d === DIRECTION.EAST || d === DIRECTION.WEST)) {
+  if (flipV && (d === "south" || d === "north") || flipH && (d === "east" || d === "west")) {
     const tmp = m.x;
     m.x = m.width;
     m.width = tmp;
   }
-  if (flipH && (d === DIRECTION.SOUTH || d === DIRECTION.NORTH) || flipV && (d === DIRECTION.EAST || d === DIRECTION.WEST)) {
+  if (flipH && (d === "south" || d === "north") || flipV && (d === "east" || d === "west")) {
     const tmp = m.y;
     m.y = m.height;
     m.height = tmp;
   }
   const m2 = Rectangle.fromRectangle(m);
-  if (d === DIRECTION.SOUTH) {
+  if (d === "south") {
     m2.y = m.x;
     m2.x = m.height;
     m2.width = m.y;
     m2.height = m.width;
-  } else if (d === DIRECTION.WEST) {
+  } else if (d === "west") {
     m2.y = m.height;
     m2.x = m.width;
     m2.width = m.x;
     m2.height = m.y;
-  } else if (d === DIRECTION.NORTH) {
+  } else if (d === "north") {
     m2.y = m.width;
     m2.x = m.y;
     m2.width = m.height;
@@ -3772,7 +3663,7 @@ const ElbowConnector = (state, source, target, points, result) => {
       }
     }
   }
-  if (!horizontal && (vertical || state.style.elbow === ELBOW.VERTICAL)) {
+  if (!horizontal && (vertical || state.style.elbow === "vertical")) {
     TopToBottom(state, source, target, points, result);
   } else {
     SideToSide(state, source, target, points, result);
@@ -3809,11 +3700,14 @@ const originalOrthogonalConnectorConfig = { ...OrthogonalConnectorConfig };
 const resetOrthogonalConnectorConfig = () => {
   shallowCopy(originalOrthogonalConnectorConfig, OrthogonalConnectorConfig);
 };
+const allDirections = () => {
+  return ["north", "south", "east", "west"];
+};
 const ManhattanConnectorConfig = {
   maxAllowedDirectionChange: 90,
   maxLoops: 2e3,
-  endDirections: Object.values(DIRECTION),
-  startDirections: Object.values(DIRECTION),
+  endDirections: allDirections(),
+  startDirections: allDirections(),
   step: 12
 };
 const originalManhattanConnectorConfig = {};
@@ -3924,8 +3818,8 @@ const Loop = (state, source, _target, points, result) => {
     let y = 0;
     let dy = 0;
     const seg = (state.style.segment ?? graph.gridSize) * view.scale;
-    const dir = ((_a = state.style) == null ? void 0 : _a.direction) ?? DIRECTION.WEST;
-    if (dir === DIRECTION.NORTH || dir === DIRECTION.SOUTH) {
+    const dir = ((_a = state.style) == null ? void 0 : _a.direction) ?? "west";
+    if (dir === "north" || dir === "south") {
       x = view.getRoutingCenterX(source);
       dx = seg;
     } else {
@@ -3936,11 +3830,11 @@ const Loop = (state, source, _target, points, result) => {
       if (pt != null) {
         x = pt.x;
         dy = Math.max(Math.abs(y - pt.y), dy);
-      } else if (dir === DIRECTION.NORTH) {
+      } else if (dir === "north") {
         y = source.y - 2 * dx;
-      } else if (dir === DIRECTION.SOUTH) {
+      } else if (dir === "south") {
         y = source.y + source.height + 2 * dx;
-      } else if (dir === DIRECTION.EAST) {
+      } else if (dir === "east") {
         x = source.x - 2 * dy;
       } else {
         x = source.x + source.width + 2 * dy;
@@ -5014,13 +4908,13 @@ const ManhattanConnector = (state, source, target, points, result) => {
   function alignPointToCell(point, edgeState, cellState, isSourceCell) {
     const cellBounds = getCellAbsoluteBounds(cellState);
     const y = isSourceCell ? edgeState.style.exitY : edgeState.style.entryY;
-    const onlyHorizontalDirections = isSourceCell ? ManhattanConnectorConfig.startDirections.every((d) => d != DIRECTION.NORTH && d != DIRECTION.SOUTH) : ManhattanConnectorConfig.endDirections.every((d) => d != DIRECTION.NORTH && d != DIRECTION.SOUTH);
+    const onlyHorizontalDirections = isSourceCell ? ManhattanConnectorConfig.startDirections.every((d) => d != "north" && d != "south") : ManhattanConnectorConfig.endDirections.every((d) => d != "north" && d != "south");
     if (y != void 0 && onlyHorizontalDirections) {
       const cellHeight = (cellBounds == null ? void 0 : cellBounds.height) || 0;
       point.y = (cellBounds == null ? void 0 : cellBounds.y) != void 0 ? (cellBounds == null ? void 0 : cellBounds.y) + cellHeight * y : point.y - cellHeight / 2 + cellHeight * y;
     }
     const x = isSourceCell ? edgeState.style.exitX : edgeState.style.entryX;
-    const onlyVerticalDirections = isSourceCell ? ManhattanConnectorConfig.startDirections.every((d) => d != DIRECTION.WEST && d != DIRECTION.EAST) : ManhattanConnectorConfig.endDirections.every((d) => d != DIRECTION.WEST && d != DIRECTION.EAST);
+    const onlyVerticalDirections = isSourceCell ? ManhattanConnectorConfig.startDirections.every((d) => d != "west" && d != "east") : ManhattanConnectorConfig.endDirections.every((d) => d != "west" && d != "east");
     if (x != void 0 && onlyVerticalDirections) {
       const cellWidth = (cellBounds == null ? void 0 : cellBounds.width) || 0;
       point.x = (cellBounds == null ? void 0 : cellBounds.x) != void 0 ? (cellBounds == null ? void 0 : cellBounds.x) + cellWidth * x : point.x - cellWidth / 2 + cellWidth * (x || 0);
@@ -5201,8 +5095,8 @@ const HexagonPerimeter = (bounds, vertex, next, orthogonal = false) => {
   const pi = Math.PI;
   const pi2 = Math.PI / 2;
   let result = new Point(cx, cy);
-  const direction = ((_a = vertex == null ? void 0 : vertex.style) == null ? void 0 : _a.direction) ?? DIRECTION.EAST;
-  const vertical = direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH;
+  const direction = ((_a = vertex == null ? void 0 : vertex.style) == null ? void 0 : _a.direction) ?? "east";
+  const vertical = direction === "north" || direction === "south";
   let a = new Point();
   let b = new Point();
   if (px < x && py < y || px < x && py > y + h || px > x + w && py < y || px > x + w && py > y + h) {
@@ -5533,7 +5427,7 @@ const RhombusPerimeter = (bounds, _vertex, next, orthogonal = false) => {
 };
 const TrianglePerimeter = (bounds, vertex, next, orthogonal = false) => {
   const direction = vertex != null ? vertex.style.direction : null;
-  const vertical = direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH;
+  const vertical = direction === "north" || direction === "south";
   const { x } = bounds;
   const { y } = bounds;
   const w = bounds.width;
@@ -5543,14 +5437,14 @@ const TrianglePerimeter = (bounds, vertex, next, orthogonal = false) => {
   let start = new Point(x, y);
   let corner = new Point(x + w, cy);
   let end = new Point(x, y + h);
-  if (direction === DIRECTION.NORTH) {
+  if (direction === "north") {
     start = end;
     corner = new Point(cx, y);
     end = new Point(x + w, y + h);
-  } else if (direction === DIRECTION.SOUTH) {
+  } else if (direction === "south") {
     corner = new Point(cx, y + h);
     end = new Point(x + w, y);
-  } else if (direction === DIRECTION.WEST) {
+  } else if (direction === "west") {
     start = new Point(x + w, y);
     corner = new Point(x, cy);
     end = new Point(x + w, y + h);
@@ -5560,7 +5454,7 @@ const TrianglePerimeter = (bounds, vertex, next, orthogonal = false) => {
   const alpha = vertical ? Math.atan2(dx, dy) : Math.atan2(dy, dx);
   const t = vertical ? Math.atan2(w, h) : Math.atan2(h, w);
   let base = false;
-  if (direction === DIRECTION.NORTH || direction === DIRECTION.WEST) {
+  if (direction === "north" || direction === "west") {
     base = alpha > -t && alpha < t;
   } else {
     base = alpha < -Math.PI + t || alpha > Math.PI - t;
@@ -5573,11 +5467,11 @@ const TrianglePerimeter = (bounds, vertex, next, orthogonal = false) => {
       } else {
         result = new Point(start.x, next.y);
       }
-    } else if (direction === DIRECTION.NORTH) {
+    } else if (direction === "north") {
       result = new Point(x + w / 2 + h * Math.tan(alpha) / 2, y + h);
-    } else if (direction === DIRECTION.SOUTH) {
+    } else if (direction === "south") {
       result = new Point(x + w / 2 - h * Math.tan(alpha) / 2, y);
-    } else if (direction === DIRECTION.WEST) {
+    } else if (direction === "west") {
       result = new Point(x + w, y + h / 2 + w * Math.tan(alpha) / 2);
     } else {
       result = new Point(x, y + h / 2 - w * Math.tan(alpha) / 2);
@@ -5586,11 +5480,11 @@ const TrianglePerimeter = (bounds, vertex, next, orthogonal = false) => {
     if (orthogonal) {
       const pt = new Point(cx, cy);
       if (next.y >= y && next.y <= y + h) {
-        pt.x = vertical ? cx : direction === DIRECTION.WEST ? x + w : x;
+        pt.x = vertical ? cx : direction === "west" ? x + w : x;
         pt.y = next.y;
       } else if (next.x >= x && next.x <= x + w) {
         pt.x = next.x;
-        pt.y = !vertical ? cy : direction === DIRECTION.NORTH ? y + h : y;
+        pt.y = !vertical ? cy : direction === "north" ? y + h : y;
       }
       dx = next.x - pt.x;
       dy = next.y - pt.y;
@@ -5710,6 +5604,52 @@ const edgeMarkers = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
   diamond,
   oval
 }, Symbol.toStringTag, { value: "Module" }));
+class BaseRegistry {
+  constructor() {
+    this.values = /* @__PURE__ */ new Map();
+  }
+  add(name, value) {
+    this.values.set(name, value);
+  }
+  get(name) {
+    return this.values.get(name) ?? null;
+  }
+  getName(value) {
+    for (const [name, style] of this.values.entries()) {
+      if (style === value) {
+        return name;
+      }
+    }
+    return null;
+  }
+  clear() {
+    this.values.clear();
+  }
+}
+class EdgeStyleRegistryImpl extends BaseRegistry {
+  constructor() {
+    super(...arguments);
+    this.handlerMapping = /* @__PURE__ */ new Map();
+    this.orthogonalStates = /* @__PURE__ */ new Map();
+  }
+  add(name, edgeStyle, metaData) {
+    super.add(name, edgeStyle);
+    (metaData == null ? void 0 : metaData.handlerKind) && this.handlerMapping.set(edgeStyle, metaData.handlerKind);
+    !isNullish(metaData == null ? void 0 : metaData.isOrthogonal) && this.orthogonalStates.set(edgeStyle, metaData.isOrthogonal);
+  }
+  isOrthogonal(edgeStyle) {
+    return this.orthogonalStates.get(edgeStyle) ?? false;
+  }
+  getHandlerKind(edgeStyle) {
+    return this.handlerMapping.get(edgeStyle) ?? "default";
+  }
+  clear() {
+    super.clear();
+    this.handlerMapping.clear();
+    this.orthogonalStates.clear();
+  }
+}
+const EdgeStyleRegistry = new EdgeStyleRegistryImpl();
 class CellHighlight {
   constructor(graph, highlightColor, strokeWidth, dashed) {
     this.strokeWidth = 0;
@@ -5784,10 +5724,10 @@ class CellHighlight {
     shape.opacity = this.opacity;
     shape.isDashed = this.dashed;
     shape.isShadow = false;
-    shape.dialect = DIALECT.SVG;
+    shape.dialect = "svg";
     shape.init(this.graph.getView().getOverlayPane());
     InternalEvent.redirectMouseEvents(shape.node, this.graph, this.state);
-    if (this.graph.dialect !== DIALECT.SVG) {
+    if (this.graph.dialect !== "svg") {
       shape.pointerEvents = false;
     } else {
       shape.svgPointerEvents = "stroke";
@@ -6220,7 +6160,7 @@ class AbstractCanvas2D {
       gradientFillAlpha: 1,
       gradientColor: NONE,
       gradientAlpha: 1,
-      gradientDirection: DIRECTION.EAST,
+      gradientDirection: "east",
       strokeColor: NONE,
       strokeWidth: 1,
       dashed: false,
@@ -7764,7 +7704,7 @@ const getViewXml = (graph, scale = 1, cells = null, x0 = 0, y0 = 0) => {
   view.setEventsEnabled(false);
   const { drawPane } = view;
   const { overlayPane } = view;
-  if (graph.dialect === DIALECT.SVG) {
+  if (graph.dialect === "svg") {
     view.drawPane = document.createElementNS(NS_SVG, "g");
     view.canvas.appendChild(view.drawPane);
     view.overlayPane = document.createElementNS(NS_SVG, "g");
@@ -7807,9 +7747,9 @@ const getPrettyXml = (node, tab = "  ", indent = "", newline = "\n", ns = null) 
         node.setAttribute("xmlns", node.namespaceURI);
       }
     }
-    if (node.nodeType === NODETYPE.DOCUMENT) {
+    if (node.nodeType === NODE_TYPE.DOCUMENT) {
       result.push(getPrettyXml(node.documentElement, tab, indent, newline, ns));
-    } else if (node.nodeType === NODETYPE.DOCUMENT_FRAGMENT) {
+    } else if (node.nodeType === NODE_TYPE.DOCUMENT_FRAGMENT) {
       let tmp = node.firstChild;
       if (tmp != null) {
         while (tmp != null) {
@@ -7817,17 +7757,17 @@ const getPrettyXml = (node, tab = "  ", indent = "", newline = "\n", ns = null) 
           tmp = tmp.nextSibling;
         }
       }
-    } else if (node.nodeType === NODETYPE.COMMENT) {
+    } else if (node.nodeType === NODE_TYPE.COMMENT) {
       const value = getTextContent(node);
       if (value.length > 0) {
         result.push(`${indent}<!--${value}-->${newline}`);
       }
-    } else if (node.nodeType === NODETYPE.TEXT) {
+    } else if (node.nodeType === NODE_TYPE.TEXT) {
       const value = trim(getTextContent(node));
       if (value && value.length > 0) {
         result.push(indent + htmlEntities(value, false) + newline);
       }
-    } else if (node.nodeType === NODETYPE.CDATA) {
+    } else if (node.nodeType === NODE_TYPE.CDATA) {
       const value = getTextContent(node);
       if (value.length > 0) {
         result.push(`${indent}<![CDATA[${value}]]${newline}`);
@@ -7993,8 +7933,8 @@ class SvgCanvas2D extends AbstractCanvas2D {
     const text = this.getAlternateText(fo, x, y, w, h, str, align, valign, wrap, format, overflow, clip, rotation);
     const s = this.state;
     if (!isNullish(text) && s.fontSize > 0) {
-      const dy = valign === ALIGN.TOP ? 1 : valign === ALIGN.BOTTOM ? 0 : 0.3;
-      const anchor = align === ALIGN.RIGHT ? "end" : align === ALIGN.LEFT ? "start" : "middle";
+      const dy = valign === "top" ? 1 : valign === "bottom" ? 0 : 0.3;
+      const anchor = align === "right" ? "end" : align === "left" ? "start" : "middle";
       const alt = this.createElement("text");
       alt.setAttribute("x", String(Math.round(x + s.dx)));
       alt.setAttribute("y", String(Math.round(y + s.dy + dy * s.fontSize)));
@@ -8003,11 +7943,11 @@ class SvgCanvas2D extends AbstractCanvas2D {
       alt.setAttribute("font-size", `${Math.round(s.fontSize)}px`);
       anchor !== "start" && alt.setAttribute("text-anchor", anchor);
       const fontStyle = s.fontStyle;
-      matchBinaryMask(fontStyle, FONT.BOLD) && alt.setAttribute("font-weight", "bold");
-      matchBinaryMask(fontStyle, FONT.ITALIC) && alt.setAttribute("font-style", "italic");
+      matchBinaryMask(fontStyle, FONT_STYLE_MASK.BOLD) && alt.setAttribute("font-weight", "bold");
+      matchBinaryMask(fontStyle, FONT_STYLE_MASK.ITALIC) && alt.setAttribute("font-style", "italic");
       const txtDecor = [];
-      matchBinaryMask(fontStyle, FONT.UNDERLINE) && txtDecor.push("underline");
-      matchBinaryMask(fontStyle, FONT.STRIKETHROUGH) && txtDecor.push("line-through");
+      matchBinaryMask(fontStyle, FONT_STYLE_MASK.UNDERLINE) && txtDecor.push("underline");
+      matchBinaryMask(fontStyle, FONT_STYLE_MASK.STRIKETHROUGH) && txtDecor.push("line-through");
       txtDecor.length > 0 && alt.setAttribute("text-decoration", txtDecor.join(" "));
       write(alt, text);
       return alt;
@@ -8027,17 +7967,17 @@ class SvgCanvas2D extends AbstractCanvas2D {
     start = `${start.toLowerCase()}-${alpha1}`;
     end = `${end.toLowerCase()}-${alpha2}`;
     let dir = null;
-    if (direction == null || direction === DIRECTION.SOUTH) {
+    if (direction == null || direction === "south") {
       dir = "s";
-    } else if (direction === DIRECTION.EAST) {
+    } else if (direction === "east") {
       dir = "e";
     } else {
       const tmp = start;
       start = end;
       end = tmp;
-      if (direction === DIRECTION.NORTH) {
+      if (direction === "north") {
         dir = "s";
-      } else if (direction === DIRECTION.WEST) {
+      } else if (direction === "west") {
         dir = "e";
       }
     }
@@ -8084,13 +8024,13 @@ class SvgCanvas2D extends AbstractCanvas2D {
     gradient.setAttribute("y1", "0%");
     gradient.setAttribute("x2", "0%");
     gradient.setAttribute("y2", "0%");
-    if (direction == null || direction === DIRECTION.SOUTH) {
+    if (direction == null || direction === "south") {
       gradient.setAttribute("y2", "100%");
-    } else if (direction === DIRECTION.EAST) {
+    } else if (direction === "east") {
       gradient.setAttribute("x2", "100%");
-    } else if (direction === DIRECTION.NORTH) {
+    } else if (direction === "north") {
       gradient.setAttribute("y1", "100%");
-    } else if (direction === DIRECTION.WEST) {
+    } else if (direction === "west") {
       gradient.setAttribute("x1", "100%");
     }
     let op = alpha1 < 1 ? `;stop-opacity:${alpha1}` : "";
@@ -8497,7 +8437,7 @@ class SvgCanvas2D extends AbstractCanvas2D {
    */
   updateTextNodes(x, y, w, h, align, valign, wrap, overflow, clip, rotation, g) {
     const s = this.state.scale;
-    SvgCanvas2D.createCss(w + 2, h, align, valign, wrap, overflow, clip, this.state.fontBackgroundColor != null ? this.state.fontBackgroundColor : null, this.state.fontBorderColor != null ? this.state.fontBorderColor : null, `display: flex; align-items: unsafe ${valign === ALIGN.TOP ? "flex-start" : valign === ALIGN.BOTTOM ? "flex-end" : "center"}; justify-content: unsafe ${align === ALIGN.LEFT ? "flex-start" : align === ALIGN.RIGHT ? "flex-end" : "center"}; `, this.getTextCss(), s, (dx, dy, flex, item, block) => {
+    SvgCanvas2D.createCss(w + 2, h, align, valign, wrap, overflow, clip, this.state.fontBackgroundColor != null ? this.state.fontBackgroundColor : null, this.state.fontBorderColor != null ? this.state.fontBorderColor : null, `display: flex; align-items: unsafe ${valign === "top" ? "flex-start" : valign === "bottom" ? "flex-end" : "center"}; justify-content: unsafe ${align === "left" ? "flex-start" : align === "right" ? "flex-end" : "center"}; `, this.getTextCss(), s, (dx, dy, flex, item, block) => {
       x += this.state.dx;
       y += this.state.dy;
       const fo = g.firstChild;
@@ -8539,11 +8479,11 @@ class SvgCanvas2D extends AbstractCanvas2D {
     const lh = LINE_HEIGHT * this.lineHeightCorrection;
     let css = `display: inline-block; font-size: ${s.fontSize}px; font-family: ${s.fontFamily}; color: ${s.fontColor}; line-height: ${lh}; pointer-events: ${this.pointerEvents ? this.pointerEventsValue : "none"}; `;
     const fontStyle = s.fontStyle;
-    matchBinaryMask(fontStyle, FONT.BOLD) && (css += "font-weight: bold; ");
-    matchBinaryMask(fontStyle, FONT.ITALIC) && (css += "font-style: italic; ");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.BOLD) && (css += "font-weight: bold; ");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.ITALIC) && (css += "font-style: italic; ");
     const txtDecor = [];
-    matchBinaryMask(fontStyle, FONT.UNDERLINE) && txtDecor.push("underline");
-    matchBinaryMask(fontStyle, FONT.STRIKETHROUGH) && txtDecor.push("line-through");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.UNDERLINE) && txtDecor.push("underline");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.STRIKETHROUGH) && txtDecor.push("line-through");
     txtDecor.length > 0 && (css += `text-decoration: ${txtDecor.join(" ")}; `);
     return css;
   }
@@ -8615,15 +8555,15 @@ class SvgCanvas2D extends AbstractCanvas2D {
     if (clip && w > 0 && h > 0) {
       let cx = x;
       let cy2 = y;
-      if (align === ALIGN.CENTER) {
+      if (align === "center") {
         cx -= w / 2;
-      } else if (align === ALIGN.RIGHT) {
+      } else if (align === "right") {
         cx -= w;
       }
       if (overflow !== "fill") {
-        if (valign === ALIGN.MIDDLE) {
+        if (valign === "middle") {
           cy2 -= h / 2;
-        } else if (valign === ALIGN.BOTTOM) {
+        } else if (valign === "bottom") {
           cy2 -= h;
         }
       }
@@ -8640,7 +8580,7 @@ class SvgCanvas2D extends AbstractCanvas2D {
         node.setAttribute("clip-path", `url(#${c.getAttribute("id")})`);
       }
     }
-    const anchor = align === ALIGN.RIGHT ? "end" : align === ALIGN.CENTER ? "middle" : "start";
+    const anchor = align === "right" ? "end" : align === "center" ? "middle" : "start";
     if (anchor !== "start") {
       node.setAttribute("text-anchor", anchor);
     }
@@ -8657,14 +8597,14 @@ class SvgCanvas2D extends AbstractCanvas2D {
     const lh = Math.round(size * LINE_HEIGHT);
     const textHeight = size + (lines.length - 1) * lh;
     let cy = y + size - 1;
-    if (valign === ALIGN.MIDDLE) {
+    if (valign === "middle") {
       if (overflow === "fill") {
         cy -= h / 2;
       } else {
         const dy = (this.matchHtmlAlignment && clip && h > 0 ? Math.min(textHeight, h) : textHeight) / 2;
         cy -= dy;
       }
-    } else if (valign === ALIGN.BOTTOM) {
+    } else if (valign === "bottom") {
       if (overflow === "fill") {
         cy -= h;
       } else {
@@ -8699,11 +8639,11 @@ class SvgCanvas2D extends AbstractCanvas2D {
       node.setAttribute("font-family", s.fontFamily);
     }
     const fontStyle = s.fontStyle;
-    matchBinaryMask(fontStyle, FONT.BOLD) && node.setAttribute("font-weight", "bold");
-    matchBinaryMask(fontStyle, FONT.ITALIC) && node.setAttribute("font-style", "italic");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.BOLD) && node.setAttribute("font-weight", "bold");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.ITALIC) && node.setAttribute("font-style", "italic");
     const txtDecor = [];
-    matchBinaryMask(fontStyle, FONT.UNDERLINE) && txtDecor.push("underline");
-    matchBinaryMask(fontStyle, FONT.STRIKETHROUGH) && txtDecor.push("line-through");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.UNDERLINE) && txtDecor.push("underline");
+    matchBinaryMask(fontStyle, FONT_STYLE_MASK.STRIKETHROUGH) && txtDecor.push("line-through");
     txtDecor.length > 0 && node.setAttribute("text-decoration", txtDecor.join(" "));
   }
   /**
@@ -8715,14 +8655,14 @@ class SvgCanvas2D extends AbstractCanvas2D {
     if (s.fontBackgroundColor != null || s.fontBorderColor != null) {
       let bbox = null;
       if (overflow === "fill" || overflow === "width") {
-        if (align === ALIGN.CENTER) {
+        if (align === "center") {
           x -= w / 2;
-        } else if (align === ALIGN.RIGHT) {
+        } else if (align === "right") {
           x -= w;
         }
-        if (valign === ALIGN.MIDDLE) {
+        if (valign === "middle") {
           y -= h / 2;
-        } else if (valign === ALIGN.BOTTOM) {
+        } else if (valign === "bottom") {
           y -= h;
         }
         bbox = new Rectangle((x + 1) * s.scale, y * s.scale, (w - 2) * s.scale, (h + 2) * s.scale);
@@ -8742,22 +8682,22 @@ class SvgCanvas2D extends AbstractCanvas2D {
         div.style.position = "absolute";
         div.style.visibility = "hidden";
         div.style.display = "inline-block";
-        matchBinaryMask(s.fontStyle, FONT.BOLD) && (div.style.fontWeight = "bold");
-        matchBinaryMask(s.fontStyle, FONT.ITALIC) && (div.style.fontStyle = "italic");
+        matchBinaryMask(s.fontStyle, FONT_STYLE_MASK.BOLD) && (div.style.fontWeight = "bold");
+        matchBinaryMask(s.fontStyle, FONT_STYLE_MASK.ITALIC) && (div.style.fontStyle = "italic");
         str = htmlEntities(str, false);
         div.innerHTML = str.replace(/\n/g, "<br/>");
         document.body.appendChild(div);
         const w2 = div.offsetWidth;
         const h2 = div.offsetHeight;
         document.body.removeChild(div);
-        if (align === ALIGN.CENTER) {
+        if (align === "center") {
           x -= w2 / 2;
-        } else if (align === ALIGN.RIGHT) {
+        } else if (align === "right") {
           x -= w2;
         }
-        if (valign === ALIGN.MIDDLE) {
+        if (valign === "middle") {
           y -= h2 / 2;
-        } else if (valign === ALIGN.BOTTOM) {
+        } else if (valign === "bottom") {
           y -= h2;
         }
         bbox = new Rectangle((x + 1) * s.scale, (y + 2) * s.scale, w2 * s.scale, (h2 + 1) * s.scale);
@@ -8799,7 +8739,7 @@ class SvgCanvas2D extends AbstractCanvas2D {
   }
 }
 SvgCanvas2D.createCss = (w, h, align, valign, wrap, overflow, clip, bg, border, flex, block, scale, callback) => {
-  let item = `box-sizing: border-box; font-size: 0; text-align: ${align === ALIGN.LEFT ? "left" : align === ALIGN.RIGHT ? "right" : "center"}; `;
+  let item = `box-sizing: border-box; font-size: 0; text-align: ${align === "left" ? "left" : align === "right" ? "right" : "center"}; `;
   const pt = getAlignmentAsPoint(align, valign);
   let ofl = "overflow: hidden; ";
   let fw = "width: 1px; ";
@@ -8863,7 +8803,7 @@ class Shape {
     this.isDashed = false;
     this.fill = NONE;
     this.gradient = NONE;
-    this.gradientDirection = DIRECTION.EAST;
+    this.gradientDirection = "east";
     this.fillOpacity = 100;
     this.strokeOpacity = 100;
     this.stroke = NONE;
@@ -8873,7 +8813,7 @@ class Shape {
     this.endSize = 1;
     this.startArrow = NONE;
     this.endArrow = NONE;
-    this.direction = DIRECTION.EAST;
+    this.direction = "east";
     this.flipH = false;
     this.flipV = false;
     this.isShadow = false;
@@ -8907,7 +8847,7 @@ class Shape {
     this.indicatorColor = NONE;
     this.indicatorStrokeColor = NONE;
     this.indicatorGradientColor = NONE;
-    this.indicatorDirection = DIRECTION.EAST;
+    this.indicatorDirection = "east";
     this.indicatorImageSrc = null;
     if (stencil) {
       this.stencil = stencil;
@@ -8999,9 +8939,9 @@ class Shape {
    */
   getLabelBounds(rect) {
     var _a, _b, _c;
-    const d = ((_a = this.style) == null ? void 0 : _a.direction) ?? DIRECTION.EAST;
+    const d = ((_a = this.style) == null ? void 0 : _a.direction) ?? "east";
     let bounds = rect.clone();
-    if (d !== DIRECTION.SOUTH && d !== DIRECTION.NORTH && this.state && this.state.text && this.state.text.isPaintBoundsInverted()) {
+    if (d !== "south" && d !== "north" && this.state && this.state.text && this.state.text.isPaintBoundsInverted()) {
       bounds = bounds.clone();
       [bounds.width, bounds.height] = [bounds.height, bounds.width];
     }
@@ -9377,13 +9317,13 @@ class Shape {
     this.spacing = 0;
     this.fill = NONE;
     this.gradient = NONE;
-    this.gradientDirection = DIRECTION.EAST;
+    this.gradientDirection = "east";
     this.stroke = NONE;
     this.startSize = 1;
     this.endSize = 1;
     this.startArrow = NONE;
     this.endArrow = NONE;
-    this.direction = DIRECTION.EAST;
+    this.direction = "east";
     this.isShadow = false;
     this.isDashed = false;
     this.isRounded = false;
@@ -9441,7 +9381,7 @@ class Shape {
       this.direction = this.style.direction ?? this.direction;
       this.flipH = !!this.style.flipH;
       this.flipV = !!this.style.flipV;
-      if (this.direction === DIRECTION.NORTH || this.direction === DIRECTION.SOUTH) {
+      if (this.direction === "north" || this.direction === "south") {
         const tmp = this.flipH;
         this.flipH = this.flipV;
         this.flipV = tmp;
@@ -9509,7 +9449,7 @@ class Shape {
     if (!this.bounds)
       return null;
     const bb = this.bounds.clone();
-    if (this.stencil && (this.direction === DIRECTION.NORTH || this.direction === DIRECTION.SOUTH) || this.isPaintBoundsInverted()) {
+    if (this.stencil && (this.direction === "north" || this.direction === "south") || this.isPaintBoundsInverted()) {
       bb.rotate90();
     }
     return bb;
@@ -9528,7 +9468,7 @@ class Shape {
    * Returns true if the bounds should be inverted.
    */
   isPaintBoundsInverted() {
-    return !this.stencil && (this.direction === DIRECTION.NORTH || this.direction === DIRECTION.SOUTH);
+    return !this.stencil && (this.direction === "north" || this.direction === "south");
   }
   /**
    * Returns the rotation from the style.
@@ -9552,11 +9492,11 @@ class Shape {
    */
   getShapeRotation() {
     let rot = this.getRotation();
-    if (this.direction === DIRECTION.NORTH) {
+    if (this.direction === "north") {
       rot += 270;
-    } else if (this.direction === DIRECTION.WEST) {
+    } else if (this.direction === "west") {
       rot += 180;
-    } else if (this.direction === DIRECTION.SOUTH) {
+    } else if (this.direction === "south") {
       rot += 90;
     }
     return rot;
@@ -9955,7 +9895,7 @@ class ConstraintHandler {
             tmp.height -= 1;
             if (!this.focusHighlight) {
               const hl = this.createHighlightShape();
-              hl.dialect = DIALECT.SVG;
+              hl.dialect = "svg";
               hl.pointerEvents = false;
               hl.init(this.graph.getView().getOverlayPane());
               this.focusHighlight = hl;
@@ -10021,7 +9961,7 @@ class ConstraintHandler {
         const { src } = img;
         const bounds = new Rectangle(Math.round(cp.x - img.width / 2), Math.round(cp.y - img.height / 2), img.width, img.height);
         const icon = new ImageShape(bounds, src);
-        icon.dialect = this.graph.dialect !== DIALECT.SVG ? DIALECT.MIXEDHTML : DIALECT.SVG;
+        icon.dialect = this.graph.dialect !== "svg" ? "mixedHtml" : "svg";
         icon.preserveImageAspect = false;
         icon.init(this.graph.getView().getDecoratorPane());
         if (icon.node.previousSibling) {
@@ -10075,6 +10015,10 @@ class ConstraintHandler {
 const EdgeHandlerConfig = {
   addBendOnShiftClickEnabled: false,
   connectFillColor: CONNECT_HANDLE_FILLCOLOR,
+  cursorBend: "crosshair",
+  cursorMovable: "move",
+  cursorTerminal: "pointer",
+  cursorVirtualBend: "crosshair",
   handleShape: "square",
   removeBendOnShiftClickEnabled: false,
   selectionColor: EDGE_SELECTION_COLOR,
@@ -10093,6 +10037,12 @@ const HandleConfig = {
    * @default {@link HANDLE_FILLCOLOR}
    */
   fillColor: HANDLE_FILLCOLOR,
+  /**
+   * Defines the cursor to be used for the label handle.
+   * @default 'default'
+   * @since 0.20.0
+   */
+  labelCursor: "default",
   /**
    * Defines the color to be used for the label handle fill color. Use `none` for no color.
    * @default {@link LABEL_HANDLE_FILLCOLOR}
@@ -10119,6 +10069,11 @@ const resetHandleConfig = () => {
   shallowCopy(defaultHandleConfig, HandleConfig);
 };
 const VertexHandlerConfig = {
+  /**
+   * Defines the cursor for a movable vertex.
+   * @since 0.20.0
+   */
+  cursorMovable: "move",
   /**
    * Enable rotation handle
    * @default false
@@ -10184,10 +10139,10 @@ class EdgeHandler {
     this.points = [];
     this.abspoints = this.getSelectionPoints(this.state);
     this.shape = this.createSelectionShape(this.abspoints);
-    this.shape.dialect = this.graph.dialect !== DIALECT.SVG ? DIALECT.MIXEDHTML : DIALECT.SVG;
+    this.shape.dialect = this.graph.dialect !== "svg" ? "mixedHtml" : "svg";
     this.shape.init(this.graph.getView().getOverlayPane());
     this.shape.pointerEvents = false;
-    this.shape.setCursor(CURSOR.MOVABLE_EDGE);
+    this.shape.setCursor(EdgeHandlerConfig.cursorMovable);
     InternalEvent.redirectMouseEvents(this.shape.node, this.graph, this.state);
     this.preferHtml = this.state.text != null && this.state.text.node.parentNode === this.graph.container;
     if (!this.preferHtml) {
@@ -10212,7 +10167,7 @@ class EdgeHandler {
     this.label = new Point(this.state.absoluteOffset.x, this.state.absoluteOffset.y);
     this.labelShape = this.createLabelHandleShape();
     this.initBend(this.labelShape);
-    this.labelShape.setCursor(CURSOR.LABEL_HANDLE);
+    this.labelShape.setCursor(HandleConfig.labelCursor);
     this.customHandles = this.createCustomHandles();
     this.updateParentHighlight();
     this.redraw();
@@ -10258,7 +10213,7 @@ class EdgeHandler {
       } else if (this.parentHighlightEnabled && visible) {
         if (parent && parent.isVertex() && pstate && !pstate.parentHighlight) {
           this.parentHighlight = this.createParentHighlightShape(pstate);
-          this.parentHighlight.dialect = DIALECT.SVG;
+          this.parentHighlight.dialect = "svg";
           this.parentHighlight.pointerEvents = false;
           if (pstate.style.rotation) {
             this.parentHighlight.rotation = pstate.style.rotation;
@@ -10402,7 +10357,7 @@ class EdgeHandler {
               }
             });
             if (this.isHandleEnabled(i)) {
-              bend.setCursor(terminal ? CURSOR.TERMINAL_HANDLE : CURSOR.BEND_HANDLE);
+              bend.setCursor(terminal ? EdgeHandlerConfig.cursorTerminal : EdgeHandlerConfig.cursorBend);
             }
             bends.push(bend);
             if (!terminal) {
@@ -10427,7 +10382,7 @@ class EdgeHandler {
       for (let i = 1; i < this.abspoints.length; i += 1) {
         ((bend) => {
           this.initBend(bend);
-          bend.setCursor(CURSOR.VIRTUAL_BEND_HANDLE);
+          bend.setCursor(EdgeHandlerConfig.cursorVirtualBend);
           bends.push(bend);
         })(this.createHandleShape());
       }
@@ -10491,10 +10446,10 @@ class EdgeHandler {
    */
   initBend(bend, dblClick) {
     if (this.preferHtml) {
-      bend.dialect = DIALECT.STRICTHTML;
+      bend.dialect = "strictHtml";
       bend.init(this.graph.container);
     } else {
-      bend.dialect = this.graph.dialect !== DIALECT.SVG ? DIALECT.MIXEDHTML : DIALECT.SVG;
+      bend.dialect = this.graph.dialect !== "svg" ? "mixedHtml" : "svg";
       bend.init(this.graph.getView().getOverlayPane());
     }
     InternalEvent.redirectMouseEvents(bend.node, this.graph, this.state, null, null, null, dblClick);
@@ -11640,13 +11595,13 @@ class VertexHandler {
     this.selectionBounds = this.getSelectionBounds(this.state);
     this.bounds = new Rectangle(this.selectionBounds.x, this.selectionBounds.y, this.selectionBounds.width, this.selectionBounds.height);
     this.selectionBorder = this.createSelectionShape(this.bounds);
-    this.selectionBorder.dialect = DIALECT.SVG;
+    this.selectionBorder.dialect = "svg";
     this.selectionBorder.pointerEvents = false;
     this.selectionBorder.rotation = this.state.style.rotation ?? 0;
     this.selectionBorder.init(this.graph.getView().getOverlayPane());
     InternalEvent.redirectMouseEvents(this.selectionBorder.node, this.graph, this.state);
     if (this.graph.isCellMovable(this.state.cell)) {
-      this.selectionBorder.setCursor(CURSOR.MOVABLE_VERTEX);
+      this.selectionBorder.setCursor(VertexHandlerConfig.cursorMovable);
     }
     const selectionHandler = this.getSelectionHandler();
     if (selectionHandler && (selectionHandler.maxCells <= 0 || this.graph.getSelectionCount() < selectionHandler.maxCells)) {
@@ -11668,11 +11623,11 @@ class VertexHandler {
         }
         const geo = this.state.cell.getGeometry();
         if (geo != null && !geo.relative && !this.graph.isSwimlane(this.state.cell) && this.graph.isLabelMovable(this.state.cell)) {
-          this.labelShape = this.createSizer(CURSOR.LABEL_HANDLE, InternalEvent.LABEL_HANDLE, HandleConfig.labelSize, HandleConfig.labelFillColor);
+          this.labelShape = this.createSizer(HandleConfig.labelCursor, InternalEvent.LABEL_HANDLE, HandleConfig.labelSize, HandleConfig.labelFillColor);
           this.sizers.push(this.labelShape);
         }
       } else if (this.graph.isCellMovable(this.state.cell) && !this.graph.isCellResizable(this.state.cell) && this.state.width < 2 && this.state.height < 2) {
-        this.labelShape = this.createSizer(CURSOR.MOVABLE_VERTEX, InternalEvent.LABEL_HANDLE, void 0, HandleConfig.labelFillColor);
+        this.labelShape = this.createSizer(VertexHandlerConfig.cursorMovable, InternalEvent.LABEL_HANDLE, void 0, HandleConfig.labelFillColor);
         this.sizers.push(this.labelShape);
       }
     }
@@ -11797,10 +11752,10 @@ class VertexHandler {
     if (sizer.bounds && sizer.isHtmlAllowed() && this.state.text && this.state.text.node.parentNode === this.graph.container) {
       sizer.bounds.height -= 1;
       sizer.bounds.width -= 1;
-      sizer.dialect = DIALECT.STRICTHTML;
+      sizer.dialect = "strictHtml";
       sizer.init(this.graph.container);
     } else {
-      sizer.dialect = this.graph.dialect !== DIALECT.SVG ? DIALECT.MIXEDHTML : DIALECT.SVG;
+      sizer.dialect = this.graph.dialect !== "svg" ? "mixedHtml" : "svg";
       sizer.init(this.graph.getView().getOverlayPane());
     }
     InternalEvent.redirectMouseEvents(sizer.node, this.graph, this.state);
@@ -11935,10 +11890,10 @@ class VertexHandler {
       if (!this.livePreviewActive || this.isLivePreviewBorder()) {
         this.preview = this.createSelectionShape(this.bounds);
         if (!(Client.IS_SVG && (this.state.style.rotation ?? 0) != 0) && this.state.text != null && this.state.text.node.parentNode === this.graph.container) {
-          this.preview.dialect = DIALECT.STRICTHTML;
+          this.preview.dialect = "strictHtml";
           this.preview.init(this.graph.container);
         } else {
-          this.preview.dialect = DIALECT.SVG;
+          this.preview.dialect = "svg";
           this.preview.init(this.graph.view.getOverlayPane());
         }
       }
@@ -12856,7 +12811,7 @@ class VertexHandler {
       } else if (this.parentHighlightEnabled && visible) {
         if (parent && parent.isVertex() && pstate != null && pstate.parentHighlight == null) {
           this.parentHighlight = this.createParentHighlightShape(pstate);
-          this.parentHighlight.dialect = DIALECT.SVG;
+          this.parentHighlight.dialect = "svg";
           this.parentHighlight.pointerEvents = false;
           this.parentHighlight.rotation = pstate.style.rotation ?? 0;
           this.parentHighlight.init(this.graph.getView().getOverlayPane());
@@ -12954,7 +12909,7 @@ class ElbowEdgeHandler extends EdgeHandler {
     const bends = [];
     let bend = this.createHandleShape(0);
     this.initBend(bend);
-    bend.setCursor(CURSOR.TERMINAL_HANDLE);
+    bend.setCursor(EdgeHandlerConfig.cursorTerminal);
     bends.push(bend);
     bends.push(this.createVirtualBend((evt) => {
       if (!isConsumed(evt) && this.flipEnabled) {
@@ -12965,7 +12920,7 @@ class ElbowEdgeHandler extends EdgeHandler {
     this.points.push(new Point(0, 0));
     bend = this.createHandleShape(2);
     this.initBend(bend);
-    bend.setCursor(CURSOR.TERMINAL_HANDLE);
+    bend.setCursor(EdgeHandlerConfig.cursorTerminal);
     bends.push(bend);
     return bends;
   }
@@ -12985,7 +12940,7 @@ class ElbowEdgeHandler extends EdgeHandler {
    * Returns the cursor to be used for the bend.
    */
   getCursorForBend() {
-    return this.state.style.edgeStyle === "topToBottomEdgeStyle" || this.state.style.edgeStyle === "elbowEdgeStyle" && this.state.style.elbow === ELBOW.VERTICAL ? "row-resize" : "col-resize";
+    return this.state.style.edgeStyle === "topToBottomEdgeStyle" || this.state.style.edgeStyle === "elbowEdgeStyle" && this.state.style.elbow === "vertical" ? "row-resize" : "col-resize";
   }
   /**
    * Returns the tooltip for the given node.
@@ -13226,7 +13181,7 @@ class EdgeSegmentHandler extends ElbowEdgeHandler {
     const bends = [];
     let bend = this.createHandleShape(0);
     this.initBend(bend);
-    bend.setCursor(CURSOR.TERMINAL_HANDLE);
+    bend.setCursor(EdgeHandlerConfig.cursorTerminal);
     bends.push(bend);
     const pts = this.getCurrentPoints();
     if (this.graph.isCellBendable(this.state.cell)) {
@@ -13246,7 +13201,7 @@ class EdgeSegmentHandler extends ElbowEdgeHandler {
     }
     bend = this.createHandleShape(pts.length);
     this.initBend(bend);
-    bend.setCursor(CURSOR.TERMINAL_HANDLE);
+    bend.setCursor(EdgeHandlerConfig.cursorTerminal);
     bends.push(bend);
     return bends;
   }
@@ -13536,26 +13491,26 @@ const CellsMixin = {
           const state = this.getView().getState(cell);
           if (state && !cell.isEdge()) {
             if (param === null) {
-              if (align === ALIGN.CENTER) {
+              if (align === "center") {
                 param = state.x + state.width / 2;
                 break;
-              } else if (align === ALIGN.RIGHT) {
+              } else if (align === "right") {
                 param = state.x + state.width;
-              } else if (align === ALIGN.TOP) {
+              } else if (align === "top") {
                 param = state.y;
-              } else if (align === ALIGN.MIDDLE) {
+              } else if (align === "middle") {
                 param = state.y + state.height / 2;
                 break;
-              } else if (align === ALIGN.BOTTOM) {
+              } else if (align === "bottom") {
                 param = state.y + state.height;
               } else {
                 param = state.x;
               }
-            } else if (align === ALIGN.RIGHT) {
+            } else if (align === "right") {
               param = Math.max(param, state.x + state.width);
-            } else if (align === ALIGN.TOP) {
+            } else if (align === "top") {
               param = Math.min(param, state.y);
-            } else if (align === ALIGN.BOTTOM) {
+            } else if (align === "bottom") {
               param = Math.max(param, state.y + state.height);
             } else {
               param = Math.min(param, state.x);
@@ -13573,15 +13528,15 @@ const CellsMixin = {
               let geo = cell.getGeometry();
               if (geo != null && !cell.isEdge()) {
                 geo = geo.clone();
-                if (align === ALIGN.CENTER) {
+                if (align === "center") {
                   geo.x += (p - state.x - state.width / 2) / s;
-                } else if (align === ALIGN.RIGHT) {
+                } else if (align === "right") {
                   geo.x += (p - state.x - state.width) / s;
-                } else if (align === ALIGN.TOP) {
+                } else if (align === "top") {
                   geo.y += (p - state.y) / s;
-                } else if (align === ALIGN.MIDDLE) {
+                } else if (align === "middle") {
                   geo.y += (p - state.y - state.height / 2) / s;
-                } else if (align === ALIGN.BOTTOM) {
+                } else if (align === "bottom") {
                   geo.y += (p - state.y - state.height) / s;
                 } else {
                   geo.x += (p - state.x) / s;
@@ -13883,16 +13838,16 @@ const CellsMixin = {
           this.getDataModel().setStyle(cell, cellStyle);
         } else {
           const state = this.getView().createState(cell);
-          const align = state.style.align ?? ALIGN.CENTER;
-          if (align === ALIGN.RIGHT) {
+          const align = state.style.align ?? "center";
+          if (align === "right") {
             geo.x += geo.width - size.width;
-          } else if (align === ALIGN.CENTER) {
+          } else if (align === "center") {
             geo.x += Math.round((geo.width - size.width) / 2);
           }
           const valign = state.getVerticalAlign();
-          if (valign === ALIGN.BOTTOM) {
+          if (valign === "bottom") {
             geo.y += geo.height - size.height;
-          } else if (valign === ALIGN.MIDDLE) {
+          } else if (valign === "middle") {
             geo.y += Math.round((geo.height - size.height) / 2);
           }
           geo.width = size.width;
@@ -13922,11 +13877,11 @@ const CellsMixin = {
       let dx = 0;
       let dy = 0;
       if (state.getImageSrc() || style.image) {
-        if (style.shape === SHAPE.LABEL) {
-          if (style.verticalAlign === ALIGN.MIDDLE) {
+        if (style.shape === "label") {
+          if (style.verticalAlign === "middle") {
             dx += style.imageWidth || DEFAULT_IMAGESIZE;
           }
-          if (style.align !== ALIGN.CENTER) {
+          if (style.align !== "center") {
             dy += style.imageHeight || DEFAULT_IMAGESIZE;
           }
         }
@@ -14228,15 +14183,15 @@ const CellsMixin = {
           if (this.isSwimlane(parent)) {
             const size = this.getStartSize(parent);
             const style = this.getCurrentCellStyle(parent);
-            const dir = style.direction ?? DIRECTION.EAST;
+            const dir = style.direction ?? "east";
             const flipH = style.flipH ?? false;
             const flipV = style.flipV ?? false;
-            if (dir === DIRECTION.SOUTH || dir === DIRECTION.NORTH) {
+            if (dir === "south" || dir === "north") {
               const tmp = size.width;
               size.width = size.height;
               size.height = tmp;
             }
-            if (dir === DIRECTION.EAST && !flipV || dir === DIRECTION.NORTH && !flipH || dir === DIRECTION.WEST && flipV || dir === DIRECTION.SOUTH && flipH) {
+            if (dir === "east" && !flipV || dir === "north" && !flipH || dir === "west" && flipV || dir === "south" && flipH) {
               x = size.width;
               y = size.height;
             }
@@ -14708,7 +14663,7 @@ const ConnectionsMixin = {
     if (terminalState.shape) {
       const bounds = this.getView().getPerimeterBounds(terminalState);
       const direction = terminalState.style.direction;
-      if (direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH) {
+      if (direction === "north" || direction === "south") {
         bounds.x += bounds.width / 2 - bounds.height / 2;
         bounds.y += bounds.height / 2 - bounds.width / 2;
         const tmp = bounds.width;
@@ -14729,7 +14684,7 @@ const ConnectionsMixin = {
       if (terminalState.cell.isVertex()) {
         let flipH = terminalState.style.flipH;
         let flipV = terminalState.style.flipV;
-        if (direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH) {
+        if (direction === "north" || direction === "south") {
           const tmp = flipH;
           flipH = flipV;
           flipV = tmp;
@@ -14806,14 +14761,14 @@ const ConnectionsMixin = {
       const direction = vertex.style.direction;
       let r1 = 0;
       if (vertex.style.anchorPointDirection) {
-        if (direction === DIRECTION.NORTH) {
+        if (direction === "north") {
           r1 += 270;
-        } else if (direction === DIRECTION.WEST) {
+        } else if (direction === "west") {
           r1 += 180;
-        } else if (direction === DIRECTION.SOUTH) {
+        } else if (direction === "south") {
           r1 += 90;
         }
-        if (direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH) {
+        if (direction === "north" || direction === "south") {
           bounds.rotate90();
         }
       }
@@ -14839,7 +14794,7 @@ const ConnectionsMixin = {
         if (vertex.cell.isVertex()) {
           let flipH = vertex.style.flipH;
           let flipV = vertex.style.flipV;
-          if (direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH) {
+          if (direction === "north" || direction === "south") {
             const temp = flipH;
             flipH = flipV;
             flipV = temp;
@@ -17003,16 +16958,16 @@ const SwimlaneMixin = {
     return result;
   },
   getSwimlaneDirection(style) {
-    const dir = style.direction ?? DIRECTION.EAST;
+    const dir = style.direction ?? "east";
     const flipH = style.flipH;
     const flipV = style.flipV;
     const h = style.horizontal ?? true;
     let n = h ? 0 : 3;
-    if (dir === DIRECTION.NORTH) {
+    if (dir === "north") {
       n--;
-    } else if (dir === DIRECTION.WEST) {
+    } else if (dir === "west") {
       n += 2;
-    } else if (dir === DIRECTION.SOUTH) {
+    } else if (dir === "south") {
       n += 1;
     }
     const _mod = mod(n, 2);
@@ -17022,7 +16977,7 @@ const SwimlaneMixin = {
     if (flipV && _mod === 0) {
       n += 2;
     }
-    return [DIRECTION.NORTH, DIRECTION.EAST, DIRECTION.SOUTH, DIRECTION.WEST][mod(n, 4)];
+    return ["north", "east", "south", "west"][mod(n, 4)];
   },
   getActualStartSize(swimlane, ignoreState = false) {
     const result = new Rectangle();
@@ -17030,11 +16985,11 @@ const SwimlaneMixin = {
       const style = this.getCurrentCellStyle(swimlane, ignoreState);
       const size = style.startSize ?? DEFAULT_STARTSIZE;
       const dir = this.getSwimlaneDirection(style);
-      if (dir === DIRECTION.NORTH) {
+      if (dir === "north") {
         result.y = size;
-      } else if (dir === DIRECTION.WEST) {
+      } else if (dir === "west") {
         result.x = size;
-      } else if (dir === DIRECTION.SOUTH) {
+      } else if (dir === "south") {
         result.height = size;
       } else {
         result.width = size;
@@ -17044,7 +16999,7 @@ const SwimlaneMixin = {
   },
   isSwimlane(cell, ignoreState = false) {
     if (cell && cell.getParent() !== this.getDataModel().getRoot() && !cell.isEdge()) {
-      return this.getCurrentCellStyle(cell, ignoreState).shape === SHAPE.SWIMLANE;
+      return this.getCurrentCellStyle(cell, ignoreState).shape === "swimlane";
     }
     return false;
   },
@@ -17907,22 +17862,24 @@ class AbstractGraph extends EventSource {
   /**
    * Hooks to create a new {@link EdgeHandler} for the given {@link CellState}.
    *
+   * This method relies on the registered elements in {@link EdgeStyleRegistry} to know which {@link EdgeHandler} to create.
+   * If the {@link EdgeStyle} is not registered, it will return a default {@link EdgeHandler}.
+   *
    * @param state {@link CellState} to create the handler for.
    * @param edgeStyle the {@link EdgeStyleFunction} that let choose the actual edge handler.
    */
   createEdgeHandler(state, edgeStyle) {
-    let result = null;
-    if (edgeStyle == ElbowConnector || edgeStyle == Loop || edgeStyle == SideToSide || edgeStyle == TopToBottom) {
-      result = this.createElbowEdgeHandler(state);
-    } else if (edgeStyle == ManhattanConnector || edgeStyle == OrthogonalConnector || edgeStyle == SegmentConnector) {
-      result = this.createEdgeSegmentHandler(state);
-    } else {
-      result = this.createEdgeHandlerInstance(state);
+    const handlerKind = EdgeStyleRegistry.getHandlerKind(edgeStyle);
+    switch (handlerKind) {
+      case "elbow":
+        return this.createElbowEdgeHandler(state);
+      case "segment":
+        return this.createEdgeSegmentHandler(state);
     }
-    return result;
+    return this.createEdgeHandlerInstance(state);
   }
   /*****************************************************************************
-   * Group: Drilldown
+   * Group: Drill down
    *****************************************************************************/
   /**
    * Returns the current root of the displayed cell hierarchy. This is a
@@ -18075,6 +18032,9 @@ class AbstractGraph extends EventSource {
   /**
    * Returns `true` if perimeter points should be computed such that the resulting edge has only horizontal or vertical segments.
    *
+   * This method relies on the registered elements in {@link EdgeStyleRegistry} to know if the {@link CellStateStyle.edgeStyle} of the {@link CellState} is orthogonal.
+   * If the {@link EdgeStyle} is not registered, it is considered as NOT orthogonal.
+   *
    * @param edge {@link CellState} that represents the edge.
    */
   isOrthogonal(edge) {
@@ -18083,15 +18043,7 @@ class AbstractGraph extends EventSource {
       return orthogonal;
     }
     const edgeStyle = this.view.getEdgeStyle(edge);
-    return [
-      EntityRelation,
-      ElbowConnector,
-      ManhattanConnector,
-      OrthogonalConnector,
-      SegmentConnector,
-      SideToSide,
-      TopToBottom
-    ].includes(edgeStyle);
+    return EdgeStyleRegistry.isOrthogonal(edgeStyle);
   }
   /*****************************************************************************
    * Group: Graph appearance
@@ -19172,23 +19124,13 @@ class GraphDataModel extends EventSource {
     }
   }
 }
-class MarkerShape {
-  /**
-   * Adds a factory method that updates a given endpoint and returns a
-   * function to paint the marker onto the given canvas.
-   */
-  static addMarker(type, factory) {
-    MarkerShape.markers[type] = factory;
-  }
-  /**
-   * Returns a function to paint the given marker.
-   */
-  static createMarker(canvas, shape, type, pe, unitX, unitY, size, source, sw, filled) {
-    const markerFunction = MarkerShape.markers[type];
+class EdgeMarkerRegistryImpl extends BaseRegistry {
+  createMarker(canvas, shape, type, pe, unitX, unitY, size, source, sw, filled) {
+    const markerFunction = this.get(type);
     return markerFunction ? markerFunction(canvas, shape, type, pe, unitX, unitY, size, source, sw, filled) : null;
   }
 }
-MarkerShape.markers = {};
+const EdgeMarkerRegistry = new EdgeMarkerRegistryImpl();
 class ConnectorShape extends PolylineShape {
   constructor(points, stroke, strokewidth) {
     super(points, stroke, strokewidth);
@@ -19249,7 +19191,7 @@ class ConnectorShape extends PolylineShape {
       const unitY = dy / dist;
       const size = (source ? this.style.startSize : this.style.endSize) ?? DEFAULT_MARKERSIZE;
       const filled = (source ? this.style.startFill : this.style.endFill) ?? true;
-      result = MarkerShape.createMarker(c, this, type, pe, unitX, unitY, size, source, this.strokeWidth, filled);
+      result = EdgeMarkerRegistry.createMarker(c, this, type, pe, unitX, unitY, size, source, this.strokeWidth, filled);
     }
     return result;
   }
@@ -19271,7 +19213,7 @@ class ConnectorShape extends PolylineShape {
   }
 }
 class TextShape extends Shape {
-  constructor(value, bounds, align = ALIGN.CENTER, valign = ALIGN.MIDDLE, color = "black", family = DEFAULT_FONTFAMILY, size = DEFAULT_FONTSIZE, fontStyle = DEFAULT_FONTSTYLE, spacing = 2, spacingTop = 0, spacingRight = 0, spacingBottom = 0, spacingLeft = 0, horizontal = true, background = NONE, border = NONE, wrap = false, clipped = false, overflow = "visible", labelPadding = 0, textDirection = DEFAULT_TEXT_DIRECTION) {
+  constructor(value, bounds, align = "center", valign = "middle", color = "black", family = DEFAULT_FONTFAMILY, size = DEFAULT_FONTSIZE, fontStyle = DEFAULT_FONTSTYLE, spacing = 2, spacingTop = 0, spacingRight = 0, spacingBottom = 0, spacingLeft = 0, horizontal = true, background = NONE, border = NONE, wrap = false, clipped = false, overflow = "visible", labelPadding = 0, textDirection = DEFAULT_TEXT_DIRECTION) {
     super();
     this.margin = null;
     this.unrotatedBoundingBox = null;
@@ -19290,8 +19232,8 @@ class TextShape extends Shape {
     this.value = value;
     this.bounds = bounds;
     this.color = color ?? "black";
-    this.align = align ?? ALIGN.CENTER;
-    this.valign = valign ?? ALIGN.MIDDLE;
+    this.align = align ?? "center";
+    this.valign = valign ?? "middle";
     this.family = family ?? DEFAULT_FONTFAMILY;
     this.size = size ?? DEFAULT_FONTSIZE;
     this.fontStyle = fontStyle ?? DEFAULT_FONTSTYLE;
@@ -19337,7 +19279,7 @@ class TextShape extends Shape {
     if (update) {
       c.updateText(x, y, w, h, this.align, this.valign, this.wrap, this.overflow, this.clipped, this.getTextRotation(), this.node);
     } else {
-      const realHtml = isNode(this.value) || this.dialect === DIALECT.STRICTHTML;
+      const realHtml = isNode(this.value) || this.dialect === "strictHtml";
       const fmt = realHtml ? "html" : "";
       let val = this.value;
       if (!realHtml && fmt === "html") {
@@ -19348,11 +19290,11 @@ class TextShape extends Shape {
       }
       val = !isNode(this.value) && this.replaceLinefeeds && fmt === "html" ? val.replace(/\n/g, "<br/>") : val;
       let dir = this.textDirection;
-      if (dir === TEXT_DIRECTION.AUTO && !realHtml) {
+      if (dir === "auto" && !realHtml) {
         dir = this.getAutoDirection();
       }
-      if (dir !== TEXT_DIRECTION.LTR && dir !== TEXT_DIRECTION.RTL) {
-        dir = TEXT_DIRECTION.DEFAULT;
+      if (dir !== "ltr" && dir !== "rtl") {
+        dir = "";
       }
       c.text(x, y, w, h, val, this.align, this.valign, this.wrap, fmt, this.overflow, this.clipped, this.getTextRotation(), dir);
     }
@@ -19361,7 +19303,7 @@ class TextShape extends Shape {
    * Renders the text using the given DOM nodes.
    */
   redraw() {
-    if (this.visible && this.checkBounds() && this.cacheEnabled && this.lastValue === this.value && (isNode(this.value) || this.dialect === DIALECT.STRICTHTML)) {
+    if (this.visible && this.checkBounds() && this.cacheEnabled && this.lastValue === this.value && (isNode(this.value) || this.dialect === "strictHtml")) {
       if (this.node.nodeName === "DIV") {
         this.redrawHtmlShape();
         this.updateBoundingBox();
@@ -19376,7 +19318,7 @@ class TextShape extends Shape {
       }
     } else {
       super.redraw();
-      if (isNode(this.value) || this.dialect === DIALECT.STRICTHTML) {
+      if (isNode(this.value) || this.dialect === "strictHtml") {
         this.lastValue = this.value;
       } else {
         this.lastValue = null;
@@ -19389,8 +19331,8 @@ class TextShape extends Shape {
   resetStyles() {
     super.resetStyles();
     this.color = "black";
-    this.align = ALIGN.CENTER;
-    this.valign = ALIGN.MIDDLE;
+    this.align = "center";
+    this.valign = "middle";
     this.family = DEFAULT_FONTFAMILY;
     this.size = DEFAULT_FONTSIZE;
     this.fontStyle = DEFAULT_FONTSTYLE;
@@ -19436,14 +19378,15 @@ class TextShape extends Shape {
     this.flipH = false;
   }
   /**
-   * Used to determine the automatic text direction. Returns
-   * {@link Constants#TEXT_DIRECTION_LTR} or {@link Constants#TEXT_DIRECTION_RTL}
-   * depending on the contents of <value>. This is not invoked for HTML, wrapped
-   * content or if <value> is a DOM node.
+   * Used to determine the automatic text direction.
+   *
+   * Returns 'ltr' or 'rtl' depending on the contents of {@link value}.
+   *
+   * This is not invoked for HTML, wrapped content or if {@link value} is a DOM node.
    */
   getAutoDirection() {
     const tmp = /[A-Za-z\u05d0-\u065f\u066a-\u06ef\u06fa-\u07ff\ufb1d-\ufdff\ufe70-\ufefc]/.exec(String(this.value));
-    return tmp && tmp.length > 0 && tmp[0] > "z" ? TEXT_DIRECTION.RTL : TEXT_DIRECTION.LTR;
+    return tmp && tmp.length > 0 && tmp[0] > "z" ? "rtl" : "ltr";
   }
   /**
    * Returns the node that contains the rendered input.
@@ -19467,9 +19410,9 @@ class TextShape extends Shape {
     let { node } = this;
     this.boundingBox = this.bounds.clone();
     const rot = this.getTextRotation();
-    const h = ((_a = this.style) == null ? void 0 : _a.labelPosition) ?? ALIGN.CENTER;
-    const v = ((_b = this.style) == null ? void 0 : _b.verticalLabelPosition) ?? ALIGN.MIDDLE;
-    if (!this.ignoreStringSize && node && this.overflow !== "fill" && (!this.clipped || !this.ignoreClippedStringSize || h !== ALIGN.CENTER || v !== ALIGN.MIDDLE)) {
+    const h = ((_a = this.style) == null ? void 0 : _a.labelPosition) ?? "center";
+    const v = ((_b = this.style) == null ? void 0 : _b.verticalLabelPosition) ?? "middle";
+    if (!this.ignoreStringSize && node && this.overflow !== "fill" && (!this.clipped || !this.ignoreClippedStringSize || h !== "center" || v !== "middle")) {
       let ow = null;
       let oh = null;
       if (node.firstChild && node.firstChild.firstChild && node.firstChild.firstChild.nodeName === "foreignObject") {
@@ -19552,7 +19495,7 @@ class TextShape extends Shape {
    */
   getHtmlValue() {
     let val = this.value;
-    if (this.dialect !== DIALECT.STRICTHTML) {
+    if (this.dialect !== "strictHtml") {
       val = htmlEntities(val, false);
     }
     val = replaceTrailingNewlines(val, "<div><br></div>");
@@ -19565,11 +19508,11 @@ class TextShape extends Shape {
   getTextCss() {
     const lh = LINE_HEIGHT;
     let css = `display: inline-block; font-size: ${this.size}px; font-family: ${this.family}; color: ${this.color}; line-height: ${lh}; pointer-events: ${this.pointerEvents ? "all" : "none"}; `;
-    matchBinaryMask(this.fontStyle, FONT.BOLD) && (css += "font-weight: bold; ");
-    matchBinaryMask(this.fontStyle, FONT.ITALIC) && (css += "font-style: italic; ");
+    matchBinaryMask(this.fontStyle, FONT_STYLE_MASK.BOLD) && (css += "font-weight: bold; ");
+    matchBinaryMask(this.fontStyle, FONT_STYLE_MASK.ITALIC) && (css += "font-style: italic; ");
     const txtDecor = [];
-    matchBinaryMask(this.fontStyle, FONT.UNDERLINE) && txtDecor.push("underline");
-    matchBinaryMask(this.fontStyle, FONT.STRIKETHROUGH) && txtDecor.push("line-through");
+    matchBinaryMask(this.fontStyle, FONT_STYLE_MASK.UNDERLINE) && txtDecor.push("underline");
+    matchBinaryMask(this.fontStyle, FONT_STYLE_MASK.STRIKETHROUGH) && txtDecor.push("line-through");
     txtDecor.length > 0 && (css += `text-decoration: ${txtDecor.join(" ")}; `);
     return css;
   }
@@ -19621,7 +19564,7 @@ class TextShape extends Shape {
       elt.innerHTML = this.value.outerHTML;
     } else {
       let val = this.value;
-      if (this.dialect !== DIALECT.STRICTHTML) {
+      if (this.dialect !== "strictHtml") {
         val = htmlEntities(val, false);
       }
       val = replaceTrailingNewlines(val, "<div>&nbsp;</div>");
@@ -19640,7 +19583,7 @@ class TextShape extends Shape {
       node.appendChild(this.value);
     } else {
       let val = this.value;
-      if (this.dialect !== DIALECT.STRICTHTML) {
+      if (this.dialect !== "strictHtml") {
         val = htmlEntities(val, false);
       }
       val = replaceTrailingNewlines(val, "<div><br></div>");
@@ -19669,10 +19612,10 @@ class TextShape extends Shape {
       const divs = node.getElementsByTagName("div");
       if (divs.length > 0) {
         let dir = this.textDirection;
-        if (dir === TEXT_DIRECTION.AUTO && this.dialect !== DIALECT.STRICTHTML) {
+        if (dir === "auto" && this.dialect !== "strictHtml") {
           dir = this.getAutoDirection();
         }
-        if (dir === TEXT_DIRECTION.LTR || dir === TEXT_DIRECTION.RTL) {
+        if (dir === "ltr" || dir === "rtl") {
           divs[divs.length - 1].setAttribute("dir", dir);
         } else {
           divs[divs.length - 1].removeAttribute("dir");
@@ -19690,15 +19633,15 @@ class TextShape extends Shape {
     style.fontFamily = this.family;
     style.verticalAlign = "top";
     style.color = this.color;
-    matchBinaryMask(this.fontStyle, FONT.BOLD) ? style.fontWeight = "bold" : style.fontWeight = "";
-    matchBinaryMask(this.fontStyle, FONT.ITALIC) ? style.fontStyle = "italic" : style.fontStyle = "";
+    matchBinaryMask(this.fontStyle, FONT_STYLE_MASK.BOLD) ? style.fontWeight = "bold" : style.fontWeight = "";
+    matchBinaryMask(this.fontStyle, FONT_STYLE_MASK.ITALIC) ? style.fontStyle = "italic" : style.fontStyle = "";
     const txtDecor = [];
-    matchBinaryMask(this.fontStyle, FONT.UNDERLINE) && txtDecor.push("underline");
-    matchBinaryMask(this.fontStyle, FONT.STRIKETHROUGH) && txtDecor.push("line-through");
+    matchBinaryMask(this.fontStyle, FONT_STYLE_MASK.UNDERLINE) && txtDecor.push("underline");
+    matchBinaryMask(this.fontStyle, FONT_STYLE_MASK.STRIKETHROUGH) && txtDecor.push("line-through");
     txtDecor.length > 0 && (style.textDecoration = txtDecor.join(" "));
-    if (this.align === ALIGN.CENTER) {
+    if (this.align === "center") {
       style.textAlign = "center";
-    } else if (this.align === ALIGN.RIGHT) {
+    } else if (this.align === "right") {
       style.textAlign = "right";
     } else {
       style.textAlign = "left";
@@ -19767,16 +19710,16 @@ class TextShape extends Shape {
   getSpacing() {
     let dx = 0;
     let dy = 0;
-    if (this.align === ALIGN.CENTER) {
+    if (this.align === "center") {
       dx = (this.spacingLeft - this.spacingRight) / 2;
-    } else if (this.align === ALIGN.RIGHT) {
+    } else if (this.align === "right") {
       dx = -this.spacingRight - this.baseSpacingRight;
     } else {
       dx = this.spacingLeft + this.baseSpacingLeft;
     }
-    if (this.valign === ALIGN.MIDDLE) {
+    if (this.valign === "middle") {
       dy = (this.spacingTop - this.spacingBottom) / 2;
-    } else if (this.valign === ALIGN.BOTTOM) {
+    } else if (this.valign === "bottom") {
       dy = -this.spacingBottom - this.baseSpacingBottom;
     } else {
       dy = this.spacingTop + this.baseSpacingTop;
@@ -19784,21 +19727,8 @@ class TextShape extends Shape {
     return new Point(dx, dy);
   }
 }
-class StencilShapeRegistry {
-  /**
-   * Adds the given {@link StencilShape}.
-   */
-  static addStencil(name, stencil) {
-    StencilShapeRegistry.stencils[name] = stencil;
-  }
-  /**
-   * Returns the {@link StencilShape} for the given name.
-   */
-  static getStencil(name) {
-    return StencilShapeRegistry.stencils[name];
-  }
-}
-StencilShapeRegistry.stencils = {};
+const ShapeRegistry = new BaseRegistry();
+const StencilShapeRegistry = new BaseRegistry();
 const placeholderStyleValues = ["inherit", "swimlane", "indicated"];
 const placeholderStyleProperties = [
   "fillColor",
@@ -19816,20 +19746,6 @@ class CellRenderer {
     this.antiAlias = true;
     this.minSvgStrokeWidth = 1;
     this.forceControlClickHandler = false;
-  }
-  /**
-   * Registers the given constructor under the specified key in this instance of the renderer.
-   *
-   * For example:
-   * ```javascript
-   * CellRenderer.registerShape('rectangle', RectangleShape);
-   * ```
-   *
-   * @param key the shape name.
-   * @param shape constructor of the {@link Shape} subclass.
-   */
-  static registerShape(key, shape) {
-    CellRenderer.defaultShapes[key] = shape;
   }
   /**
    * Initializes the shape in the given state by calling its init method with
@@ -19850,7 +19766,7 @@ class CellRenderer {
    * @param state {@link CellState} for which the shape should be created.
    */
   createShape(state) {
-    const stencil = StencilShapeRegistry.getStencil(state.style.shape);
+    const stencil = StencilShapeRegistry.get(state.style.shape);
     if (stencil) {
       return new Shape(stencil);
     }
@@ -19868,10 +19784,10 @@ class CellRenderer {
     }
   }
   /**
-   * Returns the shape for the given name from {@link defaultShapes}.
+   * Returns the shape for the given name from {@link ShapeRegistry}.
    */
   getShape(name) {
-    return name ? CellRenderer.defaultShapes[name] : null;
+    return ShapeRegistry.get(name);
   }
   /**
    * Returns the constructor to be used for creating the shape.
@@ -19990,9 +19906,9 @@ class CellRenderer {
     const graph = state.view.graph;
     if ((state.style.fontSize || 0) > 0 || state.style.fontSize == null) {
       const isForceHtml = graph.isHtmlLabel(state.cell) || isNode(value);
-      state.text = new this.defaultTextShape(value, new Rectangle(), state.style.align ?? ALIGN.CENTER, state.getVerticalAlign(), state.style.fontColor, state.style.fontFamily, state.style.fontSize, state.style.fontStyle, state.style.spacing, state.style.spacingTop, state.style.spacingRight, state.style.spacingBottom, state.style.spacingLeft, state.style.horizontal, state.style.labelBackgroundColor, state.style.labelBorderColor, graph.isWrapping(state.cell) && graph.isHtmlLabel(state.cell), graph.isLabelClipped(state.cell), state.style.overflow, state.style.labelPadding, state.style.textDirection ?? DEFAULT_TEXT_DIRECTION);
+      state.text = new this.defaultTextShape(value, new Rectangle(), state.style.align ?? "center", state.getVerticalAlign(), state.style.fontColor, state.style.fontFamily, state.style.fontSize, state.style.fontStyle, state.style.spacing, state.style.spacingTop, state.style.spacingRight, state.style.spacingBottom, state.style.spacingLeft, state.style.horizontal, state.style.labelBackgroundColor, state.style.labelBorderColor, graph.isWrapping(state.cell) && graph.isHtmlLabel(state.cell), graph.isLabelClipped(state.cell), state.style.overflow, state.style.labelPadding, state.style.textDirection ?? DEFAULT_TEXT_DIRECTION);
       state.text.opacity = state.style.textOpacity ?? 100;
-      state.text.dialect = isForceHtml ? DIALECT.STRICTHTML : graph.dialect;
+      state.text.dialect = isForceHtml ? "strictHtml" : graph.dialect;
       state.text.style = state.style;
       state.text.state = state;
       this.initializeLabel(state, state.text);
@@ -20012,7 +19928,7 @@ class CellRenderer {
           graph.fireMouseEvent(InternalEvent.MOUSE_DOWN, new InternalMouseEvent(evt, state));
           const source = getSource(evt);
           forceGetCell = // @ts-ignore nodeName should exist.
-          graph.dialect !== DIALECT.SVG && source.nodeName === "IMG";
+          graph.dialect !== "svg" && source.nodeName === "IMG";
         }
       }, (evt) => {
         if (this.isLabelEvent(state, evt)) {
@@ -20041,7 +19957,7 @@ class CellRenderer {
    * @param shape {@link Shape} that represents the label.
    */
   initializeLabel(state, shape) {
-    if (Client.IS_SVG && Client.NO_FO && shape.dialect !== DIALECT.SVG) {
+    if (Client.IS_SVG && Client.NO_FO && shape.dialect !== "svg") {
       const graph = state.view.graph;
       shape.init(graph.container);
     } else {
@@ -20180,9 +20096,9 @@ class CellRenderer {
    */
   initControl(state, control, handleEvents, clickHandler) {
     const graph = state.view.graph;
-    const isForceHtml = graph.isHtmlLabel(state.cell) && Client.NO_FO && graph.dialect === DIALECT.SVG;
+    const isForceHtml = graph.isHtmlLabel(state.cell) && Client.NO_FO && graph.dialect === "svg";
     if (isForceHtml) {
-      control.dialect = DIALECT.PREFERHTML;
+      control.dialect = "preferHtml";
       control.init(graph.container);
       control.node.style.zIndex = String(1);
     } else {
@@ -20253,7 +20169,7 @@ class CellRenderer {
     const getState = (evt) => {
       let result = state;
       const source = getSource(evt);
-      if (source && graph.dialect !== DIALECT.SVG && // @ts-ignore nodeName should exist
+      if (source && graph.dialect !== "svg" && // @ts-ignore nodeName should exist
       source.nodeName === "IMG" || Client.IS_TOUCH) {
         const x = getClientX(evt);
         const y = getClientY(evt);
@@ -20298,7 +20214,7 @@ class CellRenderer {
     const wrapping = graph.isWrapping(state.cell);
     const clipping = graph.isLabelClipped(state.cell);
     const isForceHtml = graph.isHtmlLabel(state.cell) || value && isNode(value);
-    const dialect = isForceHtml ? DIALECT.STRICTHTML : graph.dialect;
+    const dialect = isForceHtml ? "strictHtml" : graph.dialect;
     const overflow = state.style.overflow ?? "visible";
     if (state.text && (state.text.wrap !== wrapping || state.text.clipped !== clipping || state.text.overflow !== overflow || state.text.dialect !== dialect)) {
       state.text.destroy();
@@ -20409,9 +20325,9 @@ class CellRenderer {
       bounds.height = tmp;
     }
     if (state.shape != null) {
-      const hpos = state.style.labelPosition ?? ALIGN.CENTER;
-      const vpos = state.style.verticalLabelPosition ?? ALIGN.MIDDLE;
-      if (hpos === ALIGN.CENTER && vpos === ALIGN.MIDDLE) {
+      const hpos = state.style.labelPosition ?? "center";
+      const vpos = state.style.verticalLabelPosition ?? "middle";
+      if (hpos === "center" && vpos === "middle") {
         bounds = state.shape.getLabelBounds(bounds);
       }
     }
@@ -20432,26 +20348,21 @@ class CellRenderer {
    * @param bounds {@link Rectangle} the rectangle to be rotated.
    */
   rotateLabelBounds(state, bounds) {
-    bounds.y -= state.text.margin.y * bounds.height;
-    bounds.x -= state.text.margin.x * bounds.width;
+    const textShape = state.text;
+    bounds.y -= textShape.margin.y * bounds.height;
+    bounds.x -= textShape.margin.x * bounds.width;
     if (!this.legacySpacing || state.style.overflow !== "fill" && state.style.overflow !== "width") {
       const s = state.view.scale;
-      const spacing = state.text.getSpacing();
+      const spacing = textShape.getSpacing();
       bounds.x += spacing.x * s;
       bounds.y += spacing.y * s;
-      const hpos = state.style.labelPosition ?? ALIGN.CENTER;
-      const vpos = state.style.verticalLabelPosition ?? ALIGN.MIDDLE;
+      const hpos = state.style.labelPosition ?? "center";
+      const vpos = state.style.verticalLabelPosition ?? "middle";
       const lw = state.style.labelWidth ?? null;
-      bounds.width = Math.max(0, bounds.width - (hpos === ALIGN.CENTER && lw == null ? (
-        // @ts-ignore
-        state.text.spacingLeft * s + state.text.spacingRight * s
-      ) : 0));
-      bounds.height = Math.max(0, bounds.height - (vpos === ALIGN.MIDDLE ? (
-        // @ts-ignore
-        state.text.spacingTop * s + state.text.spacingBottom * s
-      ) : 0));
+      bounds.width = Math.max(0, bounds.width - (hpos === "center" && lw == null ? textShape.spacingLeft * s + textShape.spacingRight * s : 0));
+      bounds.height = Math.max(0, bounds.height - (vpos === "middle" ? textShape.spacingTop * s + textShape.spacingBottom * s : 0));
     }
-    const theta = state.text.getTextRotation();
+    const theta = textShape.getTextRotation();
     if (theta !== 0 && state != null && // @ts-ignore
     state.cell.isVertex()) {
       const cx = state.getCenterX();
@@ -20731,7 +20642,6 @@ class CellRenderer {
     }
   }
 }
-CellRenderer.defaultShapes = {};
 class Stylesheet {
   constructor() {
     this.styles = /* @__PURE__ */ new Map();
@@ -20743,10 +20653,10 @@ class Stylesheet {
    */
   createDefaultVertexStyle() {
     const style = {};
-    style.shape = SHAPE.RECTANGLE;
+    style.shape = "rectangle";
     style.perimeter = "rectanglePerimeter";
-    style.verticalAlign = ALIGN.MIDDLE;
-    style.align = ALIGN.CENTER;
+    style.verticalAlign = "middle";
+    style.align = "center";
     style.fillColor = "#C3D9FF";
     style.strokeColor = "#6482B9";
     style.fontColor = "#774400";
@@ -20757,10 +20667,10 @@ class Stylesheet {
    */
   createDefaultEdgeStyle() {
     const style = {};
-    style.shape = SHAPE.CONNECTOR;
+    style.shape = "connector";
     style.endArrow = "classic";
-    style.verticalAlign = ALIGN.MIDDLE;
-    style.align = ALIGN.CENTER;
+    style.verticalAlign = "middle";
+    style.align = "center";
     style.strokeColor = "#6482B9";
     style.fontColor = "#446299";
     return style;
@@ -20800,8 +20710,8 @@ class Stylesheet {
    *
    * ```javascript
    * const style = {} as CellStateStyle;
-   * style.shape = SHAPE.RECTANGLE;
-   * style.perimeter = PERIMETER.RECTANGLE;
+   * style.shape = 'rectangle';
+   * style.perimeter = 'rectanglePerimeter';
    * style.rounded = true;
    * graph.getStylesheet().putCellStyle('rounded', style);
    * ```
@@ -21096,32 +21006,7 @@ class CurrentRootChange {
     this.isUp = !this.isUp;
   }
 }
-class StyleRegistry {
-  /**
-   * Puts the given object into the registry under the given name.
-   */
-  static putValue(name, obj) {
-    StyleRegistry.values[name] = obj;
-  }
-  /**
-   * Returns the value associated with the given name.
-   */
-  static getValue(name) {
-    return StyleRegistry.values[name];
-  }
-  /**
-   * Returns the name for the given value.
-   */
-  static getName(value) {
-    for (const key in StyleRegistry.values) {
-      if (StyleRegistry.values[key] === value) {
-        return key;
-      }
-    }
-    return null;
-  }
-}
-StyleRegistry.values = {};
+const PerimeterRegistry = new BaseRegistry();
 class GraphView extends EventSource {
   constructor(graph) {
     super();
@@ -21240,8 +21125,7 @@ class GraphView extends EventSource {
     this.states = value;
   }
   /**
-   * Returns the DOM node that contains the background-, draw- and
-   * overlay- and decoratorpanes.
+   * Returns the DOM node that contains the background-, draw-, overlay- and decorator- panes.
    */
   getCanvas() {
     return this.canvas;
@@ -21271,7 +21155,7 @@ class GraphView extends EventSource {
     return this.decoratorPane;
   }
   /**
-   * Returns the union of all {@link mxCellStates} for the given array of {@link Cell}.
+   * Returns the union of all {@link CellState}s for the given array of {@link Cell}.
    *
    * @param cells Array of {@link Cell} whose bounds should be returned.
    */
@@ -21297,7 +21181,7 @@ class GraphView extends EventSource {
    * Sets and returns the current root and fires an {@link undo} event before
    * calling {@link AbstractGraph.sizeDidChange}.
    *
-   * @param root {@link mxCell} that specifies the root of the displayed cell hierarchy.
+   * @param root {@link Cell} that specifies the root of the displayed cell hierarchy.
    */
   setCurrentRoot(root) {
     if (this.currentRoot !== root) {
@@ -21421,7 +21305,7 @@ class GraphView extends EventSource {
   }
   /**
    * Calls {@link validateCell} and {@link validateCellState} and updates the {@link graphBounds}
-   * using {@link getBoundingBox}. Finally the background is validated using
+   * using {@link getBoundingBox}. Finally, the background is validated using
    * {@link validateBackground}.
    *
    * @param cell Optional {@link Cell} to be used as the root of the validation.
@@ -21486,7 +21370,7 @@ class GraphView extends EventSource {
   /**
    * Creates and returns the shape used as the background page.
    *
-   * @param bounds {@link mxRectangle} that represents the bounds of the shape.
+   * @param bounds {@link Rectangle} that represents the bounds of the shape.
    */
   createBackgroundPageShape(bounds) {
     return new RectangleShape(bounds, "white", "black");
@@ -21593,8 +21477,8 @@ class GraphView extends EventSource {
    * };
    * ```
    *
-   * @param backgroundImage {@link mxImageShape} that represents the background image.
-   * @param bg {@link mxImage} that specifies the image and its dimensions.
+   * @param backgroundImage {@link ImageShape} that represents the background image.
+   * @param bg {@link Image} that specifies the image and its dimensions.
    */
   redrawBackgroundImage(backgroundImage, bg) {
     backgroundImage.scale = this.scale;
@@ -21612,7 +21496,7 @@ class GraphView extends EventSource {
    * the given cell is visible. If the cell is not visible but the state exists
    * then it is removed using {@link removeState}.
    *
-   * @param cell {@link mxCell} whose {@link CellState} should be created.
+   * @param cell {@link Cell} whose {@link CellState} should be created.
    * @param visible Optional boolean indicating if the cell should be visible. Default
    * is true.
    */
@@ -21632,7 +21516,7 @@ class GraphView extends EventSource {
   /**
    * Validates and repaints the {@link CellState} for the given {@link Cell}.
    *
-   * @param cell {@link mxCell} whose {@link CellState} should be validated.
+   * @param cell {@link Cell} whose {@link CellState} should be validated.
    * @param recurse Optional boolean indicating if the children of the cell should be
    * validated. Default is true.
    */
@@ -21782,8 +21666,8 @@ class GraphView extends EventSource {
    * @param state {@link CellState} whose absolute offset should be updated.
    */
   updateVertexLabelOffset(state) {
-    const h = state.style.labelPosition ?? ALIGN.CENTER;
-    if (h === ALIGN.LEFT) {
+    const h = state.style.labelPosition ?? "center";
+    if (h === "left") {
       let lw = state.style.labelWidth ?? null;
       if (lw != null) {
         lw *= this.scale;
@@ -21791,16 +21675,16 @@ class GraphView extends EventSource {
         lw = state.width;
       }
       state.absoluteOffset.x -= lw;
-    } else if (h === ALIGN.RIGHT) {
+    } else if (h === "right") {
       state.absoluteOffset.x += state.width;
-    } else if (h === ALIGN.CENTER) {
+    } else if (h === "center") {
       const lw = state.style.labelWidth ?? null;
       if (lw != null) {
-        const align = state.style.align ?? ALIGN.CENTER;
+        const align = state.style.align ?? "center";
         let dx = 0;
-        if (align === ALIGN.CENTER) {
+        if (align === "center") {
           dx = 0.5;
-        } else if (align === ALIGN.RIGHT) {
+        } else if (align === "right") {
           dx = 1;
         }
         if (dx !== 0) {
@@ -21808,10 +21692,10 @@ class GraphView extends EventSource {
         }
       }
     }
-    const v = state.style.verticalLabelPosition ?? ALIGN.MIDDLE;
-    if (v === ALIGN.TOP) {
+    const v = state.style.verticalLabelPosition ?? "middle";
+    if (v === "top") {
       state.absoluteOffset.y -= state.height;
-    } else if (v === ALIGN.BOTTOM) {
+    } else if (v === "bottom") {
       state.absoluteOffset.y += state.height;
     }
   }
@@ -21859,8 +21743,8 @@ class GraphView extends EventSource {
   /**
    * Sets the fixed source or target terminal point on the given edge.
    *
-   * @param edge <CellState> whose terminal point should be updated.
-   * @param terminal <CellState> which represents the actual terminal.
+   * @param edge {@link CellState} whose terminal point should be updated.
+   * @param terminal {@link CellState} which represents the actual terminal.
    * @param source Boolean that specifies if the terminal is the source.
    * @param constraint {@link ConnectionConstraint} that specifies the connection.
    */
@@ -21870,8 +21754,8 @@ class GraphView extends EventSource {
   /**
    * Returns the fixed source or target terminal point for the given edge.
    *
-   * @param edge <CellState> whose terminal point should be returned.
-   * @param terminal <CellState> which represents the actual terminal.
+   * @param edge {@link CellState} whose terminal point should be returned.
+   * @param terminal {@link CellState} which represents the actual terminal.
    * @param source Boolean that specifies if the terminal is the source.
    * @param constraint {@link ConnectionConstraint} that specifies the connection.
    */
@@ -21897,7 +21781,7 @@ class GraphView extends EventSource {
    * if it has a fixed aspect and returns the previous bounds as an {@link Rectangle} if
    * the bounds have been modified or null otherwise.
    *
-   * @param edge {@link CellState} whose bounds should be updated.
+   * @param state {@link CellState} whose bounds should be updated.
    */
   updateBoundsFromStencil(state) {
     let previous = null;
@@ -21982,7 +21866,7 @@ class GraphView extends EventSource {
   getEdgeStyle(edge, points = [], source = null, target = null) {
     let edgeStyle = this.isLoopStyleEnabled(edge, points, source, target) ? edge.style.loopStyle ?? this.graph.defaultLoopStyle : !(edge.style.noEdgeStyle ?? false) ? edge.style.edgeStyle : null;
     if (typeof edgeStyle === "string") {
-      let tmp = StyleRegistry.getValue(edgeStyle);
+      let tmp = EdgeStyleRegistry.get(edgeStyle);
       if (!tmp && this.isAllowEval()) {
         tmp = doEval(edgeStyle);
       }
@@ -22189,7 +22073,7 @@ class GraphView extends EventSource {
   getPerimeterFunction(state) {
     let perimeter = state.style.perimeter;
     if (typeof perimeter === "string") {
-      let tmp = StyleRegistry.getValue(perimeter);
+      let tmp = PerimeterRegistry.get(perimeter);
       if (tmp == null && this.isAllowEval()) {
         tmp = doEval(perimeter);
       }
@@ -22226,7 +22110,7 @@ class GraphView extends EventSource {
    * to be connected to this terminal on the display. The result of this method
    * is cached in {@link CellState.getVisibleTerminalState}.
    *
-   * @param edge {@link mxCell} whose visible terminal should be returned.
+   * @param edge {@link Cell} whose visible terminal should be returned.
    * @param source Boolean that specifies if the source or target terminal
    * should be returned.
    */
@@ -22246,8 +22130,7 @@ class GraphView extends EventSource {
     return best;
   }
   /**
-   * Updates the given state using the bounding box of t
-   * he absolute points.
+   * Updates the given state using the bounding box of the absolute points.
    * Also updates {@link CellState.terminalDistance}, {@link CellState.length} and
    * {@link CellState.segments}.
    *
@@ -22302,7 +22185,7 @@ class GraphView extends EventSource {
    * {@link CellState}.
    *
    * @param state {@link CellState} that represents the state of the parent edge.
-   * @param geometry {@link mxGeometry} that represents the relative location.
+   * @param geometry {@link Geometry} that represents the relative location.
    */
   getPoint(state, geometry = null) {
     let x = state.getCenterX();
@@ -22353,7 +22236,7 @@ class GraphView extends EventSource {
    * Gets the relative point that describes the given, absolute label
    * position for the given edge state.
    *
-   * @param state {@link CellState} that represents the state of the parent edge.
+   * @param edgeState {@link CellState} that represents the state of the parent edge.
    * @param x Specifies the x-coordinate of the absolute label location.
    * @param y Specifies the y-coordinate of the absolute label location.
    */
@@ -22420,7 +22303,7 @@ class GraphView extends EventSource {
   }
   /**
    * Updates {@link CellState.absoluteOffset} for the given state. The absolute
-   * offset is normally used for the position of the edge label. Is is
+   * offset is normally used for the position of the edge label. It is
    * calculated from the geometry as an absolute offset from the center
    * between the two endpoints if the geometry is absolute, or as the
    * relative distance between the center along the line and the absolute
@@ -22465,7 +22348,7 @@ class GraphView extends EventSource {
    * Returns the {@link CellState} for the given cell. If create is true, then
    * the state is created if it does not yet exist.
    *
-   * @param cell {@link mxCell} for which the {@link CellState} should be returned.
+   * @param cell {@link Cell} for which the {@link CellState} should be returned.
    * @param create Optional boolean indicating if a new state should be created
    * if it does not yet exist. Default is false.
    */
@@ -22482,7 +22365,7 @@ class GraphView extends EventSource {
     return state;
   }
   /**
-   * Returns the {@link mxCellStates} for the given array of {@link Cell}. The array
+   * Returns the {@link CellState}s for the given array of {@link Cell}. The array
    * contains all states that are not null, that is, the returned array may
    * have less elements than the given array. If no argument is given, then
    * this returns {@link states}.
@@ -22503,7 +22386,7 @@ class GraphView extends EventSource {
   /**
    * Removes and returns the {@link CellState} for the given cell.
    *
-   * @param cell {@link mxCell} for which the {@link CellState} should be removed.
+   * @param cell {@link Cell} for which the {@link CellState} should be removed.
    */
   removeState(cell) {
     const state = this.states.remove(cell);
@@ -22518,7 +22401,7 @@ class GraphView extends EventSource {
    * Creates and returns an {@link CellState} for the given cell and initializes
    * it using {@link cellRenderer.initialize}.
    *
-   * @param cell {@link mxCell} for which a new {@link CellState} should be created.
+   * @param cell {@link Cell} for which a new {@link CellState} should be created.
    */
   createState(cell) {
     return new CellState(this, cell, this.graph.getCellStyle(cell));
@@ -22665,8 +22548,6 @@ class GraphView extends EventSource {
     }
   }
   /**
-   * Function: createHtml
-   *
    * Creates the DOM nodes for the HTML display.
    */
   createHtml() {
@@ -22687,8 +22568,6 @@ class GraphView extends EventSource {
     }
   }
   /**
-   * Function: updateHtmlCanvasSize
-   *
    * Updates the size of the HTML canvas.
    */
   updateHtmlCanvasSize(width, height) {
@@ -22708,8 +22587,6 @@ class GraphView extends EventSource {
     }
   }
   /**
-   * Function: createHtmlPane
-   *
    * Creates and returns a drawing pane in HTML (DIV).
    */
   createHtmlPane(width, height) {
@@ -23421,10 +23298,10 @@ class SwimlaneShape extends Shape {
     const horizontal = this.isHorizontal();
     const flipH = ((_a = this.style) == null ? void 0 : _a.flipH) ?? false;
     const flipV = ((_b = this.style) == null ? void 0 : _b.flipV) ?? false;
-    const shapeVertical = this.direction === DIRECTION.NORTH || this.direction === DIRECTION.SOUTH;
+    const shapeVertical = this.direction === "north" || this.direction === "south";
     const realHorizontal = horizontal == !shapeVertical;
-    const realFlipH = !realHorizontal && flipH !== (this.direction === DIRECTION.SOUTH || this.direction === DIRECTION.WEST);
-    const realFlipV = realHorizontal && flipV !== (this.direction === DIRECTION.SOUTH || this.direction === DIRECTION.WEST);
+    const realFlipH = !realHorizontal && flipH !== (this.direction === "south" || this.direction === "west");
+    const realFlipV = realHorizontal && flipV !== (this.direction === "south" || this.direction === "west");
     if (!shapeVertical) {
       const tmp = Math.min(bounds.height, start * this.scale);
       if (realFlipH || realFlipV) {
@@ -23773,21 +23650,21 @@ class LabelShape extends RectangleShape {
    */
   getImageBounds(x, y, w, h) {
     var _a, _b, _c, _d, _e;
-    const align = ((_a = this.style) == null ? void 0 : _a.imageAlign) ?? ALIGN.LEFT;
-    const valign = ((_b = this.style) == null ? void 0 : _b.verticalAlign) ?? ALIGN.MIDDLE;
+    const align = ((_a = this.style) == null ? void 0 : _a.imageAlign) ?? "left";
+    const valign = ((_b = this.style) == null ? void 0 : _b.verticalAlign) ?? "middle";
     const width = ((_c = this.style) == null ? void 0 : _c.imageWidth) ?? DEFAULT_IMAGESIZE;
     const height = ((_d = this.style) == null ? void 0 : _d.imageHeight) ?? DEFAULT_IMAGESIZE;
     const spacing = ((_e = this.style) == null ? void 0 : _e.spacing) ?? this.spacing + 5;
-    if (align === ALIGN.CENTER) {
+    if (align === "center") {
       x += (w - width) / 2;
-    } else if (align === ALIGN.RIGHT) {
+    } else if (align === "right") {
       x += w - width - spacing;
     } else {
       x += spacing;
     }
-    if (valign === ALIGN.TOP) {
+    if (valign === "top") {
       y += spacing;
-    } else if (valign === ALIGN.BOTTOM) {
+    } else if (valign === "bottom") {
       y += h - height - spacing;
     } else {
       y += (h - height) / 2;
@@ -23796,7 +23673,7 @@ class LabelShape extends RectangleShape {
   }
   /**
    * Generic background painting implementation.
-   * @param {mxAbstractCanvas2D} c
+   * @param {AbstractCanvas2D} c
    * @param {number} x
    * @param {number} y
    * @param {number} w
@@ -23821,21 +23698,21 @@ class LabelShape extends RectangleShape {
    */
   getIndicatorBounds(x, y, w, h) {
     var _a, _b, _c, _d;
-    const align = ((_a = this.style) == null ? void 0 : _a.imageAlign) ?? ALIGN.LEFT;
-    const valign = ((_b = this.style) == null ? void 0 : _b.verticalAlign) ?? ALIGN.MIDDLE;
+    const align = ((_a = this.style) == null ? void 0 : _a.imageAlign) ?? "left";
+    const valign = ((_b = this.style) == null ? void 0 : _b.verticalAlign) ?? "middle";
     const width = ((_c = this.style) == null ? void 0 : _c.indicatorWidth) ?? this.indicatorSize;
     const height = ((_d = this.style) == null ? void 0 : _d.indicatorHeight) ?? this.indicatorSize;
     const spacing = this.spacing + 5;
-    if (align === ALIGN.RIGHT) {
+    if (align === "right") {
       x += w - width - spacing;
-    } else if (align === ALIGN.CENTER) {
+    } else if (align === "center") {
       x += (w - width) / 2;
     } else {
       x += spacing;
     }
-    if (valign === ALIGN.BOTTOM) {
+    if (valign === "bottom") {
       y += h - height - spacing;
-    } else if (valign === ALIGN.TOP) {
+    } else if (valign === "top") {
       y += spacing;
     } else {
       y += (h - height) / 2;
@@ -23870,48 +23747,52 @@ let isDefaultElementsRegistered = false;
 function registerDefaultShapes() {
   if (!isDefaultElementsRegistered) {
     const shapesToRegister = [
-      [SHAPE.ACTOR, ActorShape],
-      [SHAPE.ARROW, ArrowShape],
-      [SHAPE.ARROW_CONNECTOR, ArrowConnectorShape],
-      [SHAPE.CLOUD, CloudShape],
-      [SHAPE.CONNECTOR, ConnectorShape],
-      [SHAPE.CYLINDER, CylinderShape],
-      [SHAPE.DOUBLE_ELLIPSE, DoubleEllipseShape],
-      [SHAPE.ELLIPSE, EllipseShape],
-      [SHAPE.HEXAGON, HexagonShape],
-      [SHAPE.IMAGE, ImageShape],
-      [SHAPE.LABEL, LabelShape],
-      [SHAPE.LINE, LineShape],
-      [SHAPE.RECTANGLE, RectangleShape],
-      [SHAPE.RHOMBUS, RhombusShape],
-      [SHAPE.SWIMLANE, SwimlaneShape],
-      [SHAPE.TRIANGLE, TriangleShape]
+      ["actor", ActorShape],
+      ["arrow", ArrowShape],
+      ["arrowConnector", ArrowConnectorShape],
+      ["cloud", CloudShape],
+      ["connector", ConnectorShape],
+      ["cylinder", CylinderShape],
+      ["doubleEllipse", DoubleEllipseShape],
+      ["ellipse", EllipseShape],
+      ["hexagon", HexagonShape],
+      ["image", ImageShape],
+      ["label", LabelShape],
+      ["line", LineShape],
+      ["rectangle", RectangleShape],
+      ["rhombus", RhombusShape],
+      ["swimlane", SwimlaneShape],
+      ["triangle", TriangleShape]
     ];
     for (const [shapeName, shapeClass] of shapesToRegister) {
-      CellRenderer.registerShape(shapeName, shapeClass);
+      ShapeRegistry.add(shapeName, shapeClass);
     }
     isDefaultElementsRegistered = true;
   }
 }
 function unregisterAllShapes() {
-  CellRenderer.defaultShapes = {};
+  ShapeRegistry.clear();
   isDefaultElementsRegistered = false;
 }
 let isDefaultEdgeStylesRegistered = false;
 const registerDefaultEdgeStyles = () => {
   if (!isDefaultEdgeStylesRegistered) {
     const edgeStylesToRegister = [
-      ["elbowEdgeStyle", ElbowConnector],
-      ["entityRelationEdgeStyle", EntityRelation],
-      ["loopEdgeStyle", Loop],
-      ["manhattanEdgeStyle", ManhattanConnector],
-      ["orthogonalEdgeStyle", OrthogonalConnector],
-      ["segmentEdgeStyle", SegmentConnector],
-      ["sideToSideEdgeStyle", SideToSide],
-      ["topToBottomEdgeStyle", TopToBottom]
+      ["elbowEdgeStyle", ElbowConnector, { handlerKind: "elbow" }],
+      ["entityRelationEdgeStyle", EntityRelation, {}],
+      ["loopEdgeStyle", Loop, { handlerKind: "elbow", isOrthogonal: false }],
+      ["manhattanEdgeStyle", ManhattanConnector, { handlerKind: "segment" }],
+      ["orthogonalEdgeStyle", OrthogonalConnector, { handlerKind: "segment" }],
+      ["segmentEdgeStyle", SegmentConnector, { handlerKind: "segment" }],
+      ["sideToSideEdgeStyle", SideToSide, { handlerKind: "elbow" }],
+      ["topToBottomEdgeStyle", TopToBottom, { handlerKind: "elbow" }]
     ];
-    for (const [name, edgeStyle] of edgeStylesToRegister) {
-      StyleRegistry.putValue(name, edgeStyle);
+    for (const [name, edgeStyle, metadata] of edgeStylesToRegister) {
+      EdgeStyleRegistry.add(name, edgeStyle, {
+        ...metadata,
+        // most edge styles registered here are orthogonal, so set to true by default to avoid to duplicate the configuration code
+        isOrthogonal: metadata.isOrthogonal ?? true
+      });
     }
     isDefaultEdgeStylesRegistered = true;
   }
@@ -23927,14 +23808,21 @@ const registerDefaultPerimeters = () => {
       ["trianglePerimeter", TrianglePerimeter]
     ];
     for (const [name, perimeter] of perimetersToRegister) {
-      StyleRegistry.putValue(name, perimeter);
+      PerimeterRegistry.add(name, perimeter);
     }
     isDefaultPerimetersRegistered = true;
   }
 };
 const unregisterAllEdgeStylesAndPerimeters = () => {
-  StyleRegistry.values = {};
+  unregisterAllEdgeStyles();
+  unregisterAllPerimeters();
+};
+const unregisterAllEdgeStyles = () => {
+  EdgeStyleRegistry.clear();
   isDefaultEdgeStylesRegistered = false;
+};
+const unregisterAllPerimeters = () => {
+  PerimeterRegistry.clear();
   isDefaultPerimetersRegistered = false;
 };
 let isDefaultMarkersRegistered = false;
@@ -23952,13 +23840,13 @@ const registerDefaultEdgeMarkers = () => {
       ["diamondThin", diamond]
     ];
     for (const [type, factory] of markersToRegister) {
-      MarkerShape.addMarker(type, factory);
+      EdgeMarkerRegistry.add(type, factory);
     }
     isDefaultMarkersRegistered = true;
   }
 };
 const unregisterAllEdgeMarkers = () => {
-  MarkerShape.markers = {};
+  EdgeMarkerRegistry.clear();
   isDefaultMarkersRegistered = false;
 };
 class CellEditorHandler {
@@ -23988,7 +23876,7 @@ class CellEditorHandler {
         this.resize();
       }
     };
-    this.changeHandler = (sender) => {
+    this.changeHandler = (_sender) => {
       if (this.editingCell && !this.graph.getView().getState(this.editingCell, false)) {
         this.stopEditing(true);
       }
@@ -23998,8 +23886,8 @@ class CellEditorHandler {
     this.graph.getDataModel().addListener(InternalEvent.CHANGE, this.changeHandler);
   }
   /**
-   * Creates the <textarea> and installs the event listeners. The key handler
-   * updates the {@link odified} state.
+   * Creates the {@link textarea} and installs the event listeners. The key handler
+   * updates the {@link modified} state.
    */
   init() {
     this.textarea = document.createElement("div");
@@ -24164,7 +24052,7 @@ class CellEditorHandler {
         const lw = state.style.labelWidth ?? null;
         m = state.text != null && this.align == null ? state.text.margin : null;
         if (m == null) {
-          m = getAlignmentAsPoint(this.align ?? state.style.align ?? ALIGN.CENTER, state.style.verticalAlign ?? ALIGN.MIDDLE);
+          m = getAlignmentAsPoint(this.align ?? state.style.align ?? "center", state.style.verticalAlign ?? "middle");
         }
         if (isEdge) {
           this.bounds = new Rectangle(state.absoluteOffset.x, state.absoluteOffset.y, 0, 0);
@@ -24175,8 +24063,8 @@ class CellEditorHandler {
           }
         } else {
           let bounds = Rectangle.fromRectangle(state);
-          let hpos = state.style.labelPosition ?? ALIGN.CENTER;
-          let vpos = state.style.verticalLabelPosition ?? ALIGN.MIDDLE;
+          let hpos = state.style.labelPosition ?? "center";
+          let vpos = state.style.verticalLabelPosition ?? "middle";
           bounds = state.shape != null && hpos === "center" && vpos === "middle" ? state.shape.getLabelBounds(bounds) : bounds;
           if (lw != null) {
             bounds.width = lw * scale;
@@ -24190,7 +24078,7 @@ class CellEditorHandler {
             const spacingLeft = ((state.style.spacingLeft ?? 0) + dummy.baseSpacingLeft) * scale + spacing;
             hpos = state.style.labelPosition != null ? state.style.labelPosition : "center";
             vpos = state.style.verticalLabelPosition != null ? state.style.verticalLabelPosition : "middle";
-            bounds = new Rectangle(bounds.x + spacingLeft, bounds.y + spacingTop, bounds.width - (hpos === ALIGN.CENTER && lw == null ? spacingLeft + spacingRight : 0), bounds.height - (vpos === ALIGN.MIDDLE ? spacingTop + spacingBottom : 0));
+            bounds = new Rectangle(bounds.x + spacingLeft, bounds.y + spacingTop, bounds.width - (hpos === "center" && lw == null ? spacingLeft + spacingRight : 0), bounds.height - (vpos === "middle" ? spacingTop + spacingBottom : 0));
           }
           this.bounds = new Rectangle(bounds.x + state.absoluteOffset.x, bounds.y + state.absoluteOffset.y, bounds.width, bounds.height);
         }
@@ -24248,36 +24136,35 @@ class CellEditorHandler {
     tooltipHandler == null ? void 0 : tooltipHandler.hideTooltip();
     const state = this.graph.getView().getState(cell);
     if (state) {
-      const { scale } = this.graph.getView();
-      const size = state.style.fontSize ?? DEFAULT_FONTSIZE;
-      const family = state.style.fontFamily ?? DEFAULT_FONTFAMILY;
-      const color = state.style.fontColor ?? "black";
-      const align = state.style.align ?? ALIGN.LEFT;
-      const bold = (state.style.fontStyle || 0) & FONT.BOLD;
-      const italic = (state.style.fontStyle || 0) & FONT.ITALIC;
+      const stateStyle = state.style;
+      const size = stateStyle.fontSize ?? DEFAULT_FONTSIZE;
+      const family = stateStyle.fontFamily ?? DEFAULT_FONTFAMILY;
+      const color = stateStyle.fontColor ?? "black";
+      const align = stateStyle.align ?? "left";
+      const fontStyle = stateStyle.fontStyle ?? 0;
+      const bold = matchBinaryMask(fontStyle, FONT_STYLE_MASK.BOLD);
+      const italic = matchBinaryMask(fontStyle, FONT_STYLE_MASK.ITALIC);
       const txtDecor = [];
-      if ((state.style.fontStyle || 0) & FONT.UNDERLINE) {
-        txtDecor.push("underline");
-      }
-      if ((state.style.fontStyle || 0) & FONT.STRIKETHROUGH) {
-        txtDecor.push("line-through");
-      }
+      matchBinaryMask(fontStyle, FONT_STYLE_MASK.UNDERLINE) && txtDecor.push("underline");
+      matchBinaryMask(fontStyle, FONT_STYLE_MASK.STRIKETHROUGH) && txtDecor.push("line-through");
       const textarea = this.textarea;
-      textarea.style.lineHeight = String(LINE_HEIGHT);
-      textarea.style.backgroundColor = this.getBackgroundColor(state) || "transparent";
-      textarea.style.textDecoration = txtDecor.join(" ");
-      textarea.style.fontWeight = bold ? "bold" : "normal";
-      textarea.style.fontStyle = italic ? "italic" : "";
-      textarea.style.fontSize = `${Math.round(size)}px`;
-      textarea.style.zIndex = String(this.zIndex);
-      textarea.style.fontFamily = family;
-      textarea.style.textAlign = align;
-      textarea.style.outline = "none";
-      textarea.style.color = color;
-      let dir = this.textDirection = state.style.textDirection ?? DEFAULT_TEXT_DIRECTION;
+      const textareaStyle = textarea.style;
+      textareaStyle.lineHeight = String(LINE_HEIGHT);
+      textareaStyle.backgroundColor = this.getBackgroundColor(state) || "transparent";
+      textareaStyle.textDecoration = txtDecor.join(" ");
+      textareaStyle.fontWeight = bold ? "bold" : "normal";
+      textareaStyle.fontStyle = italic ? "italic" : "";
+      textareaStyle.fontSize = `${Math.round(size)}px`;
+      textareaStyle.zIndex = String(this.zIndex);
+      textareaStyle.fontFamily = family;
+      textareaStyle.textAlign = align;
+      textareaStyle.outline = "none";
+      textareaStyle.color = color;
+      let dir = this.textDirection = stateStyle.textDirection ?? DEFAULT_TEXT_DIRECTION;
+      const stateText = state.text;
       if (dir === "auto") {
-        if (state.text !== null && state.text.dialect !== DIALECT.STRICTHTML && !isNode(state.text.value)) {
-          dir = state.text.getAutoDirection();
+        if (stateText !== null && stateText.dialect !== "strictHtml" && !isNode(stateText.value)) {
+          dir = stateText.getAutoDirection();
         }
       }
       if (dir === "ltr" || dir === "rtl") {
@@ -24297,11 +24184,11 @@ class CellEditorHandler {
       this.editingCell = cell;
       this.trigger = trigger;
       this.textNode = null;
-      if (state.text !== null && this.isHideLabel(state)) {
-        this.textNode = state.text.node;
+      if (stateText !== null && this.isHideLabel(state)) {
+        this.textNode = stateText.node;
         this.textNode.style.visibility = "hidden";
       }
-      if (this.autoSize && (state.cell.isEdge() || state.style.overflow !== "fill")) {
+      if (this.autoSize && (state.cell.isEdge() || stateStyle.overflow !== "fill")) {
         window.setTimeout(() => {
           this.resize();
         }, 0);
@@ -24453,7 +24340,7 @@ class CellEditorHandler {
         }
       }
       if (state.cell.isVertex()) {
-        const horizontal = state.style.labelPosition ?? ALIGN.CENTER;
+        const horizontal = state.style.labelPosition ?? "center";
         if (horizontal === "left") {
           result.x -= state.width;
         } else if (horizontal === "right") {
@@ -25331,6 +25218,7 @@ class ConnectionHandler extends EventSource {
     this.outlineConnect = false;
     this.livePreview = false;
     this.cursor = null;
+    this.cursorConnect = "pointer";
     this.insertBeforeSource = false;
     this.graph = graph;
     this.factoryMethod = factoryMethod;
@@ -25412,7 +25300,7 @@ class ConnectionHandler extends EventSource {
   createShape() {
     const shape = this.livePreview && this.edgeState ? this.graph.cellRenderer.createShape(this.edgeState) : new PolylineShape([], INVALID_COLOR);
     if (shape && shape.node) {
-      shape.dialect = DIALECT.SVG;
+      shape.dialect = "svg";
       shape.scale = this.graph.view.scale;
       shape.pointerEvents = false;
       shape.isDashed = true;
@@ -25522,16 +25410,16 @@ class ConnectionHandler extends EventSource {
       const icon = new ImageShape(bounds, image.src, void 0, void 0, 0);
       icon.preserveImageAspect = false;
       if (this.isMoveIconToFrontForState(state)) {
-        icon.dialect = DIALECT.STRICTHTML;
+        icon.dialect = "strictHtml";
         icon.init(this.graph.container);
       } else {
-        icon.dialect = DIALECT.SVG;
+        icon.dialect = "svg";
         icon.init(this.graph.getView().getOverlayPane());
         if (this.moveIconBack && icon.node.parentNode && icon.node.previousSibling) {
           icon.node.parentNode.insertBefore(icon.node, icon.node.parentNode.firstChild);
         }
       }
-      icon.node.style.cursor = CURSOR.CONNECT;
+      icon.node.style.cursor = this.cursorConnect;
       const getState = () => {
         return this.currentState ?? state;
       };
@@ -25909,7 +25797,7 @@ class ConnectionHandler extends EventSource {
         if (this.currentState && !this.error && !this.constraintHandler.currentConstraint) {
           this.icons = this.createIcons(this.currentState);
           if (this.icons.length === 0) {
-            this.currentState.setCursor(CURSOR.CONNECT);
+            this.currentState.setCursor(this.cursorConnect);
             me.consume();
           }
         }
@@ -26557,7 +26445,7 @@ class Guide {
           valueX = x;
           if (!this.guideX) {
             this.guideX = this.createGuideShape(true);
-            this.guideX.dialect = DIALECT.SVG;
+            this.guideX.dialect = "svg";
             this.guideX.pointerEvents = false;
             this.guideX.init(this.graph.getView().getOverlayPane());
           }
@@ -26586,7 +26474,7 @@ class Guide {
           valueY = y;
           if (!this.guideY) {
             this.guideY = this.createGuideShape(false);
-            this.guideY.dialect = DIALECT.SVG;
+            this.guideY.dialect = "svg";
             this.guideY.pointerEvents = false;
             this.guideY.init(this.graph.getView().getOverlayPane());
           }
@@ -27109,10 +26997,10 @@ class SelectionHandler {
     const shape = new RectangleShape(bounds, NONE, this.previewColor);
     shape.isDashed = true;
     if (this.htmlPreview) {
-      shape.dialect = DIALECT.STRICTHTML;
+      shape.dialect = "strictHtml";
       shape.init(this.graph.container);
     } else {
-      shape.dialect = DIALECT.SVG;
+      shape.dialect = "svg";
       shape.init(this.graph.getView().getOverlayPane());
       shape.pointerEvents = false;
       if (Client.IS_IOS) {
@@ -27330,9 +27218,9 @@ class SelectionHandler {
       const cell = me.getCell();
       if (!cursor && cell && graph.isEnabled() && graph.isCellMovable(cell)) {
         if (cell.isEdge()) {
-          cursor = CURSOR.MOVABLE_EDGE;
+          cursor = EdgeHandlerConfig.cursorMovable;
         } else {
-          cursor = CURSOR.MOVABLE_VERTEX;
+          cursor = VertexHandlerConfig.cursorMovable;
         }
       }
       if (cursor && me.sourceState) {
@@ -29544,7 +29432,7 @@ class PrintPreview {
     const drawPane = view.getDrawPane();
     const overlayPane = view.getOverlayPane();
     const realScale = scale;
-    if (this.graph.dialect === DIALECT.SVG) {
+    if (this.graph.dialect === "svg") {
       view.createSvg();
       if (this.useCssTransforms()) {
         const g = view.getDrawPane().parentNode;
@@ -29909,6 +29797,9 @@ class SwimlaneManager extends EventSource {
   }
 }
 class CellAttributeChange {
+  /**
+   * Constructs a change of an attribute of the DOM node stored as the value of the given {@link Cell}`.
+   */
   constructor(cell, attribute, value) {
     this.cell = cell;
     this.attribute = attribute;
@@ -33056,7 +32947,7 @@ class MaxWindow extends EventSource {
     let child = this.title.firstChild;
     while (child != null) {
       const next = child.nextSibling;
-      if (child.nodeType === NODETYPE.TEXT) {
+      if (child.nodeType === NODE_TYPE.TEXT) {
         child.parentNode.removeChild(child);
       }
       child = next;
@@ -34491,75 +34382,75 @@ class Editor extends EventSource {
     });
     this.addAction("bold", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.toggleCellStyleFlags("fontStyle", FONT.BOLD);
+        editor.graph.toggleCellStyleFlags("fontStyle", FONT_STYLE_MASK.BOLD);
       }
     });
     this.addAction("italic", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.toggleCellStyleFlags("fontStyle", FONT.ITALIC);
+        editor.graph.toggleCellStyleFlags("fontStyle", FONT_STYLE_MASK.ITALIC);
       }
     });
     this.addAction("underline", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.toggleCellStyleFlags("fontStyle", FONT.UNDERLINE);
+        editor.graph.toggleCellStyleFlags("fontStyle", FONT_STYLE_MASK.UNDERLINE);
       }
     });
     this.addAction("alignCellsLeft", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.alignCells(ALIGN.LEFT);
+        editor.graph.alignCells("left");
       }
     });
     this.addAction("alignCellsCenter", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.alignCells(ALIGN.CENTER);
+        editor.graph.alignCells("center");
       }
     });
     this.addAction("alignCellsRight", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.alignCells(ALIGN.RIGHT);
+        editor.graph.alignCells("right");
       }
     });
     this.addAction("alignCellsTop", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.alignCells(ALIGN.TOP);
+        editor.graph.alignCells("top");
       }
     });
     this.addAction("alignCellsMiddle", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.alignCells(ALIGN.MIDDLE);
+        editor.graph.alignCells("middle");
       }
     });
     this.addAction("alignCellsBottom", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.alignCells(ALIGN.BOTTOM);
+        editor.graph.alignCells("bottom");
       }
     });
     this.addAction("alignFontLeft", (editor) => {
-      editor.graph.setCellStyles("align", ALIGN.LEFT);
+      editor.graph.setCellStyles("align", "left");
     });
     this.addAction("alignFontCenter", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.setCellStyles("align", ALIGN.CENTER);
+        editor.graph.setCellStyles("align", "center");
       }
     });
     this.addAction("alignFontRight", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.setCellStyles("align", ALIGN.RIGHT);
+        editor.graph.setCellStyles("align", "right");
       }
     });
     this.addAction("alignFontTop", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.setCellStyles("verticalAlign", ALIGN.TOP);
+        editor.graph.setCellStyles("verticalAlign", "top");
       }
     });
     this.addAction("alignFontMiddle", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.setCellStyles("verticalAlign", ALIGN.MIDDLE);
+        editor.graph.setCellStyles("verticalAlign", "middle");
       }
     });
     this.addAction("alignFontBottom", (editor) => {
       if (editor.graph.isEnabled()) {
-        editor.graph.setCellStyles("verticalAlign", ALIGN.BOTTOM);
+        editor.graph.setCellStyles("verticalAlign", "bottom");
       }
     });
     this.addAction("zoom", (editor) => {
@@ -35727,10 +35618,10 @@ class VertexHandle {
   initShape(html) {
     const shape = this.shape;
     if (html && shape.isHtmlAllowed()) {
-      shape.dialect = DIALECT.STRICTHTML;
+      shape.dialect = "strictHtml";
       shape.init(this.graph.container);
     } else {
-      shape.dialect = this.graph.dialect !== DIALECT.SVG ? DIALECT.MIXEDHTML : DIALECT.SVG;
+      shape.dialect = this.graph.dialect !== "svg" ? "mixedHtml" : "svg";
       if (this.cursor) {
         shape.init(this.graph.getView().getOverlayPane());
       }
@@ -36399,19 +36290,11 @@ class PartitionLayout extends GraphLayout {
     this.border = border || 0;
   }
   /**
-   * Returns <horizontal>.
+   * Returns {@link horizontal}.
    */
   isHorizontal() {
     return this.horizontal;
   }
-  /**
-   * Implements {@link GraphLayout.moveCell}.
-   *
-   * @param {mxCell} cell
-   * @param {number} x
-   * @param {number} y
-   * @memberof mxPartitionLayout
-   */
   moveCell(cell, x, y) {
     const model = this.graph.getDataModel();
     const parent = cell.getParent();
@@ -37643,7 +37526,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
     this.minEdgeJetty = 12;
     this.channelBuffer = 4;
     this.jettyPositions = null;
-    this.orientation = DIRECTION.NORTH;
+    this.orientation = "north";
     this.limitX = null;
     this.currentXDelta = null;
     this.widestRank = null;
@@ -38013,7 +37896,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
       if (node.isVertex()) {
         const bounds = this.layout.getVertexBounds(node.cell);
         if (bounds != null) {
-          if (this.orientation === DIRECTION.NORTH || this.orientation === DIRECTION.SOUTH) {
+          if (this.orientation === "north" || this.orientation === "south") {
             node.width = bounds.width;
             node.height = bounds.height;
           } else {
@@ -38066,7 +37949,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
         if (node.isVertex()) {
           const bounds = this.layout.getVertexBounds(node.cell);
           if (bounds != null) {
-            if (this.orientation === DIRECTION.NORTH || this.orientation === DIRECTION.SOUTH) {
+            if (this.orientation === "north" || this.orientation === "south") {
               node.width = bounds.width;
               node.height = bounds.height;
             } else {
@@ -38103,7 +37986,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
       this.rankY[rankValue] = y;
       const distanceToNextRank = maxCellHeight / 2 + lastRankMaxCellHeight / 2 + this.interRankCellSpacing;
       lastRankMaxCellHeight = maxCellHeight;
-      if (this.orientation === DIRECTION.NORTH || this.orientation === DIRECTION.WEST) {
+      if (this.orientation === "north" || this.orientation === "west") {
         y += distanceToNextRank;
       } else {
         y -= distanceToNextRank;
@@ -38357,7 +38240,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
       const jettys = jettyPositions[cell.ids[0]];
       const source = cell.isReversed ? cell.target.cell : cell.source.cell;
       const { graph } = this.layout;
-      const layoutReversed = this.orientation === DIRECTION.EAST || this.orientation === DIRECTION.SOUTH;
+      const layoutReversed = this.orientation === "east" || this.orientation === "south";
       for (let i = 0; i < cell.edges.length; i += 1) {
         const realEdge = cell.edges[i];
         const realSource = this.layout.getVisibleTerminal(realEdge, true);
@@ -38386,7 +38269,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
               x = realSource.geometry.x + cell.source.width * modelSource.geometry.x;
             }
           }
-          if (this.orientation === DIRECTION.NORTH || this.orientation === DIRECTION.SOUTH) {
+          if (this.orientation === "north" || this.orientation === "south") {
             newPoints.push(new Point(x, y));
             if (this.layout.edgeStyle === HierarchicalEdgeStyle.CURVE) {
               newPoints.push(new Point(x, y + jetty));
@@ -38419,7 +38302,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
             topChannelY = bottomChannelY;
             bottomChannelY = tmp;
           }
-          if (this.orientation === DIRECTION.NORTH || this.orientation === DIRECTION.SOUTH) {
+          if (this.orientation === "north" || this.orientation === "south") {
             newPoints.push(new Point(positionX, topChannelY));
             newPoints.push(new Point(positionX, bottomChannelY));
           } else {
@@ -38450,7 +38333,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
               x = realTarget.geometry.x + cell.target.width * modelTarget.geometry.x;
             }
           }
-          if (this.orientation === DIRECTION.NORTH || this.orientation === DIRECTION.SOUTH) {
+          if (this.orientation === "north" || this.orientation === "south") {
             if (this.layout.edgeStyle === HierarchicalEdgeStyle.CURVE) {
               newPoints.push(new Point(x, y - jetty));
             }
@@ -38491,7 +38374,7 @@ class CoordinateAssignment extends HierarchicalLayoutStage {
     const rankBottomY = this.rankBottomY;
     rankTopY[cell.minRank] = Math.min(rankTopY[cell.minRank], positionY);
     rankBottomY[cell.minRank] = Math.max(rankBottomY[cell.minRank], positionY + cell.height);
-    if (this.orientation === DIRECTION.NORTH || this.orientation === DIRECTION.SOUTH) {
+    if (this.orientation === "north" || this.orientation === "south") {
       this.layout.setVertexLocation(realCell, positionX, positionY);
     } else {
       this.layout.setVertexLocation(realCell, positionY, positionX);
@@ -38512,10 +38395,10 @@ class HierarchicalLayout extends GraphLayout {
    * Constructs a new hierarchical layout algorithm.
    *
    * @param graph Reference to the enclosing {@link AbstractGraph}.
-   * @param orientation Optional constant that defines the orientation of this layout. Default is {@link DIRECTION.NORTH}.
+   * @param orientation Optional constant that defines the orientation of this layout. Default is 'north'.
    * @param deterministic Optional boolean that specifies if this layout should be deterministic. Default is true.
    */
-  constructor(graph, orientation = DIRECTION.NORTH, deterministic = true) {
+  constructor(graph, orientation = "north", deterministic = true) {
     super(graph);
     this.parentX = null;
     this.parentY = null;
@@ -38528,7 +38411,7 @@ class HierarchicalLayout extends GraphLayout {
     this.interRankCellSpacing = 100;
     this.interHierarchySpacing = 60;
     this.parallelEdgeSpacing = 10;
-    this.orientation = DIRECTION.NORTH;
+    this.orientation = "north";
     this.fineTuning = true;
     this.tightenToSource = true;
     this.disableEdgeStyle = true;
@@ -39373,8 +39256,8 @@ class SwimlaneLayout extends GraphLayout {
    * Constructs a new hierarchical layout algorithm.
    *
    * @param graph Reference to the enclosing {@link AbstractGraph}.
-   * @param orientation Optional constant that defines the orientation of this layout. Default is {@link DIRECTION.NORTH}.
-   * @param deterministic Optional boolean that specifies if this layout should be deterministic. Default is true.
+   * @param orientation Optional constant that defines the orientation of this layout. Default is 'north'.
+   * @param deterministic Optional boolean that specifies if this layout should be deterministic. Default is `true`.
    */
   constructor(graph, orientation, deterministic = true) {
     super(graph);
@@ -39391,7 +39274,7 @@ class SwimlaneLayout extends GraphLayout {
     this.interRankCellSpacing = 100;
     this.interHierarchySpacing = 60;
     this.parallelEdgeSpacing = 10;
-    this.orientation = DIRECTION.NORTH;
+    this.orientation = "north";
     this.fineTuning = true;
     this.tightenToSource = true;
     this.disableEdgeStyle = true;
@@ -39401,7 +39284,7 @@ class SwimlaneLayout extends GraphLayout {
     this.edgeSourceTermCache = new Dictionary();
     this.edgesTargetTermCache = new Dictionary();
     this.edgeStyle = HierarchicalEdgeStyle.POLYLINE;
-    this.orientation = orientation != null ? orientation : DIRECTION.NORTH;
+    this.orientation = orientation != null ? orientation : "north";
     this.deterministic = deterministic != null ? deterministic : true;
   }
   /**
@@ -40431,6 +40314,16 @@ class GenericChangeCodec extends ObjectCodec {
     return obj;
   }
 }
+const registries = [EdgeStyleRegistry, PerimeterRegistry];
+const getNameFromRegistries = (value) => {
+  for (const registry of registries) {
+    const name = registry.getName(value);
+    if (name) {
+      return name;
+    }
+  }
+  return null;
+};
 class GraphViewCodec extends ObjectCodec {
   constructor() {
     super(new GraphView(void 0));
@@ -40496,8 +40389,8 @@ class GraphViewCodec extends ObjectCodec {
         } else if (state != null && geo != null) {
           for (const i in state.style) {
             let value = state.style[i];
-            if (typeof value === "function" && typeof value === "object") {
-              value = StyleRegistry.getName(value);
+            if (typeof value === "function") {
+              value = getNameFromRegistries(value);
             }
             if (value != null && typeof value !== "function" && typeof value !== "object") {
               node.setAttribute(i, value);
@@ -40614,7 +40507,7 @@ class StylesheetCodec extends ObjectCodec {
   getStringValue(key, value) {
     const type = typeof value;
     if (type === "function") {
-      value = StyleRegistry.getName(value);
+      value = getNameFromRegistries(value);
     } else if (type === "object") {
       value = null;
     }
@@ -40764,7 +40657,7 @@ const unregisterAllCodecs = () => {
   }
 };
 function unregisterAllStencilShapes() {
-  StencilShapeRegistry.stencils = {};
+  StencilShapeRegistry.clear();
 }
 const StencilShapeConfig = {
   /**
@@ -40918,7 +40811,7 @@ class StencilShape extends Shape {
     let y0 = y;
     let sx = w / this.w0;
     let sy = h / this.h0;
-    const inverse = direction === DIRECTION.NORTH || direction === DIRECTION.SOUTH;
+    const inverse = direction === "north" || direction === "south";
     if (inverse) {
       sy = w / this.h0;
       sx = h / this.w0;
@@ -41052,10 +40945,10 @@ class StencilShape extends Shape {
             }
           }
           rotation -= Number(node.getAttribute("rotation"));
-          canvas.text(x0 + Number(node.getAttribute("x")) * sx, y0 + Number(node.getAttribute("y")) * sy, 0, 0, str, node.getAttribute("align") || ALIGN.LEFT, node.getAttribute("valign") || ALIGN.TOP, false, "", "auto", false, rotation, TEXT_DIRECTION.AUTO);
+          canvas.text(x0 + Number(node.getAttribute("x")) * sx, y0 + Number(node.getAttribute("y")) * sy, 0, 0, str, node.getAttribute("align") ?? "left", node.getAttribute("valign") ?? "top", false, "", "auto", false, rotation, "auto");
         }
       } else if (name === "include-shape") {
-        const stencil = StencilShapeRegistry.getStencil(node.getAttribute("name"));
+        const stencil = StencilShapeRegistry.get(node.getAttribute("name"));
         if (stencil) {
           const x = x0 + Number(node.getAttribute("x")) * sx;
           const y = y0 + Number(node.getAttribute("y")) * sy;
@@ -41363,6 +41256,45 @@ class TranslationsAsI18n {
     Translations.add(basename, language, callback);
   }
 }
+const linkAction = (parent, text, editor, action, pad = 0) => {
+  return link(parent, text, () => {
+    editor.execute(action);
+  }, pad);
+};
+const linkInvoke = (parent, text, editor, functName, arg, pad = 0) => {
+  return link(parent, text, () => {
+    editor[functName](arg);
+  }, pad);
+};
+const link = (parent, text, funct, pad = 0) => {
+  const a = document.createElement("span");
+  a.style.color = "blue";
+  a.style.textDecoration = "underline";
+  a.style.cursor = "pointer";
+  a.style.paddingLeft = `${pad}px`;
+  InternalEvent.addListener(a, "click", funct);
+  write(a, text);
+  if (parent != null) {
+    parent.appendChild(a);
+  }
+  return a;
+};
+const button = (label, funct, doc = null) => {
+  doc = doc != null ? doc : document;
+  const button2 = doc.createElement("button");
+  write(button2, label);
+  InternalEvent.addListener(button2, "click", (evt) => {
+    funct(evt);
+  });
+  return button2;
+};
+const domHelpers = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  button,
+  link,
+  linkAction,
+  linkInvoke
+}, Symbol.toStringTag, { value: "Module" }));
 class Animation extends EventSource {
   constructor(delay = 20) {
     super();
@@ -41549,7 +41481,6 @@ class CellStatePreview {
    * @param {boolean} add
    * @param {boolean} includeEdges
    * @return {*}  {mxPoint}
-   * @memberof mxCellStatePreview
    */
   moveState(state, dx, dy, add = true, includeEdges = true) {
     let delta = this.deltas.get(state.cell);
@@ -41572,7 +41503,6 @@ class CellStatePreview {
   /**
    *
    * @param {Function} visitor
-   * @memberof mxCellStatePreview
    */
   show(visitor = null) {
     this.deltas.visit((key, delta) => {
@@ -41587,7 +41517,6 @@ class CellStatePreview {
    * @param {CellState} state
    * @param {number} dx
    * @param {number} dy
-   * @memberof mxCellStatePreview
    */
   translateState(state, dx, dy) {
     if (state != null) {
@@ -41610,7 +41539,6 @@ class CellStatePreview {
    * @param {number} dx
    * @param {number} dy
    * @param {Function} visitor
-   * @memberof mxCellStatePreview
    */
   revalidateState(state, dx, dy, visitor = null) {
     if (state.cell.isEdge()) {
@@ -41633,7 +41561,6 @@ class CellStatePreview {
   /**
    *
    * @param {CellState} state
-   * @memberof mxCellStatePreview
    */
   addEdges(state) {
     const edgeCount = state.cell.getEdgeCount();
@@ -41646,6 +41573,14 @@ class CellStatePreview {
   }
 }
 class Morphing extends Animation {
+  /**
+   * Constructs an animation.
+   *
+   * @param graph Reference to the enclosing {@link AbstractGraph}.
+   * @param steps Optional number of steps in the morphing animation. Default is 6.
+   * @param ease Optional easing constant for the animation. Default is 1.5.
+   * @param delay Optional delay between the animation steps. Passed to {@link Animation}.
+   */
   constructor(graph, steps = 6, ease = 1.5, delay) {
     super(delay);
     this.step = 0;
@@ -42516,45 +42451,6 @@ class XmlCanvas2D extends AbstractCanvas2D {
     this.root.appendChild(this.createElement("fillstroke"));
   }
 }
-const linkAction = (parent, text, editor, action, pad = 0) => {
-  return link(parent, text, () => {
-    editor.execute(action);
-  }, pad);
-};
-const linkInvoke = (parent, text, editor, functName, arg, pad = 0) => {
-  return link(parent, text, () => {
-    editor[functName](arg);
-  }, pad);
-};
-const link = (parent, text, funct, pad = 0) => {
-  const a = document.createElement("span");
-  a.style.color = "blue";
-  a.style.textDecoration = "underline";
-  a.style.cursor = "pointer";
-  a.style.paddingLeft = `${pad}px`;
-  InternalEvent.addListener(a, "click", funct);
-  write(a, text);
-  if (parent != null) {
-    parent.appendChild(a);
-  }
-  return a;
-};
-const button = (label, funct, doc = null) => {
-  doc = doc != null ? doc : document;
-  const button2 = doc.createElement("button");
-  write(button2, label);
-  InternalEvent.addListener(button2, "click", (evt) => {
-    funct(evt);
-  });
-  return button2;
-};
-const domHelpers = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  button,
-  link,
-  linkAction,
-  linkInvoke
-}, Symbol.toStringTag, { value: "Module" }));
 class MaxLogAsLogger {
   enter(message) {
     return MaxLog.enter(message);
@@ -45559,7 +45455,7 @@ function requireMimeTypes() {
 var mimeTypesExports = requireMimeTypes();
 const mime = /* @__PURE__ */ getDefaultExportFromCjs(mimeTypesExports);
 const inlineImage = async (image) => {
-  let path = image.getAttribute("xlink:href") ?? "";
+  const path = image.getAttribute("xlink:href") ?? "";
   let isFile = false;
   try {
     const url = new URL(path);
@@ -45580,8 +45476,7 @@ const inlineImage = async (image) => {
   image.setAttribute("xlink:href", newUrl);
 };
 const maxGraphToSvg = async (graph, options) => {
-  const container = graph.container;
-  const orig = container.innerHTML;
+  const container = graph.container.cloneNode(true);
   const inlineImages = (options ?? { inlineImages: false }).inlineImages ?? false;
   if (inlineImages) {
     const images = Array.from(container.querySelectorAll("image"));
@@ -45597,7 +45492,6 @@ const maxGraphToSvg = async (graph, options) => {
     `<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">`,
     container.innerHTML
   ].join("\n");
-  container.innerHTML = orig;
   return xml;
 };
 exports.AbstractCanvas2D = AbstractCanvas2D;
@@ -45648,8 +45542,10 @@ exports.EdgeHandler = EdgeHandler;
 exports.EdgeHandlerConfig = EdgeHandlerConfig;
 exports.EdgeLabelLayout = EdgeLabelLayout;
 exports.EdgeMarker = edgeMarkers;
+exports.EdgeMarkerRegistry = EdgeMarkerRegistry;
 exports.EdgeSegmentHandler = EdgeSegmentHandler;
 exports.EdgeStyle = index$1;
+exports.EdgeStyleRegistry = EdgeStyleRegistry;
 exports.Editor = Editor;
 exports.EditorCodec = EditorCodec;
 exports.EditorKeyHandler = EditorKeyHandler;
@@ -45697,7 +45593,6 @@ exports.LabelShape = LabelShape;
 exports.LayoutManager = LayoutManager;
 exports.LineShape = LineShape;
 exports.ManhattanConnectorConfig = ManhattanConnectorConfig;
-exports.MarkerShape = MarkerShape;
 exports.MaxForm = MaxForm;
 exports.MaxLog = MaxLog;
 exports.MaxLogAsLogger = MaxLogAsLogger;
@@ -45722,6 +45617,7 @@ exports.PanningManager = PanningManager;
 exports.ParallelEdgeLayout = ParallelEdgeLayout;
 exports.PartitionLayout = PartitionLayout;
 exports.Perimeter = index;
+exports.PerimeterRegistry = PerimeterRegistry;
 exports.Point = Point;
 exports.PolylineShape = PolylineShape;
 exports.PopupMenuHandler = PopupMenuHandler;
@@ -45737,13 +45633,13 @@ exports.SelectionCellsHandler = SelectionCellsHandler;
 exports.SelectionChange = SelectionChange;
 exports.SelectionHandler = SelectionHandler;
 exports.Shape = Shape;
+exports.ShapeRegistry = ShapeRegistry;
 exports.StackLayout = StackLayout;
 exports.StencilShape = StencilShape;
 exports.StencilShapeConfig = StencilShapeConfig;
 exports.StencilShapeRegistry = StencilShapeRegistry;
 exports.StyleChange = StyleChange;
 exports.StyleDefaultsConfig = StyleDefaultsConfig;
-exports.StyleRegistry = StyleRegistry;
 exports.Stylesheet = Stylesheet;
 exports.StylesheetCodec = StylesheetCodec;
 exports.SvgCanvas2D = SvgCanvas2D;
@@ -45804,7 +45700,9 @@ exports.stringUtils = StringUtils;
 exports.styleUtils = styleUtils;
 exports.unregisterAllCodecs = unregisterAllCodecs;
 exports.unregisterAllEdgeMarkers = unregisterAllEdgeMarkers;
+exports.unregisterAllEdgeStyles = unregisterAllEdgeStyles;
 exports.unregisterAllEdgeStylesAndPerimeters = unregisterAllEdgeStylesAndPerimeters;
+exports.unregisterAllPerimeters = unregisterAllPerimeters;
 exports.unregisterAllShapes = unregisterAllShapes;
 exports.unregisterAllStencilShapes = unregisterAllStencilShapes;
 exports.xmlUtils = xmlUtils;
