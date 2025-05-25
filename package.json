@@ -21,7 +21,7 @@
     },
     "homepage": "https://github.com/Antony74/maxgraph-core-commonjs#readme",
     "dependencies": {
-        "@maxgraph/core": "0.19.0",
+        "@maxgraph/core": "0.20.0",
         "mime-types": "^3.0.1"
     },
     "devDependencies": {
